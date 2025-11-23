@@ -25,7 +25,7 @@ is the specialized AI that executes SDD workflows.
 
 ## 🛠️ Available Commands
 
-SDD provides a comprehensive workflow through 8 specialized commands,
+SDD provides a comprehensive workflow through specialized commands,
 executed by the opencode agent:
 
 ### Product Management
