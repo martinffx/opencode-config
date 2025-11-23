@@ -1,10 +1,10 @@
-# OpenCode - Spec-Driven Development Framework
+# SDD - Spec-Driven Development Framework
 
-A powerful AI-assisted development framework that accelerates feature delivery through structured specifications and dependency-driven task execution.
+A powerful development framework that accelerates feature delivery through structured specifications and dependency-driven task execution, executed by the **opencode** AI agent.
 
 ## 🚀 Overview
 
-OpenCode is a specialized AI development environment built around **Spec-Driven Development** - a methodology that transforms AI from a tool requiring constant prompting into a team member that understands your standards, business context, and implementation approach.
+**SDD (Spec-Driven Development)** is a methodology that transforms AI from a tool requiring constant prompting into a team member that understands your standards, business context, and implementation approach. The **opencode** agent is the specialized AI that executes SDD workflows.
 
 ## 🎯 Core Philosophy
 
@@ -17,14 +17,16 @@ OpenCode is a specialized AI development environment built around **Spec-Driven 
 
 ## 🛠️ Available Commands
 
-OpenCode provides a comprehensive workflow through 8 specialized commands:
+SDD provides a comprehensive workflow through 8 specialized commands, executed by the opencode agent:
 
 ### Product Management
+
 - `/product-init` - Initialize project with requirements and documentation
 - `/product-roadmap` - Create and manage feature roadmap
 - `/product-progress` - Track project status and completion metrics
 
 ### Specification Workflow
+
 - `/spec-create` - Create detailed feature specifications
 - `/spec-design` - Generate technical designs following architectural patterns
 - `/spec-plan` - Plan implementation with dependency-aware task ordering
@@ -33,7 +35,7 @@ OpenCode provides a comprehensive workflow through 8 specialized commands:
 
 ## 🤖 Specialized Agents
 
-OpenCode leverages a team of specialized AI agents:
+SDD leverages a team of specialized AI agents, coordinated by the opencode agent:
 
 - **📊 Analyst** - Requirements gathering and structured interviews
 - **🏗️ Architect** - Technical design and architecture enforcement
@@ -46,8 +48,8 @@ OpenCode leverages a team of specialized AI agents:
 ## 📁 Project Structure
 
 ```
-opencode/
-├── agent/              # Specialized agent configurations
+sdd-config/
+├── agent/              # Specialized agent configurations for opencode
 │   ├── analyst.md
 │   ├── architect.md
 │   ├── coder.md
@@ -55,7 +57,7 @@ opencode/
 │   ├── product.md
 │   ├── scaffold.md
 │   └── strategist.md
-├── command/            # Workflow command definitions
+├── command/            # SDD workflow command definitions
 │   ├── product-init.md
 │   ├── product-roadmap.md
 │   ├── product-progress.md
@@ -64,14 +66,14 @@ opencode/
 │   ├── spec-plan.md
 │   ├── spec-implement.md
 │   └── spec-progress.md
-├── AGENTS.md          # Core agent identity and guidelines
-├── opencode.json      # Configuration and MCP settings
+├── AGENTS.md          # Core opencode agent identity and guidelines
+├── opencode.json      # opencode agent configuration and MCP settings
 └── README.md          # This file
 ```
 
 ## ⚙️ Configuration
 
-The `opencode.json` file configures:
+The `opencode.json` file configures the opencode agent:
 
 - **Theme**: Visual theme (Catppuccin)
 - **Model**: Default AI model (zen/GLM-4.6)
@@ -80,7 +82,7 @@ The `opencode.json` file configures:
 
 ## 🔧 MCP Integration
 
-OpenCode integrates with multiple Model Context Protocol (MCP) servers:
+The opencode agent integrates with multiple Model Context Protocol (MCP) servers:
 
 - **filesystem** - Local file system access
 - **sequential-thinking** - Advanced reasoning capabilities
@@ -91,7 +93,7 @@ OpenCode integrates with multiple Model Context Protocol (MCP) servers:
 
 ## 📄 License
 
-This is a custom configuration for the OpenCode AI development environment.
+This is a custom configuration for the SDD framework, executed by the opencode AI agent.
 
 ---
 
