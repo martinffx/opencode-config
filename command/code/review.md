@@ -1,6 +1,6 @@
 ---
 description: Comprehensive code review as a Senior Engineer (specify branch or defaults to main)
-agent: coder
+agent: architect
 model: opencode/glm-4.6
 temperature: 0.1
 permissions:

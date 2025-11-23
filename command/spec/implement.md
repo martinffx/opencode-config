@@ -15,7 +15,7 @@ Load files:
 
 - `docs/spec/$ARGUMENTS/tasks.md` - Complete task breakdown with progress tracking
 - `docs/spec/$ARGUMENTS/design.md` - Technical specifications
-- `docs/standards/tdd.md` - TDD implementation guidelines
+- `docs/standards/coding.md` - TDD implementation guidelines
 
 Identify next task to implement or specific task if provided.
 

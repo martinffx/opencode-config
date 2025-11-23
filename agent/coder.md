@@ -36,7 +36,7 @@ testing boundaries:
 
 ## Implementation Guidelines
 
-Refer to `./docs/standards/tdd.md` for:
+Refer to `./docs/standards/coding.md` for:
 
 - Implementation Process (3-phase approach)
 - Data Flow Implementation Order
@@ -47,7 +47,7 @@ Refer to `./docs/standards/tdd.md` for:
 
 Read from:
 
-- Implementation guide: `./docs/standards/tdd.md`
+- Implementation guide: `./docs/standards/coding.md`
 - Current task: `./docs/spec/{feature}/tasks.md`
 - Design specs: `./docs/spec/{feature}/design.md`
 - Standards: `./docs/standards/`
