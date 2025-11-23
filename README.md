@@ -48,6 +48,12 @@ executed by the opencode agent:
 - `/code/review` - Conduct comprehensive code reviews
 - `/code/validate` - Validate code quality and standards
 
+### Advanced Thinking & Analysis
+
+- `/zen/challenge` - Critical thinking to question assumptions and validate approaches
+- `/zen/debug` - Systematic debugging with bisect methodology
+- `/zen/thinkdeep` - Extended reasoning for deep analysis and complex decisions
+
 ## 🤖 Specialized Agents
 
 SDD leverages a team of specialized AI agents, coordinated by the opencode agent:
@@ -87,6 +93,10 @@ sdd-config/
 │       ├── commit.md
 │       ├── review.md
 │       └── validate.md
+│   └── zen/            # Advanced thinking and analysis commands
+│       ├── challenge.md
+│       ├── debug.md
+│       └── thinkdeep.md
 ├── AGENTS.md          # Core opencode agent identity and guidelines
 ├── opencode.json      # opencode agent configuration and MCP settings
 └── README.md          # This file
@@ -98,7 +108,7 @@ The `opencode.json` file configures the opencode agent:
 
 - **Theme**: Visual theme (Catppuccin)
 - **Model**: Default AI model (zen/GLM-4.6)
-- **MCP Integration**: File system, thinking, memory, fetch, browser automation
+- **MCP Integration**: File system, sequential-thinking, memory, fetch, browser automation
 - **Context7**: API documentation integration
 
 ## 🔧 MCP Integration
@@ -106,7 +116,7 @@ The `opencode.json` file configures the opencode agent:
 The opencode agent integrates with multiple Model Context Protocol (MCP) servers:
 
 - **filesystem** - Local file system access
-- **sequential-thinking** - Advanced reasoning capabilities
+- **sequential-thinking** - Advanced reasoning and systematic analysis
 - **memory** - Knowledge graph and entity management
 - **fetch** - Web content retrieval
 - **playwright** - Browser automation
