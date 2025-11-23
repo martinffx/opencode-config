@@ -1,23 +1,32 @@
 # SDD - Spec-Driven Development Framework
 
-A powerful development framework that accelerates feature delivery through structured specifications and dependency-driven task execution, executed by the **opencode** AI agent.
+A powerful development framework that accelerates feature delivery through
+structured specifications and dependency-driven task execution, executed
+by the **opencode** AI agent.
 
 ## 🚀 Overview
 
-**SDD (Spec-Driven Development)** is a methodology that transforms AI from a tool requiring constant prompting into a team member that understands your standards, business context, and implementation approach. The **opencode** agent is the specialized AI that executes SDD workflows.
+**SDD (Spec-Driven Development)** is a methodology that transforms AI from a
+tool requiring constant prompting into a team member that understands your
+standards, business context, and implementation approach. The **opencode** agent
+is the specialized AI that executes SDD workflows.
 
 ## 🎯 Core Philosophy
 
-- **Lightweight documentation over heavyweight planning** - Replace PRDs with minimal business context plus detailed implementation specs
-- **Dependency-driven over sprint-driven** - Order tasks by technical requirements (database → repository → service → API → UI)
-- **AI-assisted implementation** - Structured specs enable AI agents to make informed technical decisions
+- **Lightweight documentation over heavyweight planning** - Replace PRDs with
+  minimal business context plus detailed implementation specs
+- **Dependency-driven over sprint-driven** - Order tasks by technical
+  requirements (database → repository → service → API → UI)
+- **AI-assisted implementation** - Structured specs enable AI agents to make
+  informed technical decisions
 - **Prevention over debugging** - Spot issues in design, not production
 - **Progress over perfection** - Ship iteratively with enforced architectural patterns
 - **Measurement over assumptions** - Profile before optimizing, test before shipping
 
 ## 🛠️ Available Commands
 
-SDD provides a comprehensive workflow through 8 specialized commands, executed by the opencode agent:
+SDD provides a comprehensive workflow through 8 specialized commands,
+executed by the opencode agent:
 
 ### Product Management
 
@@ -90,10 +99,6 @@ The opencode agent integrates with multiple Model Context Protocol (MCP) servers
 - **fetch** - Web content retrieval
 - **playwright** - Browser automation
 - **context7** - Real-time documentation access
-
-## 📄 License
-
-This is a custom configuration for the SDD framework, executed by the opencode AI agent.
 
 ---
 
