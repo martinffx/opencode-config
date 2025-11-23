@@ -12,16 +12,19 @@ temperature: 0.2
 @architect breakdown the design into TDD implementation tasks.
 
 Read:
+
 - `docs/spec/$ARGUMENTS/spec.md`
 - `docs/spec/$ARGUMENTS/design.md`
 
 Analyze technical design components and generate tasks:
+
 - Create tasks in TDD order (Entity → Repository → Service → Router)
 - Define task dependencies and phases
 - Estimate effort with AI assistance
 - Organize for parallel development where possible
 
 ### Output: `docs/spec/$ARGUMENTS/plan.json`
+
 ```json
 {
   "phases": {
@@ -54,9 +57,11 @@ Analyze technical design components and generate tasks:
 @product prioritize tasks based on dependencies and time to value.
 
 Read:
+
 - `docs/spec/$ARGUMENTS/plan.json`
 
 Strategic analysis:
+
 - Analyze dependencies between tasks
 - Order tasks for most efficient development flow
 - Organize tasks so next steps are always clear
@@ -87,18 +92,22 @@ Update task order with strategic prioritization:
 @scaffold generate task documentation from implementation plan.
 
 Read:
+
 - `docs/spec/$ARGUMENTS/plan.json`
 
 Apply templates:
+
 - Task list template from standards
 - Status tracking template from standards
 
 Create file in `docs/spec/$ARGUMENTS/`:
+
 - `tasks.md` - Complete implementation task list with embedded progress tracking
 
 ## ✅ Task Breakdown Complete
 
 Generated comprehensive implementation plan:
+
 - Tasks organized by TDD and layered architecture principles
 - Progress tracking embedded in tasks.md
 - Time estimates calculated with AI assistance multipliers

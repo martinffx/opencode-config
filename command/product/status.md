@@ -12,6 +12,7 @@ temperature: 0.4
 @context gather comprehensive project data.
 
 Retrieve:
+
 - Current roadmap from `docs/product/roadmap.md`
 - All feature specifications from `docs/spec/*/`
 - Feature completion status from `docs/spec/*/tasks.md`
@@ -24,6 +25,7 @@ Load all project state data for analysis.
 @product perform comprehensive progress analysis using the context data.
 
 Calculate:
+
 - Feature completion percentages across all specs
 - Development velocity metrics (tasks/day, features/week)
 - Progress against current roadmap priorities
@@ -38,17 +40,20 @@ Generate comprehensive progress report with strategic insights.
 Based on progress analysis, display current product status:
 
 ### Current Status Summary
+
 - Overall roadmap progress: [X]% complete
 - Features in progress: [Count and status]
 - Completed this period: [List]
 - Blockers identified: [Any issues]
 
 ### Velocity & Quality Metrics
+
 - Development velocity: [Tasks per day with AI assistance]
 - Code quality indicators: [Test coverage, passing tests]
 - AI efficiency multiplier: [Actual vs estimated time]
 
 ### Current Roadmap Priorities
+
 - Priority 1: [Feature] - [Status]
 - Priority 2: [Feature] - [Status]
 - Priority 3: [Feature] - [Status]
@@ -58,9 +63,11 @@ Based on progress analysis, display current product status:
 If mode is `update`, proceed with priority interview:
 
 ### Available Features
+
 - [Features from product.md not yet started]
 
 ### Recommended Next 3 Priorities
+
 1. **[Product agent recommendation 1]** - [Reasoning]
 2. **[Product agent recommendation 2]** - [Reasoning]
 3. **[Product agent recommendation 3]** - [Reasoning]
@@ -72,6 +79,7 @@ If mode is `update`, proceed with priority interview:
 @scaffold update `docs/product/roadmap.md` with confirmed priorities.
 
 Update roadmap file with:
+
 - Confirmed next priorities
 - Current status summary
 - Updated timeline projections
@@ -82,15 +90,19 @@ Update roadmap file with:
 Based on analysis, provide strategic recommendations:
 
 ### Recommended Actions
+
 #### Immediate (Today)
+
 - [Specific next command to run]
 - [Any urgent items to address]
 
 #### This Week
+
 - [Strategic priorities for the week]
 - [Process improvements to consider]
 
 ### Next Actions
+
 1. Continue active feature: `/spec/implement [current-feature]`
 2. Start next priority: `/spec/create [next-feature]`
 3. Update content methodology: `/product/update`
@@ -102,7 +114,9 @@ Based on analysis, provide strategic recommendations:
 
 ---
 
-### Usage Examples:
+### Usage Examples
+
 - `/product/status` - Show current progress analysis
-- `/product/status update` - Update roadmap priorities  
+- `/product/status update` - Update roadmap priorities
 - `/product/status verbose` - Detailed analysis with full metrics
+

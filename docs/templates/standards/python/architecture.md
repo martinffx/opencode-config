@@ -3,6 +3,7 @@
 ## Layered Architecture Patterns
 
 ### Pattern 1: Standard CRUD API (FastAPI)
+
 ```
 Client → Router → Service (Domain) → Repository → Database
                      ↓
@@ -10,6 +11,7 @@ Client → Router → Service (Domain) → Repository → Database
 ```
 
 ### Pattern 2: External API Integration
+
 ```
 Client → Router → Service (Domain) → Client → External API
                      ↓
@@ -17,6 +19,7 @@ Client → Router → Service (Domain) → Client → External API
 ```
 
 ### Pattern 3: Event-Driven (Consumer)
+
 ```
 Event Source → Consumer → Service (Domain) → Repository → Database
                             ↓
@@ -24,6 +27,7 @@ Event Source → Consumer → Service (Domain) → Repository → Database
 ```
 
 ### Pattern 4: Event-Driven (Producer)
+
 ```
 Client → Router → Service (Domain) → Producer → Event Broker
                      ↓
@@ -33,6 +37,7 @@ Client → Router → Service (Domain) → Producer → Event Broker
 ## Python-Specific Layer Implementation
 
 ### Router Layer (FastAPI)
+
 ```python
 from fastapi import APIRouter, HTTPException, Depends
 from .service import UserService
@@ -56,6 +61,7 @@ async def create_user(
 ```
 
 ### Service Layer (Domain Logic)
+
 ```python
 from typing import List, Optional
 from .repositories import UserRepository
@@ -64,18 +70,18 @@ from .entities import UserEntity
 class UserService:
     def __init__(self, repository: UserRepository):
         self.repository = repository
-    
+
     async def create_user(self, entity: UserEntity) -> UserEntity:
         # Validate business rules
         validation = entity.validate()
         if not validation.is_valid:
             raise ValidationError(validation.errors)
-        
+
         # Check duplicates
         existing = await self.repository.find_by_email(entity.email)
         if existing:
             raise BusinessRuleError("Email already exists")
-        
+
         # Persist and return
         record = entity.to_record()
         created = await self.repository.create(record)
@@ -83,6 +89,7 @@ class UserService:
 ```
 
 ### Entity Layer (Domain Model)
+
 ```python
 from dataclasses import dataclass
 from typing import Dict, Any
@@ -95,14 +102,14 @@ class UserEntity:
     email: str = ""
     name: str = ""
     created_at: Optional[datetime] = None
-    
+
     @classmethod
     def from_request(cls, dto: CreateUserRequest) -> "UserEntity":
         return cls(
             email=dto.email.lower().strip(),
             name=dto.name.strip()
         )
-    
+
     @classmethod
     def from_record(cls, record: Dict[str, Any]) -> "UserEntity":
         return cls(
@@ -111,14 +118,14 @@ class UserEntity:
             name=record["name"],
             created_at=record["created_at"]
         )
-    
+
     def to_record(self) -> Dict[str, Any]:
         return {
             "email": self.email,
             "name": self.name,
             "created_at": datetime.utcnow()
         }
-    
+
     def to_response(self) -> UserResponse:
         return UserResponse(
             id=self.id,
@@ -126,24 +133,25 @@ class UserEntity:
             name=self.name,
             created_at=self.created_at
         )
-    
+
     def validate(self) -> ValidationResult:
         errors = []
-        
+
         # Email validation
         if not self.email:
             errors.append("Email is required")
         elif not re.match(r"[^@]+@[^@]+\.[^@]+", self.email):
             errors.append("Invalid email format")
-        
+
         # Name validation
         if not self.name or len(self.name.strip()) < 2:
             errors.append("Name must be at least 2 characters")
-        
+
         return ValidationResult(is_valid=len(errors) == 0, errors=errors)
 ```
 
 ### Repository Layer (SQLAlchemy)
+
 ```python
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -153,28 +161,28 @@ from typing import List, Optional, Dict, Any
 class UserRepository:
     def __init__(self, db: AsyncSession):
         self.db = db
-    
+
     async def create(self, data: Dict[str, Any]) -> Dict[str, Any]:
         db_user = UserModel(**data)
         self.db.add(db_user)
         await self.db.commit()
         await self.db.refresh(db_user)
         return self._to_dict(db_user)
-    
+
     async def find_by_id(self, user_id: int) -> Optional[Dict[str, Any]]:
         result = await self.db.execute(
             select(UserModel).where(UserModel.id == user_id)
         )
         user = result.scalar_one_or_none()
         return self._to_dict(user) if user else None
-    
+
     async def find_by_email(self, email: str) -> Optional[Dict[str, Any]]:
         result = await self.db.execute(
             select(UserModel).where(UserModel.email == email.lower())
         )
         user = result.scalar_one_or_none()
         return self._to_dict(user) if user else None
-    
+
     def _to_dict(self, user: UserModel) -> Dict[str, Any]:
         return {
             "id": user.id,
@@ -187,6 +195,7 @@ class UserRepository:
 ## Dependency Injection (FastAPI)
 
 ### Application Setup
+
 ```python
 from fastapi import FastAPI, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -210,6 +219,7 @@ app.include_router(user_router, prefix="/api/v1")
 ## Database Integration (SQLAlchemy + PostgreSQL)
 
 ### Model Definition
+
 ```python
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
@@ -217,7 +227,7 @@ from .database import Base
 
 class UserModel(Base):
     __tablename__ = "users"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     name = Column(String, nullable=False)
@@ -225,6 +235,7 @@ class UserModel(Base):
 ```
 
 ### Async Session Management
+
 ```python
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
@@ -237,7 +248,7 @@ class Database:
         self.async_session = async_sessionmaker(
             self.engine, class_=AsyncSession, expire_on_commit=False
         )
-    
+
     async def get_session(self) -> AsyncSession:
         async with self.async_session() as session:
             yield session
@@ -251,6 +262,7 @@ async def get_async_session() -> AsyncSession:
 ## External API Integration with VCR.py
 
 ### Client Layer with VCR Recording
+
 ```python
 import httpx
 from vcr import VCR
@@ -260,7 +272,7 @@ class ExternalAPIClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
         self.client = httpx.AsyncClient()
-    
+
     async def get_user_data(self, user_id: int) -> Dict[str, Any]:
         response = await self.client.get(f"{self.base_url}/users/{user_id}")
         response.raise_for_status()
@@ -286,6 +298,7 @@ async def test_external_api_integration():
 ## Error Handling (Python)
 
 ### Domain Exceptions
+
 ```python
 class DomainError(Exception):
     def __init__(self, message: str):
@@ -303,6 +316,7 @@ class NotFoundError(DomainError):
 ```
 
 ### Error Translation in Router
+
 ```python
 from fastapi import HTTPException
 
@@ -331,6 +345,7 @@ async def not_found_exception_handler(request, exc: NotFoundError):
 ## Docker Test Database Setup
 
 ### pytest Fixture for Test Database
+
 ```python
 import pytest
 import asyncio
@@ -351,7 +366,7 @@ def event_loop():
 async def postgres_container():
     """Start PostgreSQL container for tests."""
     docker_client = DockerClient.from_env()
-    
+
     container = docker_client.containers.run(
         "postgres:15",
         environment={
@@ -363,39 +378,40 @@ async def postgres_container():
         detach=True,
         remove=True
     )
-    
+
     # Wait for database to be ready
     await asyncio.sleep(10)
-    
+
     # Get the mapped port
     container.reload()
     port = container.ports["5432/tcp"][0]["HostPort"]
-    
+
     yield f"postgresql+asyncpg://test_user:test_pass@localhost:{port}/test_db"
-    
+
     container.stop()
 
 @pytest.fixture
 async def test_db(postgres_container):
     """Create test database session."""
     engine = create_async_engine(postgres_container)
-    
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    
+
     async_session = sessionmaker(
         engine, class_=AsyncSession, expire_on_commit=False
     )
-    
+
     async with async_session() as session:
         yield session
-    
+
     await engine.dispose()
 ```
 
 ## Integration Testing with FastAPI TestClient
 
 ### Integration Test Example
+
 ```python
 import pytest
 from httpx import AsyncClient
@@ -405,22 +421,22 @@ from yourapp.database import get_async_session
 @pytest.mark.asyncio
 async def test_create_user_integration(test_db):
     """Test full HTTP → Service → Repository → Database flow."""
-    
+
     # Override database dependency
     app.dependency_overrides[get_async_session] = lambda: test_db
-    
+
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post("/api/v1/users/", json={
             "email": "test@example.com",
             "name": "Test User"
         })
-    
+
     assert response.status_code == 201
     data = response.json()
     assert data["email"] == "test@example.com"
     assert data["name"] == "Test User"
     assert "id" in data
-    
+
     # Clean up
     app.dependency_overrides.clear()
 
@@ -429,10 +445,10 @@ async def test_create_user_integration(test_db):
 async def test_external_api_integration_with_vcr():
     """Test external API integration with VCR recording."""
     from yourapp.clients import ExternalAPIClient
-    
+
     client = ExternalAPIClient("https://jsonplaceholder.typicode.com")
     data = await client.get_user_data(1)
-    
+
     assert "id" in data
     assert "name" in data
 ```
@@ -441,3 +457,4 @@ async def test_external_api_integration_with_vcr():
 
 **Version**: {{version}}
 **Last Updated**: {{updated_date}}
+

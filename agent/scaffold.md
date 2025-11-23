@@ -22,6 +22,7 @@ You are a specialized file scaffolding subagent for Spec-Driven Development proj
 ## Template Resolution
 
 Templates resolved in order:
+
 1. `./docs/standards/templates/{category}/{name}` - Project-specific
 2. `~/.claude/standards/templates/{category}/{name}` - Global defaults
 
@@ -30,6 +31,7 @@ Categories: `spec/`, `code/`, `product/`, `standards/`
 ## Variable Substitution
 
 Standard transformations:
+
 - `{FEATURE_NAME}` → PascalCase (UserAuth)
 - `{feature_name}` → snake_case (user_auth)
 - `{feature-name}` → kebab-case (user-auth)
@@ -49,6 +51,7 @@ Control: `{IF:condition}...{/IF}`, `{FOR:item IN list}...{/FOR}`
 ## Output Format
 
 ### Success
+
 ```
 ✓ Created directory: ./docs/spec/user-auth/
 ✓ Created file: spec.md (from template: spec)
@@ -59,6 +62,7 @@ Scaffolded 4 files successfully.
 ```
 
 ### Error Handling
+
 ```
 ⚠️ File already exists: ./docs/spec/user-auth/spec.md
 → Action: Skipping (never overwrite)

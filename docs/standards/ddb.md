@@ -34,6 +34,7 @@ const AppTable = new Table({
 ```
 
 **Index Purpose Guidelines:**
+
 - **Main Table**: Primary entity access (PK/SK)
 - **GSI1**: General secondary access patterns
 - **GSI2**: Entity-specific queries and relationships
@@ -52,12 +53,12 @@ Temporal Pattern:   ENTITY#{id}#{timestamp}
 
 ### Access Pattern Guidelines
 
-| Access Type | Main Table | GSI1 | GSI2 | GSI3 |
-|-------------|------------|------|------|------|
-| Direct Entity | PK/SK | - | - | - |
-| Secondary Lookup | - | GSI1PK/GSI1SK | - | - |
-| Entity Relations | - | - | GSI2PK/GSI2SK | - |
-| Hierarchical/Temporal | - | - | - | GSI3PK/GSI3SK |
+| Access Type           | Main Table | GSI1          | GSI2          | GSI3          |
+| --------------------- | ---------- | ------------- | ------------- | ------------- |
+| Direct Entity         | PK/SK      | -             | -             | -             |
+| Secondary Lookup      | -          | GSI1PK/GSI1SK | -             | -             |
+| Entity Relations      | -          | -             | GSI2PK/GSI2SK | -             |
+| Hierarchical/Temporal | -          | -             | -             | GSI3PK/GSI3SK |
 
 ### Common Query Patterns
 
@@ -74,10 +75,10 @@ The schema module (`@src/repos/schema.ts`) provides the core building blocks for
 
 ```typescript
 // Schema initialization
-export { initializeSchema }
+export { initializeSchema };
 
 // Pagination utilities
-export { encodePageToken, decodePageToken }
+export { encodePageToken, decodePageToken };
 
 // Type definitions
 export type {
@@ -92,7 +93,7 @@ export type {
   OrganizationFormatted,
   RepoInput,
   RepoFormatted,
-}
+};
 ```
 
 ### Schema Initialization
@@ -115,6 +116,7 @@ const initializeSchema = (client: DynamoDBClient): AppSchema => {
 ```
 
 **Usage:**
+
 ```typescript
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { initializeSchema } from "@src/repos/schema";
@@ -130,16 +132,19 @@ const schema = initializeSchema(client);
 Each entity follows this pattern:
 
 #### UserRecord
+
 - **Key Fields**: `username` (validated with regex `^[a-zA-Z0-9_-]+$`)
 - **Additional Fields**: `email` (validated), `bio` (optional), `payment_plan_id` (optional)
 - **Key Strategy**: All keys point to same pattern `ACCOUNT#{username}`
 
 #### OrganizationRecord
+
 - **Key Fields**: `org_name` (validated with regex `^[a-zA-Z0-9_-]+$`)
 - **Additional Fields**: `description` (optional), `payment_plan_id` (optional)
 - **Key Strategy**: All keys point to same pattern `ACCOUNT#{org_name}`
 
 #### RepoRecord
+
 - **Key Fields**: `owner` and `repo_name` (both validated)
 - **Additional Fields**: `description` (optional), `is_private` (boolean, default false), `language` (optional)
 - **Key Strategy**: Most keys use `REPO#{owner}#{repo_name}`, GSI3 uses `ACCOUNT#{owner}` for owner-based queries
@@ -163,11 +168,14 @@ type RepoFormatted = FormattedItem<typeof RepoRecord>;
 ### Pagination Support
 
 ```typescript
-function encodePageToken(lastEvaluated?: Record<string, any>): string | undefined
-function decodePageToken(token?: string): Record<string, any> | undefined
+function encodePageToken(
+  lastEvaluated?: Record<string, any>
+): string | undefined;
+function decodePageToken(token?: string): Record<string, any> | undefined;
 ```
 
 **Usage:**
+
 ```typescript
 // Encode pagination token
 const nextToken = encodePageToken(response.LastEvaluatedKey);

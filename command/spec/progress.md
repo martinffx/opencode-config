@@ -12,10 +12,12 @@ temperature: 0.4
 @context retrieve feature progress information.
 
 **If specific feature provided:**
+
 - Load `docs/spec/$ARGUMENTS/tasks.md` (contains embedded progress tracking)
 - Load `docs/spec/$ARGUMENTS/design.md` for context
 
 **If no feature specified:**
+
 - Load all `docs/spec/*/tasks.md` files
 - Provide comprehensive project overview
 
@@ -26,6 +28,7 @@ Extract current progress data for analysis.
 @product calculate metrics and generate comprehensive progress report.
 
 **Progress Analysis:**
+
 - Task completion percentages by phase
 - Time spent vs original estimates
 - Current development phase and status
@@ -34,6 +37,7 @@ Extract current progress data for analysis.
 - AI efficiency multiplier (actual vs estimated time)
 
 **Strategic Assessment:**
+
 - Feature readiness for next phase
 - Resource allocation recommendations
 - Timeline projections and risk factors
@@ -44,6 +48,7 @@ Generate data-driven progress analysis with actionable insights.
 ## ✅ Progress Report Generated
 
 ### Feature Status Summary
+
 - **Overall completion**: [X]% complete
 - **Current phase**: [Phase name and details]
 - **Tasks completed**: [X of Y] ([percentage]%)
@@ -51,6 +56,7 @@ Generate data-driven progress analysis with actionable insights.
 - **Quality metrics**: [Test coverage, code quality indicators]
 
 ### Development Flow Analysis
+
 - **Completed phases**: [List with dates]
 - **Active work**: [Current tasks and owners]
 - **Ready to start**: [Next available tasks]
@@ -59,16 +65,19 @@ Generate data-driven progress analysis with actionable insights.
 ### Strategic Recommendations
 
 #### Immediate Actions (Today)
+
 - **Next step**: [Specific command recommendation]
 - **Priority focus**: [What to work on first]
 - **Alternative paths**: [If blocked, what else to do]
 
 #### Strategic Planning
+
 - **Timeline projection**: [Expected completion date]
 - **Resource needs**: [Any additional requirements]
 - **Risk mitigation**: [Potential issues to address]
 
 ### Next Commands
+
 - **Continue implementation**: `/spec/implement $ARGUMENTS`
 - **Review completed work**: `/code/review $ARGUMENTS`
 - **Update roadmap priorities**: `/roadmap-update`

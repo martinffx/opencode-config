@@ -2,19 +2,23 @@
 
 ## Stub-Driven TDD Approach
 
-### 3-Step Process:
+### 3-Step Process
+
 1. **Create Stub** - Method signatures that panic with `todo!()` macro
 2. **Write Test** - Test against stub expecting panic, then write tests for actual behavior
 3. **Implement** - Replace stub with working code to make tests pass
 
 ### Refined TDD Flow
+
 1. **Stub** - Method panics with `todo!()`
 2. **Red** - Write test, run failing test
 3. **Green** - Implement method, run passing tests
 4. **Refactor** - Clean up code
 
 ### Implementation Order
+
 Always implement in dependency order (bottom-up):
+
 ```
 Entity → Repository → Service → Handler
 ```
@@ -22,6 +26,7 @@ Entity → Repository → Service → Handler
 ## Stub Pattern (Rust)
 
 ### Entity Stub
+
 ```rust
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
@@ -39,19 +44,19 @@ impl UserEntity {
     pub fn from_request(dto: CreateUserRequest) -> Result<Self, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserEntity.from_request")
     }
-    
+
     pub fn from_record(record: HashMap<String, serde_json::Value>) -> Result<Self, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserEntity.from_record")
     }
-    
+
     pub fn to_record(&self) -> HashMap<String, serde_json::Value> {
         todo!("Not Implemented: UserEntity.to_record")
     }
-    
+
     pub fn to_response(&self) -> UserResponse {
         todo!("Not Implemented: UserEntity.to_response")
     }
-    
+
     pub fn validate(&self) -> Result<(), ValidationError> {
         todo!("Not Implemented: UserEntity.validate")
     }
@@ -59,6 +64,7 @@ impl UserEntity {
 ```
 
 ### Repository Stub
+
 ```rust
 use async_trait::async_trait;
 use std::collections::HashMap;
@@ -68,19 +74,19 @@ pub trait UserRepository: Send + Sync {
     async fn create(&self, data: HashMap<String, serde_json::Value>) -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserRepository.create")
     }
-    
+
     async fn find_by_id(&self, user_id: i32) -> Result<Option<HashMap<String, serde_json::Value>>, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserRepository.find_by_id")
     }
-    
+
     async fn find_by_email(&self, email: &str) -> Result<Option<HashMap<String, serde_json::Value>>, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserRepository.find_by_email")
     }
-    
+
     async fn update(&self, user_id: i32, data: HashMap<String, serde_json::Value>) -> Result<Option<HashMap<String, serde_json::Value>>, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserRepository.update")
     }
-    
+
     async fn delete(&self, user_id: i32) -> Result<bool, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserRepository.delete")
     }
@@ -103,6 +109,7 @@ impl UserRepository for PostgresUserRepository {
 ```
 
 ### Service Stub
+
 ```rust
 use std::sync::Arc;
 
@@ -118,15 +125,15 @@ impl UserService {
     pub async fn create_user(&self, entity: UserEntity) -> Result<UserEntity, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserService.create_user")
     }
-    
+
     pub async fn get_user(&self, user_id: i32) -> Result<UserEntity, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserService.get_user")
     }
-    
+
     pub async fn update_user(&self, user_id: i32, entity: UserEntity) -> Result<UserEntity, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserService.update_user")
     }
-    
+
     pub async fn delete_user(&self, user_id: i32) -> Result<bool, Box<dyn std::error::Error>> {
         todo!("Not Implemented: UserService.delete_user")
     }
@@ -134,6 +141,7 @@ impl UserService {
 ```
 
 ### Handler Stub (Axum)
+
 ```rust
 use axum::{
     extract::{Path, State},
@@ -178,6 +186,7 @@ pub async fn delete_user(
 ## Testing Pattern (cargo test + tokio-test)
 
 ### Step 1 - Test the Stub
+
 ```rust
 #[cfg(test)]
 mod tests {
@@ -205,6 +214,7 @@ mod tests {
 ```
 
 ### Step 2 - Test Expected Behavior (Red)
+
 ```rust
 #[test]
 fn test_user_entity_from_request_success() {
@@ -235,11 +245,13 @@ fn test_user_entity_validation_invalid_email() {
 ```
 
 ### Step 3 - Implementation (Green)
+
 ```rust
 // After implementing the methods, tests should pass
 ```
 
 ### Step 4 - Refactor
+
 ```rust
 // Clean up code while maintaining test coverage
 ```
@@ -247,6 +259,7 @@ fn test_user_entity_validation_invalid_email() {
 ## Rust-Specific TDD Patterns
 
 ### Async Testing with tokio-test
+
 ```rust
 #[cfg(test)]
 mod service_tests {
@@ -293,7 +306,7 @@ mod service_tests {
     async fn test_create_user_duplicate_email() {
         // Arrange
         let mut mock_repo = MockUserRepository::new();
-        
+
         let mut existing_record = std::collections::HashMap::new();
         existing_record.insert("id".to_string(), serde_json::Value::Number(serde_json::Number::from(1)));
         existing_record.insert("email".to_string(), serde_json::Value::String("test@example.com".to_string()));
@@ -320,6 +333,7 @@ mod service_tests {
 ```
 
 ### Unit Tests with Mocks (Core Layer)
+
 ```rust
 #[cfg(test)]
 mod unit_tests {
@@ -370,13 +384,14 @@ mod unit_tests {
 ```
 
 ### Integration Tests with Docker (Edge Layer)
+
 ```rust
 #[cfg(test)]
 mod integration_tests {
     use super::*;
     use axum_test::TestServer;
     use crate::test_helpers::get_test_db;
-    
+
     #[tokio::test]
     async fn test_create_user_integration() {
         // Integration test: HTTP → Service → Repository → Database
@@ -384,7 +399,7 @@ mod integration_tests {
         let state = AppState::new(test_db.pool.clone()).await.unwrap();
         let app = create_app(state);
         let server = TestServer::new(app).unwrap();
-        
+
         // Act
         let response = server
             .post("/api/v1/users/")
@@ -393,7 +408,7 @@ mod integration_tests {
                 "name": "Test User"
             }))
             .await;
-        
+
         // Assert
         assert_eq!(response.status_code(), 201);
         let json: serde_json::Value = response.json();
@@ -401,16 +416,16 @@ mod integration_tests {
         assert_eq!(json["name"], "Test User");
         assert!(json["id"].is_number());
     }
-    
+
     #[tokio::test]
     async fn test_get_user_not_found() {
         let test_db = get_test_db().await;
         let state = AppState::new(test_db.pool.clone()).await.unwrap();
         let app = create_app(state);
         let server = TestServer::new(app).unwrap();
-        
+
         let response = server.get("/api/v1/users/999").await;
-        
+
         assert_eq!(response.status_code(), 404);
     }
 }
@@ -419,6 +434,7 @@ mod integration_tests {
 ## Code Style Standards
 
 ### Directory Structure
+
 ```
 src/
 ├── domains/{feature}/        # Feature modules
@@ -437,6 +453,7 @@ src/
 ```
 
 ### File Naming
+
 - **Entities**: `user.rs` (struct UserEntity)
 - **Services**: `user.rs` (struct UserService)
 - **Repositories**: `user.rs` (trait UserRepository, struct PostgresUserRepository)
@@ -445,6 +462,7 @@ src/
 - **Models**: `user.rs` (struct UserModel)
 
 ### Naming Conventions
+
 - **Structs/Enums**: PascalCase (`UserEntity`, `UserService`)
 - **Functions/Methods**: snake_case (`create_user`, `find_by_id`)
 - **Variables**: snake_case (`user_id`, `email_address`)
@@ -452,11 +470,12 @@ src/
 - **Modules**: snake_case (`user_service`, `user_repository`)
 
 ### Type Annotations
+
 ```rust
 use std::collections::HashMap;
 
 pub fn create_user(
-    email: String, 
+    email: String,
     name: String
 ) -> Result<UserEntity, ValidationError> {
     // Implementation
@@ -470,6 +489,7 @@ pub async fn find_user_by_id(
 ```
 
 ### Import Order
+
 ```rust
 // 1. Standard library
 use std::collections::HashMap;
@@ -491,6 +511,7 @@ use crate::shared::errors::ValidationError;
 ## Development Workflow
 
 ### Running Tests
+
 ```bash
 # Run all tests
 cargo test
@@ -509,6 +530,7 @@ cargo test --lib
 ```
 
 ### Code Quality
+
 ```bash
 # Format code
 cargo fmt
@@ -524,6 +546,7 @@ cargo audit
 ```
 
 ### Development Server
+
 ```bash
 # Run development server
 cargo run
@@ -538,21 +561,22 @@ cargo test --features test-docker
 ## Async Patterns
 
 ### Async/Await Best Practices
+
 ```rust
 // Good: Use async for I/O operations
 pub async fn create_user(&self, entity: UserEntity) -> Result<UserEntity, Box<dyn std::error::Error>> {
     // Database call
     let existing = self.repository.find_by_email(&entity.email).await?;
-    
+
     // Business logic (sync)
     if existing.is_some() {
         return Err(BusinessRuleError::new("Email already exists").into());
     }
-    
+
     // Database call
     let record = entity.to_record();
     let created = self.repository.create(record).await?;
-    
+
     UserEntity::from_record(created)
 }
 
@@ -565,6 +589,7 @@ pub fn create_user_bad(&self, entity: UserEntity) -> Result<UserEntity, Box<dyn 
 ```
 
 ### Error Handling in Async Context
+
 ```rust
 use thiserror::Error;
 
@@ -572,10 +597,10 @@ use thiserror::Error;
 pub enum ServiceError {
     #[error("Database error: {0}")]
     Database(#[from] sqlx::Error),
-    
+
     #[error("Validation error: {0}")]
     Validation(#[from] ValidationError),
-    
+
     #[error("Business rule error: {0}")]
     BusinessRule(String),
 }
@@ -584,16 +609,16 @@ impl UserService {
     pub async fn create_user(&self, entity: UserEntity) -> Result<UserEntity, ServiceError> {
         // Validate
         entity.validate()?;
-        
+
         // Check duplicates
         if self.repository.find_by_email(&entity.email).await?.is_some() {
             return Err(ServiceError::BusinessRule("Email already exists".to_string()));
         }
-        
+
         // Create
         let record = entity.to_record();
         let created = self.repository.create(record).await?;
-        
+
         UserEntity::from_record(created).map_err(ServiceError::Validation)
     }
 }
@@ -602,16 +627,19 @@ impl UserService {
 ## Testing Strategy Summary
 
 ### Unit Tests (Core Layer)
+
 - **Service Tests**: Mock Repository/Client, test business logic
 - **Entity Tests**: Test validation and transformation logic
 - **Repository Tests**: Mock database, test data operations
 
 ### Integration Tests (Edge Layer)
+
 - **HTTP Tests**: axum-test → Service → Repository → Database
 - **Database Tests**: testcontainers + Docker PostgreSQL
 - **End-to-End Tests**: Full application stack
 
 ### Test Organization
+
 ```
 tests/
 ├── unit/
@@ -625,6 +653,7 @@ tests/
 ```
 
 ### Mock Testing with mockall
+
 ```rust
 use mockall::mock;
 
@@ -640,7 +669,7 @@ async fn test_service_with_external_mock() {
         .expect_get_data()
         .with(eq(123))
         .returning(|_| Ok("mock data".to_string()));
-    
+
     // Test with mock
 }
 ```
@@ -649,3 +678,4 @@ async fn test_service_with_external_mock() {
 
 **Version**: {{version}}
 **Last Updated**: {{updated_date}}
+

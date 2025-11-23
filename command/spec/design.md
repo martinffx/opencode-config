@@ -12,11 +12,13 @@ temperature: 0.2
 @context read specification and standards files.
 
 Read files:
+
 - `docs/spec/$ARGUMENTS/spec.md` → feature requirements
 - `docs/standards/tech.md` → architecture (event-driven microservices)
 - `docs/standards/patterns/` → design patterns
 
 Extract key decisions needed:
+
 ```yaml
 requirements:
   entities: [identify from user stories]
@@ -33,15 +35,18 @@ requirements:
 From `docs/spec/$ARGUMENTS/spec.md`, use sequential thinking to determine:
 
 1. **Domain Entities**
+
    - Core entity: $ARGUMENTS
    - Related entities: [from spec]
 
 2. **Data Requirements**
+
    - Persistence needed: [yes/no]
    - Data volume: [expected scale]
    - Access patterns: [how data is queried]
 
 3. **API Requirements**
+
    - External exposure: [yes/no]
    - Operations: [CRUD/custom actions]
 
@@ -56,26 +61,31 @@ From `docs/spec/$ARGUMENTS/spec.md`, use sequential thinking to determine:
 Use sequential thinking to apply standards and create design:
 
 ### Component Architecture
+
 ```
 Router → Service (Domain) → Repository → Database
                 ↓
               Entity
 ```
+
 ```
 Router → Service (Domain) → Client → External API
                 ↓
               Entity
 ```
+
 ```
 Consumer → Service (Domain) → Producer
                 ↓
               Entity
 ```
+
 ```
 Consumer → Service (Domain) → Repository → Database
                 ↓
               Entity
 ```
+
 ```
 Router → Service (Domain) → Producer
                 ↓
@@ -83,6 +93,7 @@ Router → Service (Domain) → Producer
 ```
 
 ### Domain Model (if needed)
+
 ```yaml
 entity: ${ARGUMENTS}Entity
 methods:
@@ -93,6 +104,7 @@ methods:
 ```
 
 ### Data Persistence (if needed)
+
 ```yaml
 database: [from standards]
 schema:
@@ -102,6 +114,7 @@ schema:
 ```
 
 ### API Specification (if needed)
+
 ```yaml
 endpoints:
   - GET /api/${ARGUMENTS}s
@@ -112,6 +125,7 @@ endpoints:
 ```
 
 ### Events (if applicable)
+
 ```yaml
 publishes:
   - ${ARGUMENTS}Created
@@ -133,6 +147,7 @@ Generate: `docs/spec/$ARGUMENTS/design.md` with complete technical specification
 Created: `docs/spec/$ARGUMENTS/design.md`
 
 The design includes:
+
 - Domain model with DDD patterns
 - Data persistence strategy
 - API specification (if needed)

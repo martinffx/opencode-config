@@ -3,6 +3,7 @@
 ## Component Architecture Patterns
 
 ### Pattern 1: Standard Feature Component
+
 ```
 Page → Container → UI Components → Custom Hooks → API Layer
                      ↓
@@ -10,6 +11,7 @@ Page → Container → UI Components → Custom Hooks → API Layer
 ```
 
 ### Pattern 2: Data-Driven Component
+
 ```
 Page → Query Hook → UI Components → State Management
                      ↓
@@ -17,6 +19,7 @@ Page → Query Hook → UI Components → State Management
 ```
 
 ### Pattern 3: Form Component
+
 ```
 Page → Form Hook → Validation → UI Components → API Layer
                      ↓
@@ -24,6 +27,7 @@ Page → Form Hook → Validation → UI Components → API Layer
 ```
 
 ### Pattern 4: Real-time Component
+
 ```
 Page → WebSocket Hook → UI Components → State Management
                      ↓
@@ -33,24 +37,25 @@ Page → WebSocket Hook → UI Components → State Management
 ## React-Specific Layer Implementation
 
 ### Page Layer (Route Components)
+
 ```typescript
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-import { UserContainer } from '../containers/UserContainer';
-import { userService } from '../services/userService';
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { UserContainer } from "../containers/UserContainer";
+import { userService } from "../services/userService";
 
 export function UserPage() {
   const { id } = useParams<{ id: string }>();
-  
+
   const {
     data: user,
     isLoading,
     error,
-    refetch
+    refetch,
   } = useQuery({
-    queryKey: ['user', id],
+    queryKey: ["user", id],
     queryFn: () => userService.getUser(Number(id)),
-    enabled: !!id
+    enabled: !!id,
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -59,23 +64,21 @@ export function UserPage() {
 
   return (
     <div className="user-page">
-      <UserContainer 
-        user={user} 
-        onRefresh={refetch}
-      />
+      <UserContainer user={user} onRefresh={refetch} />
     </div>
   );
 }
 ```
 
 ### Container Layer (Smart Components)
+
 ```typescript
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { UserForm } from '../components/UserForm';
-import { UserDisplay } from '../components/UserDisplay';
-import { userService } from '../services/userService';
-import { User } from '../types';
-import { toast } from 'sonner';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { UserForm } from "../components/UserForm";
+import { UserDisplay } from "../components/UserDisplay";
+import { userService } from "../services/userService";
+import { User } from "../types";
+import { toast } from "sonner";
 
 interface UserContainerProps {
   user: User;
@@ -89,20 +92,20 @@ export function UserContainer({ user, onRefresh }: UserContainerProps) {
   const updateUserMutation = useMutation({
     mutationFn: userService.updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user', user.id] });
+      queryClient.invalidateQueries({ queryKey: ["user", user.id] });
       setIsEditing(false);
-      toast.success('User updated successfully');
+      toast.success("User updated successfully");
       onRefresh();
     },
     onError: (error) => {
       toast.error(`Failed to update user: ${error.message}`);
-    }
+    },
   });
 
   const handleUpdate = async (userData: Partial<User>) => {
     await updateUserMutation.mutateAsync({
       id: user.id,
-      data: userData
+      data: userData,
     });
   };
 
@@ -124,10 +127,7 @@ export function UserContainer({ user, onRefresh }: UserContainerProps) {
           isLoading={updateUserMutation.isPending}
         />
       ) : (
-        <UserDisplay
-          user={user}
-          onEdit={handleEdit}
-        />
+        <UserDisplay user={user} onEdit={handleEdit} />
       )}
     </div>
   );
@@ -135,10 +135,11 @@ export function UserContainer({ user, onRefresh }: UserContainerProps) {
 ```
 
 ### UI Component Layer (Dumb Components)
+
 ```typescript
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { User } from '../types';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { User } from "../types";
 
 interface UserDisplayProps {
   user: User;
@@ -156,19 +157,19 @@ export function UserDisplay({ user, onEdit }: UserDisplayProps) {
           <label className="text-sm font-medium">Name</label>
           <p className="text-lg">{user.name}</p>
         </div>
-        
+
         <div>
           <label className="text-sm font-medium">Email</label>
           <p className="text-lg">{user.email}</p>
         </div>
-        
+
         <div>
           <label className="text-sm font-medium">Created</label>
           <p className="text-sm text-gray-500">
             {new Date(user.createdAt).toLocaleDateString()}
           </p>
         </div>
-        
+
         <Button onClick={onEdit} className="w-full">
           Edit User
         </Button>
@@ -179,18 +180,26 @@ export function UserDisplay({ user, onEdit }: UserDisplayProps) {
 ```
 
 ### Form Component with Validation
+
 ```typescript
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { User } from '../types';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { User } from "../types";
 
 const userSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address')
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
 });
 
 type UserFormData = z.infer<typeof userSchema>;
@@ -202,13 +211,18 @@ interface UserFormProps {
   isLoading?: boolean;
 }
 
-export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps) {
+export function UserForm({
+  user,
+  onSubmit,
+  onCancel,
+  isLoading,
+}: UserFormProps) {
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       name: user.name,
-      email: user.email
-    }
+      email: user.email,
+    },
   });
 
   const handleSubmit = async (data: UserFormData) => {
@@ -231,7 +245,7 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="email"
@@ -245,12 +259,17 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
             </FormItem>
           )}
         />
-        
+
         <div className="flex space-x-2">
           <Button type="submit" disabled={isLoading} className="flex-1">
-            {isLoading ? 'Saving...' : 'Save'}
+            {isLoading ? "Saving..." : "Save"}
           </Button>
-          <Button type="button" variant="outline" onClick={onCancel} className="flex-1">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            className="flex-1"
+          >
             Cancel
           </Button>
         </div>
@@ -263,65 +282,67 @@ export function UserForm({ user, onSubmit, onCancel, isLoading }: UserFormProps)
 ## Custom Hooks (Business Logic)
 
 ### Data Fetching Hook
+
 ```typescript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { userService } from '../services/userService';
-import { User, CreateUserRequest, UpdateUserRequest } from '../types';
-import { toast } from 'sonner';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { userService } from "../services/userService";
+import { User, CreateUserRequest, UpdateUserRequest } from "../types";
+import { toast } from "sonner";
 
 export function useUsers() {
   const queryClient = useQueryClient();
 
   // Get all users
   const usersQuery = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: userService.getUsers,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   // Get single user
-  const useUser = (id: number) => useQuery({
-    queryKey: ['user', id],
-    queryFn: () => userService.getUser(id),
-    enabled: !!id,
-  });
+  const useUser = (id: number) =>
+    useQuery({
+      queryKey: ["user", id],
+      queryFn: () => userService.getUser(id),
+      enabled: !!id,
+    });
 
   // Create user mutation
   const createUserMutation = useMutation({
     mutationFn: userService.createUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      toast.success('User created successfully');
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success("User created successfully");
     },
     onError: (error) => {
       toast.error(`Failed to create user: ${error.message}`);
-    }
+    },
   });
 
   // Update user mutation
   const updateUserMutation = useMutation({
     mutationFn: userService.updateUser,
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      queryClient.invalidateQueries({ queryKey: ['user', variables.id] });
-      toast.success('User updated successfully');
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["user", variables.id] });
+      toast.success("User updated successfully");
     },
     onError: (error) => {
       toast.error(`Failed to update user: ${error.message}`);
-    }
+    },
   });
 
   // Delete user mutation
   const deleteUserMutation = useMutation({
     mutationFn: userService.deleteUser,
     onSuccess: (_, userId) => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      queryClient.removeQueries({ queryKey: ['user', userId] });
-      toast.success('User deleted successfully');
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.removeQueries({ queryKey: ["user", userId] });
+      toast.success("User deleted successfully");
     },
     onError: (error) => {
       toast.error(`Failed to delete user: ${error.message}`);
-    }
+    },
   });
 
   return {
@@ -338,16 +359,17 @@ export function useUsers() {
 ```
 
 ### Form Hook
+
 ```typescript
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { User, CreateUserRequest, UpdateUserRequest } from '../types';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { User, CreateUserRequest, UpdateUserRequest } from "../types";
 
 const userSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address')
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
 });
 
 type UserFormData = z.infer<typeof userSchema>;
@@ -357,30 +379,38 @@ export function useUserForm(user?: User) {
 
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
-    defaultValues: user ? {
-      name: user.name,
-      email: user.email
-    } : {
-      name: '',
-      email: ''
-    }
+    defaultValues: user
+      ? {
+          name: user.name,
+          email: user.email,
+        }
+      : {
+          name: "",
+          email: "",
+        },
   });
 
   const reset = () => {
-    form.reset(user ? {
-      name: user.name,
-      email: user.email
-    } : {
-      name: '',
-      email: ''
-    });
+    form.reset(
+      user
+        ? {
+            name: user.name,
+            email: user.email,
+          }
+        : {
+            name: "",
+            email: "",
+          }
+    );
   };
 
-  const prepareSubmitData = (data: UserFormData): CreateUserRequest | UpdateUserRequest => {
+  const prepareSubmitData = (
+    data: UserFormData
+  ): CreateUserRequest | UpdateUserRequest => {
     if (user) {
       return {
         id: user.id,
-        data
+        data,
       };
     }
     return data;
@@ -391,7 +421,7 @@ export function useUserForm(user?: User) {
     isSubmitting,
     setIsSubmitting,
     reset,
-    prepareSubmitData
+    prepareSubmitData,
   };
 }
 ```
@@ -399,17 +429,18 @@ export function useUserForm(user?: User) {
 ## State Management (Zustand)
 
 ### User Store
+
 ```typescript
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { User } from '../types';
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { User } from "../types";
 
 interface UserState {
   users: User[];
   currentUser: User | null;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   setUsers: (users: User[]) => void;
   setCurrentUser: (user: User | null) => void;
@@ -432,37 +463,40 @@ export const useUserStore = create<UserState>()(
 
       // Actions
       setUsers: (users) => set({ users }),
-      
+
       setCurrentUser: (currentUser) => set({ currentUser }),
-      
-      addUser: (user) => set((state) => ({
-        users: [...state.users, user]
-      })),
-      
-      updateUser: (updatedUser) => set((state) => ({
-        users: state.users.map(user => 
-          user.id === updatedUser.id ? updatedUser : user
-        ),
-        currentUser: state.currentUser?.id === updatedUser.id 
-          ? updatedUser 
-          : state.currentUser
-      })),
-      
-      removeUser: (userId) => set((state) => ({
-        users: state.users.filter(user => user.id !== userId),
-        currentUser: state.currentUser?.id === userId 
-          ? null 
-          : state.currentUser
-      })),
-      
+
+      addUser: (user) =>
+        set((state) => ({
+          users: [...state.users, user],
+        })),
+
+      updateUser: (updatedUser) =>
+        set((state) => ({
+          users: state.users.map((user) =>
+            user.id === updatedUser.id ? updatedUser : user
+          ),
+          currentUser:
+            state.currentUser?.id === updatedUser.id
+              ? updatedUser
+              : state.currentUser,
+        })),
+
+      removeUser: (userId) =>
+        set((state) => ({
+          users: state.users.filter((user) => user.id !== userId),
+          currentUser:
+            state.currentUser?.id === userId ? null : state.currentUser,
+        })),
+
       setLoading: (isLoading) => set({ isLoading }),
-      
+
       setError: (error) => set({ error }),
-      
-      clearError: () => set({ error: null })
+
+      clearError: () => set({ error: null }),
     }),
     {
-      name: 'user-store'
+      name: "user-store",
     }
   )
 );
@@ -471,37 +505,43 @@ export const useUserStore = create<UserState>()(
 ## API Integration (openapi-react-query)
 
 ### Generated API Client
+
 ```typescript
 // This would be generated from your OpenAPI spec
-import { createClient } from '@openapi-react-query/client';
-import type { paths } from './api';
+import { createClient } from "@openapi-react-query/client";
+import type { paths } from "./api";
 
 export const apiClient = createClient<paths>({
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1',
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api/v1",
   headers: {
-    'Content-Type': 'application/json'
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 // Service functions
 export const userService = {
-  getUsers: () => apiClient.GET('/users'),
-  getUser: (id: number) => apiClient.GET('/users/{id}', { params: { path: { id } } }),
-  createUser: (data: CreateUserRequest) => apiClient.POST('/users', { body: data }),
-  updateUser: (data: UpdateUserRequest) => apiClient.PUT('/users/{id}', { 
-    params: { path: { id: data.id }, body: data.data } 
-  }),
-  deleteUser: (id: number) => apiClient.DELETE('/users/{id}', { params: { path: { id } } })
+  getUsers: () => apiClient.GET("/users"),
+  getUser: (id: number) =>
+    apiClient.GET("/users/{id}", { params: { path: { id } } }),
+  createUser: (data: CreateUserRequest) =>
+    apiClient.POST("/users", { body: data }),
+  updateUser: (data: UpdateUserRequest) =>
+    apiClient.PUT("/users/{id}", {
+      params: { path: { id: data.id }, body: data.data },
+    }),
+  deleteUser: (id: number) =>
+    apiClient.DELETE("/users/{id}", { params: { path: { id } } }),
 };
 ```
 
 ## Error Handling
 
 ### Error Boundary
+
 ```typescript
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Component, ErrorInfo, ReactNode } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   children: ReactNode;
@@ -514,7 +554,7 @@ interface State {
 
 export class ErrorBoundary extends Component<Props, State> {
   public state: State = {
-    hasError: false
+    hasError: false,
   };
 
   public static getDerivedStateFromError(error: Error): State {
@@ -522,7 +562,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+    console.error("Uncaught error:", error, errorInfo);
   }
 
   private handleRetry = () => {
@@ -538,7 +578,7 @@ export class ErrorBoundary extends Component<Props, State> {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-gray-600">
-              {this.state.error?.message || 'An unexpected error occurred'}
+              {this.state.error?.message || "An unexpected error occurred"}
             </p>
             <Button onClick={this.handleRetry} className="w-full">
               Try Again
@@ -556,47 +596,47 @@ export class ErrorBoundary extends Component<Props, State> {
 ## Testing with MSW + Vitest
 
 ### Component Test Example
+
 ```typescript
-import { render, screen, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { UserPage } from '../pages/UserPage';
-import { server } from '../mocks/server';
-import { rest } from 'msw';
-import { User } from '../types';
+import { render, screen, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { UserPage } from "../pages/UserPage";
+import { server } from "../mocks/server";
+import { rest } from "msw";
+import { User } from "../types";
 
 // Test utilities
-const createQueryClient = () => new QueryClient({
-  defaultOptions: {
-    queries: { retry: false },
-    mutations: { retry: false }
-  }
-});
+const createQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false },
+    },
+  });
 
 const renderWithQueryClient = (component: React.ReactElement) => {
   const queryClient = createQueryClient();
   return render(
-    <QueryClientProvider client={queryClient}>
-      {component}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{component}</QueryClientProvider>
   );
 };
 
-describe('UserPage', () => {
+describe("UserPage", () => {
   beforeAll(() => server.listen());
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  it('should display user data', async () => {
+  it("should display user data", async () => {
     // Arrange
     const mockUser: User = {
       id: 1,
-      name: 'Test User',
-      email: 'test@example.com',
-      createdAt: '2023-01-01T00:00:00Z'
+      name: "Test User",
+      email: "test@example.com",
+      createdAt: "2023-01-01T00:00:00Z",
     };
 
     server.use(
-      rest.get('/api/v1/users/1', (req, res, ctx) => {
+      rest.get("/api/v1/users/1", (req, res, ctx) => {
         return res(ctx.json(mockUser));
       })
     );
@@ -605,19 +645,19 @@ describe('UserPage', () => {
     renderWithQueryClient(<UserPage />);
 
     // Assert
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-    
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+
     await waitFor(() => {
-      expect(screen.getByText('Test User')).toBeInTheDocument();
-      expect(screen.getByText('test@example.com')).toBeInTheDocument();
+      expect(screen.getByText("Test User")).toBeInTheDocument();
+      expect(screen.getByText("test@example.com")).toBeInTheDocument();
     });
   });
 
-  it('should display error message', async () => {
+  it("should display error message", async () => {
     // Arrange
     server.use(
-      rest.get('/api/v1/users/1', (req, res, ctx) => {
-        return res(ctx.status(404), ctx.json({ error: 'User not found' }));
+      rest.get("/api/v1/users/1", (req, res, ctx) => {
+        return res(ctx.status(404), ctx.json({ error: "User not found" }));
       })
     );
 
@@ -626,92 +666,93 @@ describe('UserPage', () => {
 
     // Assert
     await waitFor(() => {
-      expect(screen.getByText('User not found')).toBeInTheDocument();
+      expect(screen.getByText("User not found")).toBeInTheDocument();
     });
   });
 });
 ```
 
 ### MSW Setup
+
 ```typescript
-import { setupServer } from 'msw/node';
-import { rest } from 'msw';
-import { User } from '../types';
+import { setupServer } from "msw/node";
+import { rest } from "msw";
+import { User } from "../types";
 
 // Mock data
 export const mockUsers: User[] = [
   {
     id: 1,
-    name: 'Test User 1',
-    email: 'test1@example.com',
-    createdAt: '2023-01-01T00:00:00Z'
+    name: "Test User 1",
+    email: "test1@example.com",
+    createdAt: "2023-01-01T00:00:00Z",
   },
   {
     id: 2,
-    name: 'Test User 2',
-    email: 'test2@example.com',
-    createdAt: '2023-01-02T00:00:00Z'
-  }
+    name: "Test User 2",
+    email: "test2@example.com",
+    createdAt: "2023-01-02T00:00:00Z",
+  },
 ];
 
 // API handlers
 export const handlers = [
   // GET /users
-  rest.get('/api/v1/users', (req, res, ctx) => {
+  rest.get("/api/v1/users", (req, res, ctx) => {
     return res(ctx.json(mockUsers));
   }),
 
   // GET /users/:id
-  rest.get('/api/v1/users/:id', (req, res, ctx) => {
+  rest.get("/api/v1/users/:id", (req, res, ctx) => {
     const { id } = req.params;
-    const user = mockUsers.find(u => u.id === Number(id));
-    
+    const user = mockUsers.find((u) => u.id === Number(id));
+
     if (!user) {
-      return res(ctx.status(404), ctx.json({ error: 'User not found' }));
+      return res(ctx.status(404), ctx.json({ error: "User not found" }));
     }
-    
+
     return res(ctx.json(user));
   }),
 
   // POST /users
-  rest.post('/api/v1/users', async (req, res, ctx) => {
+  rest.post("/api/v1/users", async (req, res, ctx) => {
     const userData = await req.json();
     const newUser: User = {
-      id: Math.max(...mockUsers.map(u => u.id)) + 1,
+      id: Math.max(...mockUsers.map((u) => u.id)) + 1,
       ...userData,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
-    
+
     mockUsers.push(newUser);
     return res(ctx.status(201), ctx.json(newUser));
   }),
 
   // PUT /users/:id
-  rest.put('/api/v1/users/:id', async (req, res, ctx) => {
+  rest.put("/api/v1/users/:id", async (req, res, ctx) => {
     const { id } = req.params;
     const updateData = await req.json();
-    const userIndex = mockUsers.findIndex(u => u.id === Number(id));
-    
+    const userIndex = mockUsers.findIndex((u) => u.id === Number(id));
+
     if (userIndex === -1) {
-      return res(ctx.status(404), ctx.json({ error: 'User not found' }));
+      return res(ctx.status(404), ctx.json({ error: "User not found" }));
     }
-    
+
     mockUsers[userIndex] = { ...mockUsers[userIndex], ...updateData };
     return res(ctx.json(mockUsers[userIndex]));
   }),
 
   // DELETE /users/:id
-  rest.delete('/api/v1/users/:id', (req, res, ctx) => {
+  rest.delete("/api/v1/users/:id", (req, res, ctx) => {
     const { id } = req.params;
-    const userIndex = mockUsers.findIndex(u => u.id === Number(id));
-    
+    const userIndex = mockUsers.findIndex((u) => u.id === Number(id));
+
     if (userIndex === -1) {
-      return res(ctx.status(404), ctx.json({ error: 'User not found' }));
+      return res(ctx.status(404), ctx.json({ error: "User not found" }));
     }
-    
+
     mockUsers.splice(userIndex, 1);
     return res(ctx.status(204));
-  })
+  }),
 ];
 
 // Server setup
@@ -722,3 +763,4 @@ export const server = setupServer(...handlers);
 
 **Version**: {{version}}
 **Last Updated**: {{updated_date}}
+

@@ -3,6 +3,7 @@
 ## Implementation Process
 
 ### Phase 1: Stub Creation
+
 Create skeleton implementations for all components with proper method signatures:
 
 ```javascript
@@ -23,6 +24,7 @@ class UserService {
 ```
 
 **Benefits:**
+
 - Immediate visibility of system structure
 - Clear dependency relationships via constructors
 - Early detection of integration issues
@@ -30,6 +32,7 @@ class UserService {
 - Type checking works immediately
 
 ### Phase 2: Test Writing (Red)
+
 Write tests that define expected behavior against the stubs:
 
 ```javascript
@@ -37,14 +40,13 @@ describe("UserService", () => {
   it("should create user with valid data", async () => {
     const mockRepo = {
       list: jest.fn().mockResolvedValue([]),
-      create: jest.fn().mockResolvedValue(savedEntity)
+      create: jest.fn().mockResolvedValue(savedEntity),
     };
     const mockEventBus = { publish: jest.fn() };
     const service = new UserService(mockRepo, mockEventBus);
 
     // Currently throws "Not Implemented"
-    await expect(service.create(entity))
-      .rejects.toThrow("Not Implemented");
+    await expect(service.create(entity)).rejects.toThrow("Not Implemented");
 
     // Document expected behavior for implementation
     // When implemented, should:
@@ -57,6 +59,7 @@ describe("UserService", () => {
 ```
 
 ### Phase 3: Implementation (Green)
+
 Replace stub with actual logic to make tests pass:
 
 ```javascript
@@ -80,31 +83,52 @@ async create(entity) {
 ## Stub Patterns
 
 ### Entity Stubs
+
 ```javascript
 class User {
-  static fromRequest(data) { throw new Error("Not Implemented"); }
-  static fromRecord(record) { throw new Error("Not Implemented"); }
-  toRecord() { throw new Error("Not Implemented"); }
-  toResponse() { throw new Error("Not Implemented"); }
+  static fromRequest(data) {
+    throw new Error("Not Implemented");
+  }
+  static fromRecord(record) {
+    throw new Error("Not Implemented");
+  }
+  toRecord() {
+    throw new Error("Not Implemented");
+  }
+  toResponse() {
+    throw new Error("Not Implemented");
+  }
 }
 ```
 
 ### Repository Stubs
+
 ```javascript
 class UserRepository {
   constructor(db) {
     this.db = db;
   }
 
-  async getUser(id) { throw new Error("Not Implemented"); }
-  async listUsers(filters) { throw new Error("Not Implemented"); }
-  async createUser(entity) { throw new Error("Not Implemented"); }
-  async updateUser(id, entity) { throw new Error("Not Implemented"); }
-  async deleteUser(id) { throw new Error("Not Implemented"); }
+  async getUser(id) {
+    throw new Error("Not Implemented");
+  }
+  async listUsers(filters) {
+    throw new Error("Not Implemented");
+  }
+  async createUser(entity) {
+    throw new Error("Not Implemented");
+  }
+  async updateUser(id, entity) {
+    throw new Error("Not Implemented");
+  }
+  async deleteUser(id) {
+    throw new Error("Not Implemented");
+  }
 }
 ```
 
 ### Service Stubs
+
 ```javascript
 class UserService {
   constructor(repo, eventBus) {
@@ -112,15 +136,26 @@ class UserService {
     this.eventBus = eventBus;
   }
 
-  async getUser(id) { throw new Error("Not Implemented"); }
-  async listUsers(filters) { throw new Error("Not Implemented"); }
-  async createUser(entity) { throw new Error("Not Implemented"); }
-  async updateUser(id, entity) { throw new Error("Not Implemented"); }
-  async deleteUser(id) { throw new Error("Not Implemented"); }
+  async getUser(id) {
+    throw new Error("Not Implemented");
+  }
+  async listUsers(filters) {
+    throw new Error("Not Implemented");
+  }
+  async createUser(entity) {
+    throw new Error("Not Implemented");
+  }
+  async updateUser(id, entity) {
+    throw new Error("Not Implemented");
+  }
+  async deleteUser(id) {
+    throw new Error("Not Implemented");
+  }
 }
 ```
 
 ### Router Stubs
+
 ```javascript
 class UserRouter {
   private readonly router: Router;
@@ -192,7 +227,9 @@ sequenceDiagram
 ```
 
 ### 1. Router Layer
+
 **Purpose:** HTTP handling, request/response transformation
+
 ```javascript
 // Stub
 class UserRouter {
@@ -224,7 +261,9 @@ class UserRouter {
 ```
 
 ### 2. Service Layer
+
 **Purpose:** Business logic orchestration, transaction management
+
 ```javascript
 // Stub
 class UserService {
@@ -249,14 +288,14 @@ class UserService {
     // Business validation
     const existing = await this.repo.list({ email: entity.email });
     if (existing.length > 0) {
-      throw new ConflictError('Email already exists');
+      throw new ConflictError("Email already exists");
     }
 
     // Create through repository
     const saved = await this.repo.create(entity);
 
     // Publish events
-    await this.eventBus.publish('user.created', saved);
+    await this.eventBus.publish("user.created", saved);
 
     return saved;
   }
@@ -264,7 +303,9 @@ class UserService {
 ```
 
 ### 3. Repository Layer
+
 **Purpose:** Data persistence, Entity/database transformation
+
 ```javascript
 // Stub
 class UserRepository {
@@ -285,49 +326,43 @@ class UserRepository {
 
   async create(entity) {
     const record = entity.toRecord();
-    const [row] = await this.db('users')
-      .insert(record)
-      .returning('*');
+    const [row] = await this.db("users").insert(record).returning("*");
     return User.fromRecord(row);
   }
 
   async get(id) {
-    const row = await this.db('users')
-      .where({ id })
-      .first();
-    if (!row) throw new NotFoundError('User not found');
+    const row = await this.db("users").where({ id }).first();
+    if (!row) throw new NotFoundError("User not found");
     return User.fromRecord(row);
   }
 
   async list(filters = {}) {
-    const rows = await this.db('users')
-      .where(filters)
-      .select('*');
-    return rows.map(row => User.fromRecord(row));
+    const rows = await this.db("users").where(filters).select("*");
+    return rows.map((row) => User.fromRecord(row));
   }
 
   async update(id, entity) {
     const record = entity.toRecord();
-    const [row] = await this.db('users')
+    const [row] = await this.db("users")
       .where({ id })
       .update(record)
-      .returning('*');
-    if (!row) throw new NotFoundError('User not found');
+      .returning("*");
+    if (!row) throw new NotFoundError("User not found");
     return User.fromRecord(row);
   }
 
   async delete(id) {
-    const deleted = await this.db('users')
-      .where({ id })
-      .delete();
-    if (!deleted) throw new NotFoundError('User not found');
+    const deleted = await this.db("users").where({ id }).delete();
+    if (!deleted) throw new NotFoundError("User not found");
     return true;
   }
 }
 ```
 
 ### 4. Entity Layer
+
 **Purpose:** Domain model, data transformation, validation
+
 ```javascript
 // Stub
 class User {
@@ -351,7 +386,7 @@ class User {
       email: data.email?.toLowerCase(),
       name: data.name?.trim(),
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   }
 
@@ -361,7 +396,7 @@ class User {
       email: record.email,
       name: record.name,
       createdAt: new Date(record.created_at),
-      updatedAt: new Date(record.updated_at)
+      updatedAt: new Date(record.updated_at),
     });
   }
 
@@ -370,7 +405,7 @@ class User {
       email: this.email,
       name: this.name,
       created_at: this.createdAt,
-      updated_at: this.updatedAt
+      updated_at: this.updatedAt,
     };
   }
 
@@ -378,7 +413,7 @@ class User {
     return {
       id: this.id,
       email: this.email,
-      name: this.name
+      name: this.name,
     };
   }
 }
@@ -409,7 +444,7 @@ class App {
 
     // Express app
     this.express = express();
-    this.express.use('/users', this.userRouter.router);
+    this.express.use("/users", this.userRouter.router);
   }
 
   async start(port) {
@@ -426,16 +461,18 @@ await app.start(3000);
 ## Testing Strategy
 
 Each layer tests its own responsibilities with clear boundaries:
+
 - **Mock what's above** (dependencies you call)
 - **Use real implementations below** (what you are)
 
 Entities are tested through their usage in Service and Repository tests - no separate Entity tests needed.
 
 ### Router Tests
+
 Test HTTP handling and Entity transformation, mock Service:
 
 ```javascript
-describe('UserRouter', () => {
+describe("UserRouter", () => {
   let router;
   let mockService;
   let req, res;
@@ -446,25 +483,25 @@ describe('UserRouter', () => {
       get: jest.fn(),
       list: jest.fn(),
       update: jest.fn(),
-      delete: jest.fn()
+      delete: jest.fn(),
     };
     router = new UserRouter(mockService);
 
     req = { body: {}, params: {}, query: {} };
     res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     };
   });
 
-  describe('create', () => {
-    it('should transform request and response', async () => {
-      req.body = { email: 'TEST@EXAMPLE.COM', name: '  Test User  ' };
+  describe("create", () => {
+    it("should transform request and response", async () => {
+      req.body = { email: "TEST@EXAMPLE.COM", name: "  Test User  " };
 
       const savedEntity = new User({
         id: 1,
-        email: 'test@example.com',
-        name: 'Test User'
+        email: "test@example.com",
+        name: "Test User",
       });
 
       mockService.create.mockResolvedValue(savedEntity);
@@ -474,8 +511,8 @@ describe('UserRouter', () => {
       // Verify Entity.fromRequest was used (normalized data)
       expect(mockService.create).toHaveBeenCalledWith(
         expect.objectContaining({
-          email: 'test@example.com',
-          name: 'Test User'
+          email: "test@example.com",
+          name: "Test User",
         })
       );
 
@@ -483,8 +520,8 @@ describe('UserRouter', () => {
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith({
         id: 1,
-        email: 'test@example.com',
-        name: 'Test User'
+        email: "test@example.com",
+        name: "Test User",
       });
     });
   });
@@ -492,10 +529,11 @@ describe('UserRouter', () => {
 ```
 
 ### Service Tests
+
 Test business logic with Entity objects, mock Repository:
 
 ```javascript
-describe('UserService', () => {
+describe("UserService", () => {
   let service;
   let mockRepo;
   let mockEventBus;
@@ -506,25 +544,25 @@ describe('UserService', () => {
       list: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
-      delete: jest.fn()
+      delete: jest.fn(),
     };
     mockEventBus = {
-      publish: jest.fn()
+      publish: jest.fn(),
     };
     service = new UserService(mockRepo, mockEventBus);
   });
 
-  describe('create', () => {
-    it('should create entity and publish event', async () => {
+  describe("create", () => {
+    it("should create entity and publish event", async () => {
       const inputEntity = new User({
-        email: 'test@example.com',
-        name: 'Test User'
+        email: "test@example.com",
+        name: "Test User",
       });
 
       const savedEntity = new User({
         id: 1,
-        email: 'test@example.com',
-        name: 'Test User'
+        email: "test@example.com",
+        name: "Test User",
       });
 
       mockRepo.list.mockResolvedValue([]);
@@ -532,22 +570,26 @@ describe('UserService', () => {
 
       const result = await service.create(inputEntity);
 
-      expect(mockRepo.list).toHaveBeenCalledWith({ email: 'test@example.com' });
+      expect(mockRepo.list).toHaveBeenCalledWith({ email: "test@example.com" });
       expect(mockRepo.create).toHaveBeenCalledWith(inputEntity);
-      expect(mockEventBus.publish).toHaveBeenCalledWith('user.created', savedEntity);
+      expect(mockEventBus.publish).toHaveBeenCalledWith(
+        "user.created",
+        savedEntity
+      );
       expect(result).toBe(savedEntity);
     });
 
-    it('should reject duplicate email', async () => {
+    it("should reject duplicate email", async () => {
       const entity = new User({
-        email: 'existing@example.com',
-        name: 'Test'
+        email: "existing@example.com",
+        name: "Test",
       });
 
       mockRepo.list.mockResolvedValue([entity]);
 
-      await expect(service.create(entity))
-        .rejects.toThrow('Email already exists');
+      await expect(service.create(entity)).rejects.toThrow(
+        "Email already exists"
+      );
 
       expect(mockRepo.create).not.toHaveBeenCalled();
     });
@@ -556,10 +598,11 @@ describe('UserService', () => {
 ```
 
 ### Repository Tests
+
 Test Entity/database transformation with real database:
 
 ```javascript
-describe('UserRepository', () => {
+describe("UserRepository", () => {
   let repo;
   let db;
 
@@ -569,24 +612,24 @@ describe('UserRepository', () => {
   });
 
   beforeEach(async () => {
-    await db('users').truncate();
+    await db("users").truncate();
   });
 
   afterAll(async () => {
     await db.destroy();
   });
 
-  describe('create', () => {
-    it('should transform entity to record and back', async () => {
+  describe("create", () => {
+    it("should transform entity to record and back", async () => {
       const entity = new User({
-        email: 'test@example.com',
-        name: 'Test User'
+        email: "test@example.com",
+        name: "Test User",
       });
 
       const saved = await repo.create(entity);
 
       // Verify Entity.toRecord worked (snake_case in DB)
-      const record = await db('users').where({ id: saved.id }).first();
+      const record = await db("users").where({ id: saved.id }).first();
       expect(record.created_at).toBeDefined();
       expect(record.updated_at).toBeDefined();
 
@@ -597,11 +640,11 @@ describe('UserRepository', () => {
     });
   });
 
-  describe('get', () => {
-    it('should retrieve entity by id', async () => {
+  describe("get", () => {
+    it("should retrieve entity by id", async () => {
       const entity = new User({
-        email: 'test@example.com',
-        name: 'Test User'
+        email: "test@example.com",
+        name: "Test User",
       });
 
       const created = await repo.create(entity);
@@ -609,19 +652,22 @@ describe('UserRepository', () => {
 
       expect(retrieved).toBeInstanceOf(User);
       expect(retrieved.id).toBe(created.id);
-      expect(retrieved.email).toBe('test@example.com');
+      expect(retrieved.email).toBe("test@example.com");
     });
 
-    it('should throw NotFoundError for invalid id', async () => {
-      await expect(repo.get(999))
-        .rejects.toThrow('User not found');
+    it("should throw NotFoundError for invalid id", async () => {
+      await expect(repo.get(999)).rejects.toThrow("User not found");
     });
   });
 
-  describe('list', () => {
-    it('should return array of entities', async () => {
-      await repo.create(new User({ email: 'user1@example.com', name: 'User 1' }));
-      await repo.create(new User({ email: 'user2@example.com', name: 'User 2' }));
+  describe("list", () => {
+    it("should return array of entities", async () => {
+      await repo.create(
+        new User({ email: "user1@example.com", name: "User 1" })
+      );
+      await repo.create(
+        new User({ email: "user2@example.com", name: "User 2" })
+      );
 
       const users = await repo.list();
 

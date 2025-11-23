@@ -3,6 +3,7 @@
 ## Layered Architecture Patterns
 
 ### Pattern 1: Standard CRUD API (Axum)
+
 ```
 Client → Handler → Service (Domain) → Repository → Database
                      ↓
@@ -10,6 +11,7 @@ Client → Handler → Service (Domain) → Repository → Database
 ```
 
 ### Pattern 2: External API Integration
+
 ```
 Client → Handler → Service (Domain) → Client → External API
                      ↓
@@ -17,6 +19,7 @@ Client → Handler → Service (Domain) → Client → External API
 ```
 
 ### Pattern 3: Event-Driven (Consumer)
+
 ```
 Event Source → Consumer → Service (Domain) → Repository → Database
                             ↓
@@ -24,6 +27,7 @@ Event Source → Consumer → Service (Domain) → Repository → Database
 ```
 
 ### Pattern 4: Event-Driven (Producer)
+
 ```
 Client → Handler → Service (Domain) → Producer → Event Broker
                      ↓
@@ -33,6 +37,7 @@ Client → Handler → Service (Domain) → Producer → Event Broker
 ## Rust-Specific Layer Implementation
 
 ### Handler Layer (Axum)
+
 ```rust
 use axum::{
     extract::{Path, State},
@@ -77,6 +82,7 @@ async fn get_user(
 ```
 
 ### Service Layer (Domain Logic)
+
 ```rust
 use std::sync::Arc;
 use crate::domains::users::{
@@ -119,6 +125,7 @@ impl UserService {
 ```
 
 ### Entity Layer (Domain Model)
+
 ```rust
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
@@ -165,12 +172,12 @@ impl UserEntity {
         let mut record = HashMap::new();
         record.insert("email".to_string(), serde_json::Value::String(self.email.clone()));
         record.insert("name".to_string(), serde_json::Value::String(self.name.clone()));
-        
+
         if let Some(created_at) = self.created_at {
-            record.insert("created_at".to_string(), 
+            record.insert("created_at".to_string(),
                 serde_json::Value::String(created_at.to_rfc3339()));
         }
-        
+
         record
     }
 
@@ -192,7 +199,7 @@ impl UserEntity {
         } else {
             let email_regex = Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
                 .map_err(|_| ValidationError::new("Invalid email regex".to_string()))?;
-            
+
             if !email_regex.is_match(&self.email) {
                 errors.push("Invalid email format".to_string());
             }
@@ -213,6 +220,7 @@ impl UserEntity {
 ```
 
 ### Repository Layer (SQLx)
+
 ```rust
 use sqlx::{PgPool, Row};
 use std::collections::HashMap;
@@ -256,9 +264,9 @@ impl UserRepository for PostgresUserRepository {
         result.insert("id".to_string(), serde_json::Value::Number(serde_json::Number::from(record.id)));
         result.insert("email".to_string(), serde_json::Value::String(record.email));
         result.insert("name".to_string(), serde_json::Value::String(record.name));
-        
+
         if let Some(created_at) = record.created_at {
-            result.insert("created_at".to_string(), 
+            result.insert("created_at".to_string(),
                 serde_json::Value::String(created_at.to_rfc3339()));
         }
 
@@ -283,12 +291,12 @@ impl UserRepository for PostgresUserRepository {
                 result.insert("id".to_string(), serde_json::Value::Number(serde_json::Number::from(row.id)));
                 result.insert("email".to_string(), serde_json::Value::String(row.email));
                 result.insert("name".to_string(), serde_json::Value::String(row.name));
-                
+
                 if let Some(created_at) = row.created_at {
-                    result.insert("created_at".to_string(), 
+                    result.insert("created_at".to_string(),
                         serde_json::Value::String(created_at.to_rfc3339()));
                 }
-                
+
                 Ok(Some(result))
             }
             None => Ok(None),
@@ -313,12 +321,12 @@ impl UserRepository for PostgresUserRepository {
                 result.insert("id".to_string(), serde_json::Value::Number(serde_json::Number::from(row.id)));
                 result.insert("email".to_string(), serde_json::Value::String(row.email));
                 result.insert("name".to_string(), serde_json::Value::String(row.name));
-                
+
                 if let Some(created_at) = row.created_at {
-                    result.insert("created_at".to_string(), 
+                    result.insert("created_at".to_string(),
                         serde_json::Value::String(created_at.to_rfc3339()));
                 }
-                
+
                 Ok(Some(result))
             }
             None => Ok(None),
@@ -346,12 +354,12 @@ impl UserRepository for PostgresUserRepository {
                 result.insert("id".to_string(), serde_json::Value::Number(serde_json::Number::from(row.id)));
                 result.insert("email".to_string(), serde_json::Value::String(row.email));
                 result.insert("name".to_string(), serde_json::Value::String(row.name));
-                
+
                 if let Some(created_at) = row.created_at {
-                    result.insert("created_at".to_string(), 
+                    result.insert("created_at".to_string(),
                         serde_json::Value::String(created_at.to_rfc3339()));
                 }
-                
+
                 Ok(Some(result))
             }
             None => Ok(None),
@@ -377,6 +385,7 @@ impl UserRepository for PostgresUserRepository {
 ## Dependency Injection (Axum)
 
 ### Application State
+
 ```rust
 use axum::Router;
 use std::sync::Arc;
@@ -406,6 +415,7 @@ pub fn create_app(state: AppState) -> Router {
 ## Database Integration (SQLx + PostgreSQL)
 
 ### Database Model
+
 ```rust
 use sqlx::FromRow;
 use chrono::{DateTime, Utc};
@@ -420,6 +430,7 @@ pub struct UserModel {
 ```
 
 ### Database Connection Setup
+
 ```rust
 use sqlx::{PgPool, postgres::PgPoolOptions};
 
@@ -439,6 +450,7 @@ pub async fn create_pool(database_url: &str) -> Result<PgPool, Box<dyn std::erro
 ## Docker Test Database Setup
 
 ### Test Container Setup
+
 ```rust
 use testcontainers::{clients::Cli, images::postgres::Postgres, Container};
 use sqlx::{PgPool, postgres::PgPoolOptions};
@@ -452,23 +464,23 @@ impl TestDatabase {
     pub async fn new() -> Result<Self, Box<dyn std::error::Error>> {
         let docker = Cli::default();
         let postgres_image = Postgres::default();
-        
+
         let container = docker.run(postgres_image);
         let port = container.get_host_port_ipv4(5432);
-        
+
         let database_url = format!(
             "postgresql://postgres:postgres@localhost:{}/postgres",
             port
         );
-        
+
         let pool = PgPoolOptions::new()
             .max_connections(5)
             .connect(&database_url)
             .await?;
-            
+
         // Run migrations
         sqlx::migrate!("./migrations").run(&pool).await?;
-        
+
         Ok(Self { container, pool })
     }
 }
@@ -477,9 +489,9 @@ impl TestDatabase {
 pub mod test_helpers {
     use super::*;
     use std::sync::OnceLock;
-    
+
     static TEST_DB: OnceLock<TestDatabase> = OnceLock::new();
-    
+
     pub async fn get_test_db() -> &'static TestDatabase {
         TEST_DB.get_or_init(|| async {
             TestDatabase::new().await.expect("Failed to create test database")
@@ -491,6 +503,7 @@ pub mod test_helpers {
 ## Error Handling (Rust)
 
 ### Custom Error Types
+
 ```rust
 use thiserror::Error;
 
@@ -498,16 +511,16 @@ use thiserror::Error;
 pub enum AppError {
     #[error("Validation error: {0}")]
     ValidationError(#[from] ValidationError),
-    
+
     #[error("Business rule error: {0}")]
     BusinessRuleError(#[from] BusinessRuleError),
-    
+
     #[error("Not found error: {0}")]
     NotFoundError(#[from] NotFoundError),
-    
+
     #[error("Database error: {0}")]
     DatabaseError(#[from] sqlx::Error),
-    
+
     #[error("Internal server error: {0}")]
     InternalError(String),
 }
@@ -550,6 +563,7 @@ impl NotFoundError {
 ```
 
 ### Error Response Implementation
+
 ```rust
 use axum::{
     http::StatusCode,
@@ -581,13 +595,14 @@ impl IntoResponse for AppError {
 ## Integration Testing with Axum
 
 ### Integration Test Example
+
 ```rust
 #[cfg(test)]
 mod integration_tests {
     use super::*;
     use axum_test::TestServer;
     use crate::test_helpers::get_test_db;
-    
+
     #[tokio::test]
     async fn test_create_user_integration() {
         // Arrange
@@ -595,7 +610,7 @@ mod integration_tests {
         let state = AppState::new(test_db.pool.clone()).await.unwrap();
         let app = create_app(state);
         let server = TestServer::new(app).unwrap();
-        
+
         // Act
         let response = server
             .post("/api/v1/users/")
@@ -604,7 +619,7 @@ mod integration_tests {
                 "name": "Test User"
             }))
             .await;
-        
+
         // Assert
         assert_eq!(response.status_code(), 201);
         let json: serde_json::Value = response.json();
@@ -612,7 +627,7 @@ mod integration_tests {
         assert_eq!(json["name"], "Test User");
         assert!(json["id"].is_number());
     }
-    
+
     #[tokio::test]
     async fn test_get_user_not_found() {
         // Arrange
@@ -620,10 +635,10 @@ mod integration_tests {
         let state = AppState::new(test_db.pool.clone()).await.unwrap();
         let app = create_app(state);
         let server = TestServer::new(app).unwrap();
-        
+
         // Act
         let response = server.get("/api/v1/users/999").await;
-        
+
         // Assert
         assert_eq!(response.status_code(), 404);
     }
@@ -634,3 +649,4 @@ mod integration_tests {
 
 **Version**: {{version}}
 **Last Updated**: {{updated_date}}
+

@@ -36,6 +36,7 @@ Focus areas:
 **🟢 MINOR:** Style inconsistencies, naming improvements, optimizations
 
 **Review Standards:**
+
 - Code follows project conventions and architectural patterns
 - Proper error handling and input validation
 - Test coverage for new functionality
@@ -51,6 +52,7 @@ Generate specific, actionable feedback with file locations and suggested improve
 **Summary:** Brief overview of changes and overall assessment
 
 **Issues by Severity:**
+
 - 🔴 `file:line` - Issue description → Suggested fix
 - 🟡 `file:line` - Issue description → Suggested fix
 - 🟢 `file:line` - Issue description → Suggested fix
@@ -58,6 +60,7 @@ Generate specific, actionable feedback with file locations and suggested improve
 **👍 Positive Aspects:** Highlight good practices and quality code
 
 **Recommendations:**
+
 - [ ] Required changes before merge
 - [ ] Suggested improvements for future
 - [ ] Testing recommendations

@@ -40,6 +40,7 @@ Based on the validation results above:
 
 **If all passed:**
 ✅ **Ready to commit!** All quality gates passed.
+
 - Build compiles successfully
 - Code style meets standards
 - All tests passing with good coverage
@@ -49,26 +50,31 @@ Based on the validation results above:
 ❌ **Fix required** - Review the specific errors above and address:
 
 **Build failures** → Check for:
+
 - TypeScript compilation errors
 - Missing dependencies or imports
 - Syntax errors or invalid code
 
 **Lint errors** → Address:
+
 - Code style inconsistencies
 - Unused variables or imports
 - Code complexity issues
 
 **Type errors** → Fix:
+
 - Type mismatches or missing types
 - Incorrect interface implementations
 - Generic type constraints
 
 **Test failures** → Resolve:
+
 - Failing unit or integration tests
 - Test setup or teardown issues
 - Update test expectations if behavior changed
 
 **Coverage issues** → Improve:
+
 - Add tests for uncovered code paths
 - Test edge cases and error conditions
 - Ensure critical business logic is tested
@@ -76,12 +82,14 @@ Based on the validation results above:
 ## Step 3: Recommendations
 
 **Next actions:**
+
 - Fix the specific issues identified above
 - Run `/code-validate` again to verify fixes
 - Consider `/code-review` for additional quality assessment
 - Ready to `/commit` once all validations pass
 
 **Quality gates:**
+
 - ✅ Build: Code compiles without errors
 - ✅ Lint: Code meets style standards
 - ✅ Types: Type safety maintained
