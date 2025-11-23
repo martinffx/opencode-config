@@ -1,7 +1,7 @@
 ---
 description: Create feature specification through structured requirements gathering
 agent: analyst
-model: opencode/kimi-k2
+model: opencode/glm-4.6
 temperature: 0.3
 ---
 
@@ -77,9 +77,12 @@ Provide context on existing relevant code and features in the codebase.
 }
 ```
 
-## Step 3: Requirements Analysis
+## Step 3: Create Specification Files
 
-@analyst combine requirements.json + context.json for comprehensive analysis.
+@scaffold generate specification files from requirements and context.
+
+Read: `docs/spec/$ARGUMENTS/requirements.json`
+Read: `docs/spec/$ARGUMENTS/context.json`
 
 Use sequential thinking to:
 - Parse raw user story into proper format
@@ -88,49 +91,20 @@ Use sequential thinking to:
 - Check for conflicts with existing features
 - Validate business rules against product vision
 
-### Output: `docs/spec/$ARGUMENTS/spec.json`
-```json
-{
-  "feature": "$ARGUMENTS",
-  "user_story": "As a...",
-  "acceptance_criteria": [
-    "GIVEN... WHEN... THEN...",
-    "User can..."
-  ],
-  "business_rules": ["..."],
-  "scope": {
-    "included": ["..."],
-    "excluded": ["..."]
-  },
-  "aligns_with": "product_vision",
-  "dependencies": ["auth"],
-  "technical_details": [{...}]
-}
-```
-
-## Step 4: Create Specification Files
-
-@scaffold generate specification files from analysis.
-
-Read: `docs/spec/$ARGUMENTS/spec.json`
-
 Apply template: spec template from standards
 
-Create files in `docs/spec/$ARGUMENTS/`:
+Create file in `docs/spec/$ARGUMENTS/`:
 - `spec.md` - Complete feature specification
-- `spec-lite.md` - Condensed version for AI context
-- `status.md` - Initial status tracking
-- `tasks.md` - Placeholder for implementation tasks
 
 ## ✅ Specification Complete
 
 Created complete feature specification with:
 - Structured requirements from analyst interview
 - Project context integration
-- Proper file organization
+- Single source of truth specification
 - Ready for technical design phase
 
 **Next steps:**
 1. Review the generated specification
-2. Create technical design: `/spec-design $ARGUMENTS`
-3. Or jump to planning: `/spec-plan $ARGUMENTS`
+2. Create technical design: `/spec/design $ARGUMENTS`
+3. Or jump to planning: `/spec/plan $ARGUMENTS`

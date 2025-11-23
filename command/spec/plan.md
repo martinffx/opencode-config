@@ -1,7 +1,7 @@
 ---
 description: Generate implementation tasks from technical design
 agent: architect
-model: openrouter/moonshotai/kimi-k2-thinking
+model: opencode/glm-4.6
 temperature: 0.2
 ---
 
@@ -12,7 +12,7 @@ temperature: 0.2
 @architect breakdown the design into TDD implementation tasks.
 
 Read:
-- `docs/spec/$ARGUMENTS/design.json`
+- `docs/spec/$ARGUMENTS/spec.md`
 - `docs/spec/$ARGUMENTS/design.md`
 
 Analyze technical design components and generate tasks:
@@ -93,18 +93,16 @@ Apply templates:
 - Task list template from standards
 - Status tracking template from standards
 
-Create files in `docs/spec/$ARGUMENTS/`:
-- `tasks.md` - Complete implementation task list with TDD workflow
-- `status.md` - Progress tracking initialized with task states
-- `plan.md` - High-level implementation strategy
+Create file in `docs/spec/$ARGUMENTS/`:
+- `tasks.md` - Complete implementation task list with embedded progress tracking
 
 ## ✅ Task Breakdown Complete
 
 Generated comprehensive implementation plan:
 - Tasks organized by TDD and layered architecture principles
-- Progress tracking system initialized with clear states
+- Progress tracking embedded in tasks.md
 - Time estimates calculated with AI assistance multipliers
 - Dependency analysis completed for parallel development
 - Ready to begin stub-driven implementation
 
-**Next step**: `/spec-implement $ARGUMENTS` to start TDD implementation
+**Next step**: `/spec/implement $ARGUMENTS` to start TDD implementation

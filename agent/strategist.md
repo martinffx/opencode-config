@@ -1,6 +1,7 @@
 ---
 description: Creative strategic thinking partner for exploring alternative approaches and challenging assumptions
-model: openrouter/deepseek/deepseek-v3.1-terminus
+mode: subagent
+model: opencode/glm-4.6
 temperature: 0.8
 reasoning:
   enabled: true

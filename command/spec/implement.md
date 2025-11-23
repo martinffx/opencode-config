@@ -12,8 +12,7 @@ temperature: 0.1
 @context retrieve task list and current implementation status.
 
 Load files:
-- `docs/spec/$ARGUMENTS/tasks.md` - Complete task breakdown
-- `docs/spec/$ARGUMENTS/status.md` - Current progress tracking
+- `docs/spec/$ARGUMENTS/tasks.md` - Complete task breakdown with progress tracking
 - `docs/spec/$ARGUMENTS/design.md` - Technical specifications
 - `docs/standards/tdd.md` - TDD implementation guidelines
 
@@ -50,8 +49,8 @@ Identify next task to implement or specific task if provided.
 @scaffold update progress tracking with completed work.
 
 Update files:
-- `docs/spec/$ARGUMENTS/status.md` - Mark task complete, update progress percentage
-- Add any new files created to status tracking
+- `docs/spec/$ARGUMENTS/tasks.md` - Mark task complete, update progress percentage
+- Add any new files created to task tracking
 - Identify next available task for implementation
 
 ## ✅ Task Complete
@@ -60,11 +59,11 @@ Implementation completed using TDD methodology:
 - Tests written first and all passing
 - Code follows architectural standards and patterns
 - Proper layer separation maintained
-- Progress tracking updated with completion status
+- Task progress tracking updated with completion status
 - Ready for next implementation task
 
 **Next options:**
-1. Continue next task: `/spec-implement $ARGUMENTS`
-2. Check feature progress: `/spec-progress $ARGUMENTS`
-3. Implement specific task: `/spec-implement $ARGUMENTS [task_id]`
+1. Continue next task: `/spec/implement $ARGUMENTS`
+2. Check feature progress: `/spec/progress $ARGUMENTS`
+3. Implement specific task: `/spec/implement $ARGUMENTS [task_id]`
 4. Review completed work: `/code-review $ARGUMENTS`

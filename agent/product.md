@@ -1,8 +1,10 @@
 ---
 description: Track progress and make strategic recommendations for Spec-Driven Development
 mode: subagent
-model: openrouter/deepseek/deepseek-v3.1-terminus
+model: opencode/glm-4.6
 temperature: 0.4
+reasoning:
+  enabled: true
 permissions:
   read: allow
   write: allow

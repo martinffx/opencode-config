@@ -1,7 +1,7 @@
 ---
 description: Check progress on specific feature or all active features
 agent: product
-model: openrouter/deepseek/deepseek-v3.1-terminus
+model: opencode/glm-4.6
 temperature: 0.4
 ---
 
@@ -12,11 +12,10 @@ temperature: 0.4
 @context retrieve feature progress information.
 
 **If specific feature provided:**
-- Load `docs/spec/$ARGUMENTS/status.md` and `docs/spec/$ARGUMENTS/tasks.md`
+- Load `docs/spec/$ARGUMENTS/tasks.md` (contains embedded progress tracking)
 - Load `docs/spec/$ARGUMENTS/design.md` for context
 
 **If no feature specified:**
-- Load all `docs/spec/*/status.md` files
 - Load all `docs/spec/*/tasks.md` files
 - Provide comprehensive project overview
 
@@ -70,7 +69,7 @@ Generate data-driven progress analysis with actionable insights.
 - **Risk mitigation**: [Potential issues to address]
 
 ### Next Commands
-- **Continue implementation**: `/spec-implement $ARGUMENTS`
-- **Review completed work**: `/code-review $ARGUMENTS`
+- **Continue implementation**: `/spec/implement $ARGUMENTS`
+- **Review completed work**: `/code/review $ARGUMENTS`
 - **Update roadmap priorities**: `/roadmap-update`
-- **Overall project status**: `/progress`
+- **Overall project status**: `/project/progress`

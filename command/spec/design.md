@@ -1,7 +1,7 @@
 ---
 description: Generate technical design from specification
 agent: architect
-model: openrouter/moonshotai/kimi-k2-thinking
+model: opencode/glm-4.6
 temperature: 0.2
 ---
 
@@ -12,8 +12,7 @@ temperature: 0.2
 @context read specification and standards files.
 
 Read files:
-- `docs/spec/$ARGUMENTS/*.md` → feature requirements
-- `docs/spec/$ARGUMENTS/*.json` → feature requirements
+- `docs/spec/$ARGUMENTS/spec.md` → feature requirements
 - `docs/standards/tech.md` → architecture (event-driven microservices)
 - `docs/standards/patterns/` → design patterns
 
@@ -27,25 +26,11 @@ requirements:
   business_rules: [validation/constraints]
 ```
 
-### Output: `docs/spec/$ARGUMENTS/design.json`
-```json
-{
-  "requirements": {
-    "entities": {...},
-    "data_persistence": {...},
-    "api_needed": {...},
-    "components": {...},
-    "domains": {...},
-    "business_rules": {...}
-  }
-}
-```
-
 ## Step 2: Analyze Technical Needs
 
-@architect analyze technical requirements from design.json.
+@architect analyze technical requirements from specification.
 
-From `docs/spec/$ARGUMENTS/design.json`, use sequential thinking to determine:
+From `docs/spec/$ARGUMENTS/spec.md`, use sequential thinking to determine:
 
 1. **Domain Entities**
    - Core entity: $ARGUMENTS
@@ -64,27 +49,10 @@ From `docs/spec/$ARGUMENTS/design.json`, use sequential thinking to determine:
    - Depends on: [existing features]
    - Required by: [future features]
 
-### Output: `docs/spec/$ARGUMENTS/design.json`
-```json
-{
-  "technical_needs": {
-    "domain_model": {
-      "entities": {...},
-      "services": {...}
-    },
-    "persistence": {...},
-    "router": {...},
-    "events": {...},
-    "dependencies": {...}
-  }
-}
-```
-
 ## Step 3: Generate Technical Design
 
 @architect apply architectural standards to create comprehensive technical design.
 
-Read `docs/spec/$ARGUMENTS/design.json` for existing context.
 Use sequential thinking to apply standards and create design:
 
 ### Component Architecture
@@ -152,27 +120,9 @@ subscribes:
   - [events from dependencies]
 ```
 
-### Output: `docs/spec/$ARGUMENTS/design.json`
-```json
-{
-  "design": {
-    "domain_model": {
-      "entities": {...},
-      "services": {...}
-    },
-    "database": {...},
-    "endpoints": {...},
-    "events": {...},
-    "dependencies": {...}
-  }
-}
-```
-
 ## Step 4: Create Design Documentation
 
 @scaffold generate design documentation from technical analysis.
-
-Read: `docs/spec/$ARGUMENTS/design.json`
 
 Apply template: design template from standards
 
@@ -188,5 +138,6 @@ The design includes:
 - API specification (if needed)
 - Component structure following standards
 - Event definitions for async communication
+- Single source of truth for technical design
 
-**Next step**: `/spec-plan $ARGUMENTS` to generate implementation tasks
+**Next step**: `/spec/plan $ARGUMENTS` to generate implementation tasks

@@ -1,7 +1,7 @@
 ---
 description: Use proactively to retrieve and extract relevant information from Agent OS documentation files. Checks if content is already in context before returning.
 mode: subagent
-model: opencode/qwen-coder
+model: opencode/glm-4.6
 temperature: 0.0
 permissions:
   read: allow

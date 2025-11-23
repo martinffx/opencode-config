@@ -28,7 +28,7 @@ Full diff for review:
 
 ## Step 2: Senior Engineer Review
 
-@coder analyze all changes with senior engineer perspective.
+@architect analyze all changes with senior engineer perspective.
 
 Focus areas:
 **🔴 CRITICAL:** Security vulnerabilities, data loss risks, breaking changes

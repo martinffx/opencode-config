@@ -1,8 +1,10 @@
 ---
 description: Transform business requirements into technical designs following project standards
 mode: subagent
-model: openrouter/moonshotai/kimi-k2-thinking
+model: opencode/glm-4.6
 temperature: 0.2
+reasoning:
+  enabled: true
 permissions:
   read: allow
   write: allow
