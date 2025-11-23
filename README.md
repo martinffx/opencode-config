@@ -30,17 +30,23 @@ executed by the opencode agent:
 
 ### Product Management
 
-- `/product-init` - Initialize project with requirements and documentation
-- `/product-roadmap` - Create and manage feature roadmap
-- `/product-progress` - Track project status and completion metrics
+- `/product/init` - Initialize project with requirements and documentation
+- `/product/status` - Track project status and completion metrics
+- `/product/update` - Update project requirements and documentation
 
 ### Specification Workflow
 
-- `/spec-create` - Create detailed feature specifications
-- `/spec-design` - Generate technical designs following architectural patterns
-- `/spec-plan` - Plan implementation with dependency-aware task ordering
-- `/spec-implement` - Execute implementation with TDD approach
-- `/spec-progress` - Track feature implementation status
+- `/spec/create` - Create detailed feature specifications
+- `/spec/design` - Generate technical designs following architectural patterns
+- `/spec/plan` - Plan implementation with dependency-aware task ordering
+- `/spec/implement` - Execute implementation with TDD approach
+- `/spec/progress` - Track feature implementation status
+
+### Code Management
+
+- `/code/commit` - Commit changes with proper formatting
+- `/code/review` - Conduct comprehensive code reviews
+- `/code/validate` - Validate code quality and standards
 
 ## 🤖 Specialized Agents
 
@@ -67,14 +73,20 @@ sdd-config/
 │   ├── scaffold.md
 │   └── strategist.md
 ├── command/            # SDD workflow command definitions
-│   ├── product-init.md
-│   ├── product-roadmap.md
-│   ├── product-progress.md
-│   ├── spec-create.md
-│   ├── spec-design.md
-│   ├── spec-plan.md
-│   ├── spec-implement.md
-│   └── spec-progress.md
+│   ├── product/        # Product management commands
+│   │   ├── init.md
+│   │   ├── status.md
+│   │   └── update.md
+│   ├── spec/           # Specification workflow commands
+│   │   ├── create.md
+│   │   ├── design.md
+│   │   ├── implement.md
+│   │   ├── plan.md
+│   │   └── progress.md
+│   └── code/           # Code management commands
+│       ├── commit.md
+│       ├── review.md
+│       └── validate.md
 ├── AGENTS.md          # Core opencode agent identity and guidelines
 ├── opencode.json      # opencode agent configuration and MCP settings
 └── README.md          # This file
