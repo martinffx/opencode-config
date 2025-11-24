@@ -1,5 +1,5 @@
 ---
-description: Track product status and update roadmap priorities (modes: default|update|verbose)
+description: "Track product status and update roadmap priorities (modes: default|update|verbose)"
 agent: product
 model: opencode/glm-4.6
 temperature: 0.4
