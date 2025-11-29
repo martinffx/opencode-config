@@ -14,8 +14,15 @@ temperature: 0.2
 Read files:
 
 - `docs/spec/$ARGUMENTS/spec.md` → feature requirements
-- `docs/standards/tech.md` → architecture (event-driven microservices)
-- `docs/standards/patterns/` → design patterns
+- `docs/standards/coding.md` → TDD implementation patterns and layered architecture
+- `docs/standards/architecture.md` → Architecture patterns and design principles
+
+@context7 enhance with latest framework documentation for detected stack.
+
+Fetch current documentation for:
+- Framework-specific architecture patterns
+- Latest best practices for detected technology stack
+- Current design patterns and conventions
 
 Extract key decisions needed:
 

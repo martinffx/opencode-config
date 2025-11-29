@@ -44,7 +44,15 @@ Stack Analysis:
 
 ## Step 3: Create/Update docs/standards/
 
-@scaffold create or update standards documentation based on detected stack.
+@context7 fetch latest standards and patterns for detected stack.
+
+Fetch current documentation for:
+- Latest coding standards and conventions
+- Current architectural patterns for detected stack
+- Modern testing strategies and best practices
+- Updated security and performance guidelines
+
+@scaffold create or update standards documentation using current best practices.
 
 ### Create Language-Specific Standards
 
@@ -58,11 +66,17 @@ Stack Analysis:
 3. **Language Match**: If template exists for language but no stack match → Use language patterns, add stack-specific sections
 4. **No Match**: Create generic standards based on language-agnostic principles
 
-### Generic Standards (Always Create/Update)
+### Context7 Enhancement Integration
 
-- `docs/standards/coding.md` - Language-agnostic coding principles
-- `docs/standards/sql.md` - If SQL database detected
-- `docs/standards/ddb.md` - If DynamoDB detected
+- Integrate latest framework patterns into standards
+- Update architectural guidance with current best practices
+- Enhance coding standards with modern conventions
+- Refresh testing strategies with current ecosystem approaches
+
+### Core Standards (Always Create/Update)
+
+- `docs/standards/coding.md` - TDD implementation patterns and coding principles
+- `docs/standards/architecture.md` - Architecture patterns and design principles
 
 ### Template Adaptation Process
 

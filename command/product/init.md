@@ -44,6 +44,14 @@ Stack Analysis:
 - Testing framework (if detectable)
 - Build system and package manager
 
+@context7 validate stack capabilities and current best practices.
+
+Validate detected stack against:
+- Current framework versions and capabilities
+- Latest ecosystem trends and maturity
+- Current best practices for detected technologies
+- Framework-specific architectural patterns
+
 ## Step 3: Create Project Structure
 
 @scaffold create project directory structure and documentation files.
@@ -78,11 +86,10 @@ The following files are created using the gathered requirements and detected tec
 - **architecture.md**: Language-specific layer patterns (adapted from templates)
 - **coding.md**: Language-specific TDD patterns and conventions (adapted from templates)
 
-### 📄 docs/standards/ (generic)
+### 📄 docs/standards/ (core)
 
-- **coding.md**: Language-agnostic coding principles
-- **sql.md**: SQL database standards (if database detected)
-- **ddb.md**: DynamoDB standards (if DynamoDB detected)
+- **coding.md**: TDD implementation patterns and coding principles
+- **architecture.md**: Architecture patterns and design principles
 
 ### 📄 CLAUDE.md
 

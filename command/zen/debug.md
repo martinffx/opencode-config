@@ -7,9 +7,16 @@ temperature: 0.3
 
 # Debug: Systematic Investigation & Bisect Debugging
 
-## Step 1: Parse Debug Request
+## Step 1: Parse Debug Request & Initialize Todo List
 
 @coder analyze the debug request: $ARGUMENTS
+
+@todowrite create debugging todo list.
+
+Initialize todo structure:
+- Main task: Debug $ARGUMENTS
+- Sub-tasks: Problem classification, investigation, solution
+- Tracking: Evidence collection, hypothesis evolution
 
 **Debug Context Extraction:**
 - **Error type**: [runtime, logic, integration, performance]
@@ -32,9 +39,13 @@ temperature: 0.3
 - **Context**: [environmental factors]
 - **Reproducibility**: [consistent/intermittent/rare]
 
-## Step 2: Strategy Selection
+@todowrite update todo list with problem classification results.
+
+## Step 2: Strategy Selection & Todo Planning
 
 @coder determine the optimal debugging strategy.
+
+@todowrite update todo list with selected strategy and investigation plan.
 
 **Bisect Debugging Criteria:**
 - ✅ Clear boundary between working and broken states
@@ -58,9 +69,16 @@ temperature: 0.3
 
 **Selected Strategy**: [bisect/systematic] based on problem characteristics
 
-## Step 3: Bisect Debugging (when applicable)
+**Todo List Updates:**
+- If bisect: Add boundary identification, midpoint testing, recursive narrowing tasks
+- If systematic: Add evidence collection, hypothesis evolution, code examination tasks
+- Mark strategy selection as completed
+
+## Step 3: Bisect Debugging (when applicable) & Todo Tracking
 
 @coder use sequential thinking to guide bisect debugging.
+
+@todowrite track bisect debugging progress in todo list.
 
 **Error Handling**: 
 - If sequential-thinking MCP server is unavailable: use manual framework below
@@ -81,6 +99,13 @@ sequential-thinking_sequentialthinking with:
 - **Max thoughts**: 8 (configurable via complexity)
 - **Performance monitoring**: Track response times
 - **Error handling**: Log errors and fallback to manual framework
+
+**Todo List Tracking:**
+- Mark boundary identification as in_progress
+- Track each midpoint test iteration
+- Update boundary narrowing progress
+- Record confidence level changes
+- Mark bisect completion when issue isolated
 
 **Fallback Manual Framework (if MCP unavailable):**
 1. **Boundary Identification**: Clearly define working vs broken states
@@ -118,9 +143,11 @@ sequential-thinking_sequentialthinking with:
 4. **Timeline Update**: Focus on problematic time period
 5. **Recursive Repeat**: Isolate specific change/time
 
-## Step 4: Systematic Investigation (when bisect not applicable)
+## Step 4: Systematic Investigation (when bisect not applicable) & Todo Tracking
 
 @coder use sequential thinking for comprehensive debugging analysis.
+
+@todowrite track systematic investigation progress in todo list.
 
 **Systematic Investigation Framework:**
 ```
@@ -139,6 +166,13 @@ sequential-thinking_sequentialthinking with:
 - **Performance monitoring**: Track response times
 - **Error handling**: Log errors and fallback to manual framework
 
+**Todo List Tracking:**
+- Mark problem description as in_progress
+- Track evidence collection findings
+- Record hypothesis evolution with confidence levels
+- Monitor code examination progress
+- Update context integration status
+
 **Fallback Manual Framework (if MCP unavailable):**
 1. **Problem Description**: Detailed symptom analysis and documentation
 2. **Code Review**: Systematic examination of relevant files
@@ -154,9 +188,13 @@ sequential-thinking_sequentialthinking with:
 4. **Hypothesis Evolution**: Develop and refine theories with confidence levels
 5. **Context Integration**: Consider environmental and integration factors
 
-## Step 5: Complete Analysis & Recommendations
+@todowrite update investigation phases as they complete.
+
+## Step 5: Complete Analysis & Recommendations & Finalize Todo List
 
 @coder provide final debugging analysis and solutions.
+
+@todowrite complete debugging todo list with solution and validation.
 
 **Root Cause Analysis:**
 - **Isolated Issue**: [specific problem identified]
@@ -174,6 +212,14 @@ sequential-thinking_sequentialthinking with:
 - **Testing Enhancements**: [catch issues earlier]
 - **Process Changes**: [improve development workflow]
 - **Monitoring Additions**: [detect issues proactively]
+
+**Todo List Completion:**
+- Mark root cause identification as completed
+- Update solution implementation status
+- Track validation testing progress
+- Record prevention strategy implementation
+- Mark main debugging task as completed
+- Archive todo list for future reference
 
 ---
 
