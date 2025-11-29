@@ -7,7 +7,13 @@ temperature: 0.2
 
 # Task Breakdown: $ARGUMENTS
 
-## Step 1: Generate Implementation Tasks
+## Step 1: Read Standards & Generate Tasks
+
+## Step 1.1: Read Project Standards
+@read docs/standards/coding.md
+@read docs/standards/architecture.md
+
+## Step 1.2: Generate Implementation Tasks
 
 @architect breakdown the design into TDD implementation tasks.
 
@@ -18,7 +24,8 @@ Read:
 
 Analyze technical design components and generate tasks:
 
-- Create tasks in stub-driven TDD order (Entity → Repository → Service → Router)
+- Create tasks following methodology from docs/standards/coding.md
+- Apply architectural patterns from docs/standards/architecture.md
 - Define task dependencies and phases
 - Estimate effort with AI assistance
 - Organize for parallel development where possible
@@ -108,10 +115,10 @@ Create file in `docs/spec/$ARGUMENTS/`:
 
 Generated comprehensive implementation plan:
 
-- Tasks organized by TDD and layered architecture principles
+- Tasks organized following project's documented methodology
 - Progress tracking embedded in tasks.md
 - Time estimates calculated with AI assistance multipliers
 - Dependency analysis completed for parallel development
-- Ready to begin stub-driven implementation
+- Ready to begin implementation following project standards
 
-**Next step**: `/spec/implement $ARGUMENTS` to start TDD implementation
+**Next step**: `/spec/implement $ARGUMENTS` to start implementation

@@ -26,6 +26,10 @@ Recent commits being reviewed:
 Full diff for review:
 !`git diff ${ARGUMENTS:-main}`
 
+## Step 1.2: Read Project Standards
+@read docs/standards/coding.md
+@read docs/standards/architecture.md
+
 ## Step 2: Senior Engineer Review
 
 @architect analyze all changes with senior engineer perspective.
@@ -37,13 +41,10 @@ Focus areas:
 
 **Review Standards:**
 
-- Code follows project conventions and architectural patterns
-- Proper error handling and input validation
-- Test coverage for new functionality
-- No security vulnerabilities or data exposure
-- Performance implications considered
-- Maintainable and readable code structure
-- Proper dependency injection and layer separation
+- Follow docs/standards/coding.md (Stub-Driven TDD, testing patterns)
+- Follow docs/standards/architecture.md (layered architecture)
+- Validate boundary testing and anti-patterns per standards
+- Ensure proper dependency injection and layer separation
 
 Generate specific, actionable feedback with file locations and suggested improvements.
 
@@ -53,6 +54,7 @@ Generate specific, actionable feedback with file locations and suggested improve
 
 **Issues by Severity:**
 
+- 🔴 **STANDARDS VIOLATIONS:** docs/standards/ non-compliance
 - 🔴 `file:line` - Issue description → Suggested fix
 - 🟡 `file:line` - Issue description → Suggested fix
 - 🟢 `file:line` - Issue description → Suggested fix
