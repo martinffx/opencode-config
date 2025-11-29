@@ -1,7 +1,7 @@
 ---
 description: Check progress on specific feature or all active features
 agent: product
-model: opencode/glm-4.6
+model: anthropic/claude-sonnet-4-5
 temperature: 0.4
 ---
 

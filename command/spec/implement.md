@@ -1,7 +1,7 @@
 ---
 description: Implement feature following TDD and architectural standards
 agent: coder
-model: opencode/glm-4.6
+model: anthropic/claude-sonnet-4-5
 temperature: 0.1
 ---
 

@@ -1,16 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin",
-  "model": "opencode/glm-4.6",
+  "model": "anthropic/claude-opus-4-5",
   "autoupdate": true,
   "agent": {
     "build": {
       "mode": "primary",
-      "model": "opencode/glm-4.6"
+"model": "anthropic/claude-sonnet-4-5"
     },
     "plan": {
       "mode": "primary",
-      "model": "opencode/glm-4.6",
+"model": "anthropic/claude-sonnet-4-5",
       "reasoning": {
         "enabled": true
       },

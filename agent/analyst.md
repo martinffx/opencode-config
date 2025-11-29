@@ -1,7 +1,7 @@
 ---
 description: Extract and structure requirements from user input through focused interviews
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-sonnet-4-5
 temperature: 0.3
 permissions:
   read: allow

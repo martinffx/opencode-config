@@ -1,7 +1,7 @@
 ---
 description: Transform business requirements into technical designs following project standards
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-sonnet-4-5
 temperature: 0.2
 reasoning:
   enabled: true

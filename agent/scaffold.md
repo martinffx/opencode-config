@@ -1,7 +1,7 @@
 ---
 description: Use proactively to scaffold files, directories, and apply templates for Spec-Driven Development workflows. Handles batch file creation with proper structure and boilerplate.
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-haiku-4-5
 temperature: 0.0
 permissions:
   read: allow

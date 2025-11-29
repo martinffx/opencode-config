@@ -1,7 +1,7 @@
 ---
 description: Generate implementation tasks from technical design
 agent: architect
-model: opencode/glm-4.6
+model: anthropic/claude-opus-4-5
 temperature: 0.2
 ---
 

@@ -1,7 +1,7 @@
 ---
 description: Generate technical design from specification
 agent: architect
-model: opencode/glm-4.6
+model: anthropic/claude-opus-4-5
 temperature: 0.2
 ---
 

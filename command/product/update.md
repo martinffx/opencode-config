@@ -1,7 +1,7 @@
 ---
 description: Update docs/standards and docs/product with latest methodology (tech-agnostic)
 agent: scaffold
-model: opencode/glm-4.6
+model: anthropic/claude-sonnet-4-5
 temperature: 0.3
 ---
 

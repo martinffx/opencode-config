@@ -1,7 +1,7 @@
 ---
 description: Track progress and make strategic recommendations for Spec-Driven Development
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-sonnet-4-5
 temperature: 0.4
 reasoning:
   enabled: true
