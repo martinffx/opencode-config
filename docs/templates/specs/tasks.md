@@ -53,7 +53,7 @@
 ---
 
 ## Implementation Notes
-- Tasks follow TDD methodology: Test → Code → Refactor
+- Tasks follow Stub-Driven TDD methodology: Stub → Test → Implement → Refactor
 - Layered architecture: Router → Service → Repository → Entity
 - Update task status by changing checkboxes: [ ] → [🔄] → [x]
 - Update progress tracking section when tasks are completed

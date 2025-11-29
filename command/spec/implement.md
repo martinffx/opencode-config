@@ -33,21 +33,28 @@ Identify next task to implement or specific task if provided.
 
 @todowrite update todo list with current TDD phase.
 
-**TDD Process (Red-Green-Refactor):**
+**TDD Process (Stub-Red-Green-Refactor):**
 
-1. **RED** - Write failing test for new functionality
-   - Update todo: Mark "RED: Write failing test" as in_progress
-2. **GREEN** - Write minimal code to pass the test
-   - Update todo: Mark "RED" complete, "GREEN: Implement minimal code" as in_progress
-3. **REFACTOR** - Improve code structure without changing behavior
+1. **STUB** - Create method signatures that throw `NotImplementedError`/`todo!()`
+   - Update todo: Mark "STUB: Create method signatures" as in_progress
+2. **RED** - Write test expecting error, then tests for actual behavior
+   - Update todo: Mark "STUB" complete, "RED: Write failing tests" as in_progress
+3. **GREEN** - Implement methods to make tests pass
+   - Update todo: Mark "RED" complete, "GREEN: Implement methods" as in_progress
+4. **REFACTOR** - Clean up code while maintaining test coverage
    - Update todo: Mark "GREEN" complete, "REFACTOR: Improve structure" as in_progress
-4. **REPEAT** - Continue cycle for each requirement
+5. **REPEAT** - Continue cycle for each boundary requirement
    - Update todo: Mark "REFACTOR" complete, move to next requirement
 
 **Implementation Standards:**
 
 - Follow architectural patterns from design.md
 - Maintain layer boundaries (Router → Service → Repository → Entity)
+- Test at layer boundaries: HTTP→mocked service, service→mocked repo, repo→docker db, client→MSW/VCR
+- Implement stub methods at boundaries first
+- Write tests to validate desired behavior, asserting calls to mocks
+- Don't test every method but instead validate behavior at boundaries
+- Follow dependency order: Entity → Repository → Service → Router (bottom-up)
 - Implement proper error handling and validation
 - Use dependency injection for testability
 - Write self-documenting code with clear naming
@@ -84,11 +91,13 @@ Update todo list:
 
 ## ✅ Task Complete
 
-Implementation completed using TDD methodology:
+Implementation completed using Stub-Driven TDD methodology:
 
-- Tests written first and all passing
+- Stub methods created with NotImplementedError/todo!() at boundaries
+- Tests written to validate behavior at layer boundaries
 - Code follows architectural standards and patterns
-- Proper layer separation maintained
+- Proper layer separation maintained with boundary testing
+- Mocks used appropriately for service/repository testing
 - Task progress tracking updated with completion status
 - Todo list completed with all phases tracked
 - Ready for next implementation task

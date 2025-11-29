@@ -18,7 +18,7 @@ Read:
 
 Analyze technical design components and generate tasks:
 
-- Create tasks in TDD order (Entity → Repository → Service → Router)
+- Create tasks in stub-driven TDD order (Entity → Repository → Service → Router)
 - Define task dependencies and phases
 - Estimate effort with AI assistance
 - Organize for parallel development where possible
