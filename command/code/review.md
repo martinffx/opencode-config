@@ -1,7 +1,7 @@
 ---
 description: Comprehensive code review as a Senior Engineer (specify branch or defaults to main)
 agent: architect
-model: anthropic/claude-haiku-4-5
+model: anthropic/claude-sonnet-4-5
 temperature: 0.1
 permissions:
   read: allow

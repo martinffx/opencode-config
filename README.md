@@ -14,14 +14,21 @@ is the specialized AI that executes SDD workflows.
 ## 🎯 Core Philosophy
 
 - **Lightweight documentation over heavyweight planning** - Replace PRDs with
-  minimal business context plus detailed implementation specs
+  minimal business context plus unified implementation specs
 - **Dependency-driven over sprint-driven** - Order tasks by technical
-  requirements (database → repository → service → API → UI)
+  requirements via Beads (database → repository → service → API → UI)
 - **AI-assisted implementation** - Structured specs enable AI agents to make
   informed technical decisions
 - **Prevention over debugging** - Spot issues in design, not production
 - **Progress over perfection** - Ship iteratively with enforced architectural patterns
 - **Measurement over assumptions** - Profile before optimizing, test before shipping
+
+## 📦 Dependencies
+
+- **Beads** - Git-backed dependency-aware issue tracker for AI agents
+  - Install: `npm install -g @beads/bd`
+  - Initialize: `bd init`
+  - Docs: https://github.com/steveyegge/beads
 
 ## 🛠️ Available Commands
 
@@ -36,11 +43,15 @@ executed by the opencode agent:
 
 ### Specification Workflow
 
-- `/spec/create` - Create detailed feature specifications
-- `/spec/design` - Generate technical designs following architectural patterns
-- `/spec/plan` - Plan implementation with dependency-aware task ordering
-- `/spec/implement` - Execute implementation with TDD approach
-- `/spec/progress` - Track feature implementation status
+- `/spec/init` - Create feature specification (greenfield or from existing code)
+- `/spec/work` - Implement next ready task using layer boundary testing
+- `/spec/sync` - Update spec from code (retroactive sync)
+- `/spec/status` - Track feature progress via Beads
+
+### Change Workflow
+
+- `/change/propose` - Propose changes to existing features (brownfield)
+- `/change/complete` - Merge delta into spec and close epic
 
 ### Code Management
 
@@ -71,9 +82,9 @@ SDD leverages a team of specialized AI agents, coordinated by the opencode agent
 ```
 sdd-config/
 ├── agent/              # Specialized agent configurations for opencode
-│   ├── analyst.md
-│   ├── architect.md
-│   ├── coder.md
+│   ├── analyst.md      # Requirements gathering (code-aware)
+│   ├── architect.md    # Technical design (contextual layers)
+│   ├── coder.md        # Implementation (stub→test→fix)
 │   ├── context.md
 │   ├── product.md
 │   ├── scaffold.md
@@ -82,21 +93,34 @@ sdd-config/
 │   ├── product/        # Product management commands
 │   │   ├── init.md
 │   │   ├── status.md
-│   │   └── update.md
-│   ├── spec/           # Specification workflow commands
-│   │   ├── create.md
-│   │   ├── design.md
-│   │   ├── implement.md
-│   │   ├── plan.md
-│   │   └── progress.md
-│   └── code/           # Code management commands
-│       ├── commit.md
-│       ├── review.md
-│       └── validate.md
+│   │   └── update.md   # Includes v1→v2 migration
+│   ├── spec/           # Specification commands
+│   │   ├── init.md     # Greenfield + code detection
+│   │   ├── work.md     # Implementation via Beads
+│   │   ├── sync.md     # Retroactive spec update
+│   │   └── status.md   # Progress via Beads
+│   ├── change/         # Change workflow commands
+│   │   ├── propose.md  # Brownfield change proposals
+│   │   └── complete.md # Merge delta, close epic
+│   ├── code/           # Code management commands
+│   │   ├── commit.md
+│   │   ├── review.md
+│   │   └── validate.md
 │   └── zen/            # Advanced thinking and analysis commands
 │       ├── challenge.md
 │       ├── debug.md
 │       └── thinkdeep.md
+├── docs/
+│   └── templates/
+│       ├── changes/    # Change proposal templates (NEW)
+│       │   ├── proposal.md
+│       │   └── delta.md
+│       ├── specs/      # Unified spec template
+│       │   └── spec.md # Requirements + Technical Design
+│       ├── product/
+│       │   ├── product.md
+│       │   └── roadmap.md
+│       └── standards/  # Tech-specific architecture & coding
 ├── AGENTS.md          # Core opencode agent identity and guidelines
 ├── opencode.json      # opencode agent configuration and MCP settings
 └── README.md          # This file
