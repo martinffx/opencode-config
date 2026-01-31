@@ -1,7 +1,7 @@
 ---
 description: Validate code changes with build, lint, and test pipeline
 agent: coder
-model: opencode/glm-4.6
+model: anthropic/claude-haiku-4-5
 temperature: 0.1
 permissions:
   read: allow

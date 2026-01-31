@@ -1,7 +1,7 @@
 ---
 description: Creative strategic thinking partner for exploring alternative approaches and challenging assumptions
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-opus-4-5
 temperature: 0.8
 reasoning:
   enabled: true

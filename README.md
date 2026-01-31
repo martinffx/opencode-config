@@ -1,4 +1,4 @@
-# SDD - Spec-Driven Development Framework
+# Atelier - Spec-Driven Development Framework
 
 A powerful development framework that accelerates feature delivery through
 structured specifications and dependency-driven task execution, executed
@@ -6,26 +6,134 @@ by the **opencode** AI agent.
 
 ## 🚀 Overview
 
-**SDD (Spec-Driven Development)** is a methodology that transforms AI from a
-tool requiring constant prompting into a team member that understands your
+**Atelier** is your development workshop - a methodology that transforms AI from a
+tool requiring constant prompting into a team member that understands YOUR
 standards, business context, and implementation approach. The **opencode** agent
-is the specialized AI that executes SDD workflows.
+is the specialized AI that executes Atelier workflows.
 
 ## 🎯 Core Philosophy
 
 - **Lightweight documentation over heavyweight planning** - Replace PRDs with
-  minimal business context plus detailed implementation specs
+  minimal business context plus unified implementation specs
 - **Dependency-driven over sprint-driven** - Order tasks by technical
-  requirements (database → repository → service → API → UI)
-- **AI-assisted implementation** - Structured specs enable AI agents to make
-  informed technical decisions
+  requirements via Beads (database → repository → service → API → UI)
+- **Your standards, enforced** - Atelier adapts to your patterns and architecture
 - **Prevention over debugging** - Spot issues in design, not production
 - **Progress over perfection** - Ship iteratively with enforced architectural patterns
 - **Measurement over assumptions** - Profile before optimizing, test before shipping
 
+## 🎨 Customization
+
+Atelier doesn't dictate how you build - it learns YOUR way. Define your standards once, 
+and the opencode agent enforces them across all features.
+
+### What You Can Customize
+
+**Architecture Patterns** (`docs/templates/standards/`)
+- Layer structure (e.g., Router → Service → Repository → Entity)
+- Dependency injection approach
+- Error handling patterns
+- Validation strategies
+- Testing methodology (TDD, contract testing, integration patterns)
+
+**Tech Stack Conventions**
+- Naming conventions (files, functions, classes)
+- Code organization (folder structure, module boundaries)
+- Framework-specific patterns (Next.js, Express, FastAPI, etc.)
+- Database patterns (ORMs, query builders, migrations)
+- API design (REST, GraphQL, RPC styles)
+
+**Development Workflow**
+- Git commit message format
+- Branch naming conventions
+- PR/review requirements
+- CI/CD expectations
+- Documentation requirements
+
+### How It Works
+
+1. **Define your standards** in `docs/templates/standards/`
+```
+   docs/templates/standards/
+   ├── architecture.md      # Your layer structure
+   ├── typescript.md        # TS-specific patterns
+   ├── testing.md          # TDD approach
+   ├── api-design.md       # REST/GraphQL patterns
+   └── database.md         # Schema, migrations, queries
+```
+
+2. **Opencode reads and enforces** - Every spec, design, and implementation follows YOUR patterns
+
+3. **Consistency guaranteed** - Same patterns across all features, all developers, all AI-generated code
+
+### Example: Custom Architecture
+```markdown
+# docs/templates/standards/architecture.md
+
+## Layer Structure
+1. **Router** - Route definitions only, delegate to services
+2. **Service** - Business logic, orchestration, transactions
+3. **Repository** - Data access, query building
+4. **Entity** - Domain models with validation
+5. **Database** - Schema definitions
+
+## Rules
+- Services never import routers
+- Repositories only query, never contain business logic
+- Entities validate themselves
+- All async operations use explicit error handling
+```
+
+Once defined, opencode generates specs that follow this structure:
+```typescript
+// Generated code follows YOUR architecture
+export class UserService {
+  constructor(private userRepo: UserRepository) {}
+  
+  async createUser(data: CreateUserDTO): Promise<User> {
+    // YOUR service patterns
+  }
+}
+```
+
+### Migration & Evolution
+
+Standards evolve. When you update your patterns:
+- `/spec/sync` updates existing specs to match new standards
+- `/code/validate` checks conformance
+- Brownfield changes via `/change/propose` respect current standards
+
+### Changing Methodologies
+
+Atelier's defaults (stub-driven TDD, layered architecture, DDD entities) are just that - defaults. 
+To use different approaches:
+
+| Want to change... | Update these files |
+|-------------------|-------------------|
+| **Testing methodology** (no stubs, test-after, integration-first) | `agent/coder.md` - modify the implementation pattern |
+| **Architecture layers** (flat, MVC, no repositories) | `docs/templates/standards/{lang}/architecture.md` |
+| **Entity patterns** (Active Record, no entities, functional) | `docs/templates/standards/{lang}/architecture.md` |
+| **Coding conventions** (naming, structure, imports) | `docs/templates/standards/{lang}/coding.md` |
+| **Agent behaviors** (analyst interview style, architect patterns) | `agent/*.md` files |
+| **Spec templates** (different sections, lighter/heavier) | `docs/templates/specs/spec.md` |
+
+**Example**: To remove stub-driven TDD, edit `agent/coder.md`:
+- Remove the "Stub Phase" requirement
+- Change "Stub→Test→Fix" to your preferred workflow (e.g., "Implement→Test→Refactor")
+- Update the "Boundaries" section to match your methodology
+
+The opencode agent reads these files at runtime - your changes apply immediately.
+
+## 📦 Dependencies
+
+- **Beads** - Git-backed dependency-aware issue tracker for AI agents
+  - Install: `npm install -g @beads/bd`
+  - Initialize: `bd init`
+  - Docs: https://github.com/steveyegge/beads
+
 ## 🛠️ Available Commands
 
-SDD provides a comprehensive workflow through specialized commands,
+Atelier provides a comprehensive workflow through specialized commands,
 executed by the opencode agent:
 
 ### Product Management
@@ -36,11 +144,15 @@ executed by the opencode agent:
 
 ### Specification Workflow
 
-- `/spec/create` - Create detailed feature specifications
-- `/spec/design` - Generate technical designs following architectural patterns
-- `/spec/plan` - Plan implementation with dependency-aware task ordering
-- `/spec/implement` - Execute implementation with TDD approach
-- `/spec/progress` - Track feature implementation status
+- `/spec/init` - Create feature specification (greenfield or from existing code)
+- `/spec/work` - Implement next ready task using layer boundary testing
+- `/spec/sync` - Update spec from code (retroactive sync)
+- `/spec/status` - Track feature progress via Beads
+
+### Change Workflow
+
+- `/change/propose` - Propose changes to existing features (brownfield)
+- `/change/complete` - Merge delta into spec and close epic
 
 ### Code Management
 
@@ -56,7 +168,7 @@ executed by the opencode agent:
 
 ## 🤖 Specialized Agents
 
-SDD leverages a team of specialized AI agents, coordinated by the opencode agent:
+Atelier leverages a team of specialized AI agents, coordinated by the opencode agent:
 
 - **📊 Analyst** - Requirements gathering and structured interviews
 - **🏗️ Architect** - Technical design and architecture enforcement
@@ -67,36 +179,52 @@ SDD leverages a team of specialized AI agents, coordinated by the opencode agent
 - **🎯 Strategist** - Alternative approaches and assumption challenging
 
 ## 📁 Project Structure
-
 ```
-sdd-config/
+atelier/
 ├── agent/              # Specialized agent configurations for opencode
-│   ├── analyst.md
-│   ├── architect.md
-│   ├── coder.md
+│   ├── analyst.md      # Requirements gathering (code-aware)
+│   ├── architect.md    # Technical design (contextual layers)
+│   ├── coder.md        # Implementation (stub→test→fix)
 │   ├── context.md
 │   ├── product.md
 │   ├── scaffold.md
 │   └── strategist.md
-├── command/            # SDD workflow command definitions
+├── command/            # Atelier workflow command definitions
 │   ├── product/        # Product management commands
 │   │   ├── init.md
 │   │   ├── status.md
 │   │   └── update.md
-│   ├── spec/           # Specification workflow commands
-│   │   ├── create.md
-│   │   ├── design.md
-│   │   ├── implement.md
-│   │   ├── plan.md
-│   │   └── progress.md
-│   └── code/           # Code management commands
-│       ├── commit.md
-│       ├── review.md
-│       └── validate.md
+│   ├── spec/           # Specification commands
+│   │   ├── init.md     # Greenfield + code detection
+│   │   ├── work.md     # Implementation via Beads
+│   │   ├── sync.md     # Retroactive spec update
+│   │   └── status.md   # Progress via Beads
+│   ├── change/         # Change workflow commands
+│   │   ├── propose.md  # Brownfield change proposals
+│   │   └── complete.md # Merge delta, close epic
+│   ├── code/           # Code management commands
+│   │   ├── commit.md
+│   │   ├── review.md
+│   │   └── validate.md
 │   └── zen/            # Advanced thinking and analysis commands
 │       ├── challenge.md
 │       ├── debug.md
 │       └── thinkdeep.md
+├── docs/
+│   └── templates/
+│       ├── changes/    # Change proposal templates
+│       │   ├── proposal.md
+│       │   └── delta.md
+│       ├── specs/      # Unified spec template
+│       │   └── spec.md # Requirements + Technical Design
+│       ├── product/
+│       │   ├── product.md
+│       │   └── roadmap.md
+│       └── standards/  # YOUR architecture & coding patterns
+│           ├── architecture.md
+│           ├── testing.md
+│           ├── [language].md
+│           └── [framework].md
 ├── AGENTS.md          # Core opencode agent identity and guidelines
 ├── opencode.json      # opencode agent configuration and MCP settings
 └── README.md          # This file
@@ -124,4 +252,5 @@ The opencode agent integrates with multiple Model Context Protocol (MCP) servers
 
 ---
 
-**Built for speed, quality, and consistency in AI-assisted development.**
+**Built for speed, quality, and consistency in AI-assisted development.**  
+**Your workshop. Your standards. Your way.**

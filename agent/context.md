@@ -1,7 +1,7 @@
 ---
 description: Use proactively to retrieve and extract relevant information from Agent OS documentation files. Checks if content is already in context before returning.
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-haiku-4-5
 temperature: 0.0
 permissions:
   read: allow
@@ -61,7 +61,7 @@ Request: "Find blocked tasks"
 ### For Architecture
 
 Request: "Get layered architecture pattern"
-→ `grep -A 15 "Layered Architecture" ./docs/standards/tech.md`
+→ `grep -A 15 "Layered Architecture" ./docs/templates/standards/{lang}/architecture.md`
 
 ## Output Format
 

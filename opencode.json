@@ -1,16 +1,25 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin",
-  "model": "opencode/glm-4.6",
+  "model": "anthropic/claude-sonnet-4-5",
   "autoupdate": true,
+  "keybinds": {
+    "command_list": "<leader>p",
+    "history_previous": "up,ctrl+p",
+    "history_next": "down,ctrl+n",
+    "messages_half_page_up": "ctrl+u,ctrl+alt+u",
+    "messages_page_up": "pageup,alt+v",
+    "messages_page_down": "pagedown,ctrl+v",
+    "input_clear": "ctrl+c,ctrl+g"
+  },
   "agent": {
     "build": {
       "mode": "primary",
-      "model": "opencode/glm-4.6"
+      "model": "anthropic/claude-sonnet-4-5"
     },
     "plan": {
       "mode": "primary",
-      "model": "opencode/glm-4.6",
+      "model": "anthropic/claude-opus-4-5",
       "reasoning": {
         "enabled": true
       },
@@ -57,7 +66,7 @@
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
       "headers": {
-        "CONTEXT7_API_KEY": "ctx7sk-ff468caa-1543-4877-9c3e-1a0390476b41"
+        "CONTEXT7_API_KEY": "ctx7sk-be936a83-6a34-4903-8504-48ce3943c13f"
       },
       "enabled": true
     }

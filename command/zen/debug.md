@@ -1,7 +1,7 @@
 ---
 description: Systematic debugging investigation with bisect methodology
 agent: coder
-model: opencode/gemini-3-pro
+model: anthropic/claude-opus-4-5
 temperature: 0.3
 ---
 

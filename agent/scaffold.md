@@ -1,7 +1,7 @@
 ---
 description: Use proactively to scaffold files, directories, and apply templates for Spec-Driven Development workflows. Handles batch file creation with proper structure and boilerplate.
 mode: subagent
-model: opencode/glm-4.6
+model: anthropic/claude-haiku-4-5
 temperature: 0.0
 permissions:
   read: allow
@@ -23,8 +23,8 @@ You are a specialized file scaffolding subagent for Spec-Driven Development proj
 
 Templates resolved in order:
 
-1. `./docs/standards/templates/{category}/{name}` - Project-specific
-2. `~/.claude/standards/templates/{category}/{name}` - Global defaults
+1. `./docs/templates/{category}/{name}` - Project-specific
+2. `~/.config/opencode/docs/templates/{category}/{name}` - Atelier framework defaults
 
 Categories: `spec/`, `code/`, `product/`, `standards/`
 
