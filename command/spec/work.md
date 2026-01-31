@@ -1,17 +1,17 @@
 ---
 description: Implement next ready task using layer boundary testing
-agent: coder
-model: opencode/glm-4.7
-temperature: 0.1
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 # Implementation: $ARGUMENTS
 
-Optional format: `<feature>` or `<feature> <change>` or empty (any ready task)
+Optional format: `<feature>` or empty (any ready task)
+
+**Note:** Implementation is loop-based with user approval for each task.
 
 ## Step 1: Check Beads and Find Ready Task
 
-@context check Beads installation and find next ready task.
+@clerk check Beads installation and find next ready task.
 
 Check Beads:
 ```bash
@@ -32,32 +32,55 @@ bd ready --json
 ```
 
 Parse result:
-- If no ready tasks → REPORT: "No ready tasks. Check status: /spec/status [feature]"
+- If no ready tasks → REPORT: "No ready tasks. Feature complete or check for blocked tasks."
 - If ready tasks found → Select first task
 
-Mark task in progress:
+## Step 2: Display Task and Get Approval
+
+Display task details:
+
+```
+Next ready task:
+  Description: <task-description>
+  Layer: <router|service|repository|entity>
+  Feature: <feature-name>
+  Dependencies: [all resolved or blocked list]
+```
+
+Ask user:
+```
+Ready to implement this task? [y/n/q]
+```
+
+**If user enters 'y' or 'yes':**
+- Continue to Step 3
+
+**If user enters 'n' or 'no':**
+- Output: "Work paused. Run /spec/work <feature> to resume when ready."
+- Exit
+
+**If user enters 'q' or 'quit':**
+- Output: "Exiting implementation loop. Re-run /spec/work to continue later."
+- Exit
+
+## Step 3: Mark Task and Load Context
+
+@clerk mark task in progress:
 ```bash
 bd update <task-id> --status in_progress
 ```
 
-## Step 2: Load Implementation Context
-
-@coder load all necessary context for implementation.
+@clerk load all necessary context for implementation.
 
 Read specifications:
-
-**If feature-only task:**
-- `docs/spec/<feature>/spec.md` → requirements and design
-
-**If change task:**
-- `docs/spec/<feature>/spec.md` → current state
-- `docs/changes/<feature>/<change>/delta.md` → changes to implement
+- `docs/spec/<feature>/spec.md` → requirements, design, implementation notes
+- `docs/spec/<feature>/plan.json` → layer breakdown, effort estimates
 
 Read standards:
 - `docs/templates/standards/{lang}/coding.md` → implementation patterns and testing
 - `docs/templates/standards/{lang}/architecture.md` → layered architecture patterns
 
-Extract from spec/delta:
+Extract from spec:
 - Entity definitions and methods
 - Service operations
 - Repository methods
@@ -65,9 +88,9 @@ Extract from spec/delta:
 - Database schema
 - Events
 
-## Step 3: Implement Using Stub→Test→Fix Pattern
+## Step 4: Implement Using Stub→Test→Fix Pattern
 
-@coder implement task following layer boundary testing approach.
+**Main agent implements task** following layer boundary testing approach.
 
 ### Layer Boundary Testing Pattern
 
@@ -173,26 +196,41 @@ Before marking complete:
 - [ ] Types/interfaces defined
 - [ ] No NotImplementedError remaining
 
-## Step 4: Handle Discovered Work
+## Step 5: Update Spec as Living Document
 
-During implementation, if new tasks are discovered:
+Main agent updates spec.md Implementation Notes section:
 
-**Create new Beads:**
-```bash
-bd create "Handle <edge case>" -t task -p 2 -l <feature>
-bd dep add <new-task-id> <current-task-id> --type discovered-from
+Read current spec.md.
+
+Add to Implementation Notes:
+
+```markdown
+## Implementation Notes
+
+- 2024-01-31 10:30: Entity created with validation
+  - UserEntity.fromRequest, toRecord, validate methods
+  - Tests: 5 passing
+
+- 2024-01-31 11:15: Repository with findByEmail and create  
+  - UserRepository with CRUD operations
+  - Tests: 7 passing
+
+- 2024-01-31 12:00: Service with validation and persistence
+  - UserService createUser, authenticate methods
+  - Tests: 4 passing
+
+- 2024-01-31 13:30: Router endpoints POST /api/users and POST /api/auth
+  - Auth handling added
+  - Tests: HTTP integration tests passing
 ```
 
-Examples of discovered work:
-- Edge cases not in spec
-- Additional validation needed
-- Performance optimization required
-- Missing error handling
-- Integration issues
+Write updated spec.md back to file.
 
-## Step 5: Mark Task Complete
+**Living Document:** spec.md is continually updated as implementation progresses. It becomes the definitive record of what was built.
 
-@coder verify all quality checks pass and close task.
+## Step 6: Mark Task Complete
+
+@clerk verify all quality checks pass and close task.
 
 Run tests:
 ```bash
@@ -201,25 +239,84 @@ npm test # or appropriate test command
 
 Verify all passing, then close task:
 ```bash
-bd close <task-id> --reason "Implemented <component> with layer boundary tests"
+bd close <task-id> --reason "Implemented <component> with layer boundary tests, spec.md updated"
 ```
 
-Check for next ready task:
+## Step 7: Loop for Next Task
+
+@clerk check for next ready task:
+
 ```bash
 bd ready --label <feature> --json
 ```
 
-## ✅ Task Complete
+If ready tasks found:
+- **Loop back to Step 2** (display next task, get approval, implement)
 
-Completed: [task description]
-- Implementation: [files modified]
-- Tests: [test files created/updated]
-- Coverage: [percentage if available]
+If no ready tasks:
+- **Proceed to Step 8**
 
-Next ready task: [task-id and description] or "None - feature complete"
+If blocked tasks found:
+- Output: "Blocked tasks detected. Check dependencies or re-prioritize."
+- Show blocked task list
+- Exit loop
+
+## Step 8: Loop Complete
+
+**Implementation Complete:**
+```
+Feature: <feature-name>
+Total tasks completed: {{count}}
+Remaining ready tasks: 0
+
+spec.md updated with:
+- Implementation Notes (living document)
+- Current state of all layers
+- Test coverage
+
+Beads status:
+- Epic: {{epic-id}}
+- Tasks: {{completed}}/{{total}}
+```
 
 **Next steps:**
 
-1. Continue next task: `/spec/work <feature>`
-2. Check feature progress: `/spec/status <feature>`
-3. Complete change: `/change/complete <feature> <change>` (when all tasks done)
+1. Review final implementation in spec.md
+2. Run full test suite
+3. Review feature: open spec.md and plan.json for summary
+4. Update roadmap: `/product/update` if needed
+
+## Example Workflow
+
+```
+$ /spec/work user-auth
+
+Next ready task:
+  Description: user-auth entity + validation
+  Layer: entity
+  Feature: user-auth
+  Dependencies: [all resolved]
+
+Ready to implement this task? [y/n/q]
+> y
+
+[Implementation proceeds...]
+
+Task completed: entity layer
+spec.md Implementation Notes updated
+
+Next ready task:
+  Description: user-auth repository
+  Layer: repository  
+  Feature: user-auth
+  Dependencies: [entity]
+
+Ready to implement this task? [y/n/q]
+> y
+
+... [continues until done or user quits]
+```
+
+## ✅ Feature Complete
+
+Spec is a living document reflecting the actual implementation!

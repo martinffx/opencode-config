@@ -1,15 +1,16 @@
 ---
 description: Update docs/standards and docs/product with latest methodology (tech-agnostic)
-agent: scaffold
+agent: oracle
 model: opencode/glm-4.7
 temperature: 0.3
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 # Update Standards & Product Documentation
 
 ## Step 1: Check for SDD v1 Format (Migration)
 
-@context detect old SDD format and offer migration.
+@clerk detect old SDD format and offer migration.
 
 Check for SDD v1 indicators:
 ```bash
@@ -37,7 +38,8 @@ Continue? [y/n]
 
 ### Step 1.1: Install/Initialize Beads
 
-Check Beads:
+@clerk check Beads:
+
 ```bash
 bd --version
 ```
@@ -57,7 +59,7 @@ bd init
 
 ### Step 1.2: Migrate Each Feature
 
-For each directory in `docs/spec/*/`:
+@clerk process each directory in `docs/spec/*/`:
 
 **a) Merge spec.md + design.md:**
 
@@ -74,7 +76,7 @@ Write to `docs/spec/<feature>/spec.md`
 
 **b) Import tasks to Beads:**
 
-Read `docs/spec/<feature>/tasks.md`
+@clerk read `docs/spec/<feature>/tasks.md`
 
 Parse task structure and create Beads:
 ```bash
@@ -99,7 +101,7 @@ rm docs/spec/<feature>/plan.json
 
 ### Step 1.3: Update .gitignore
 
-Add Beads cache to `.gitignore`:
+@clerk add Beads cache to `.gitignore`:
 ```
 # Beads (SDD v2)
 .beads/beads.db
@@ -134,7 +136,7 @@ Continue to standard update flow below.
 
 ## Step 2: Explore Repository Structure
 
-@context analyze repository structure to understand the project.
+@clerk analyze repository structure to understand the project.
 
 Explore:
 
@@ -145,7 +147,7 @@ Explore:
 
 ## Step 3: Detect Technology Stack (Agnostic)
 
-@context analyze project to detect technology stack without assumptions.
+@clerk analyze project to detect technology stack without assumptions.
 
 Detection Strategy:
 
@@ -169,7 +171,7 @@ Stack Analysis:
 
 ## Step 4: Create/Update docs/standards/
 
-@context7 fetch latest standards and patterns for detected stack.
+@clerk fetch latest standards and patterns for detected stack.
 
 Fetch current documentation for:
 - Latest coding standards and conventions
@@ -177,7 +179,7 @@ Fetch current documentation for:
 - Modern testing strategies and best practices
 - Updated security and performance guidelines
 
-@scaffold create or update standards documentation using current best practices.
+@clerk create or update standards documentation using current best practices.
 
 ### Copy Templates from Atelier Framework
 
@@ -192,7 +194,7 @@ Source templates from Atelier framework:
 3. **Language Match**: If template exists for language but no stack match → Use language patterns, add stack-specific sections
 4. **No Match**: Create generic standards based on language-agnostic principles
 
-### Context7 Enhancement Integration
+### Enhancement Integration
 
 - Integrate latest framework patterns into standards
 - Update architectural guidance with current best practices
@@ -217,7 +219,7 @@ When adapting templates:
 
 ## Step 5: Create/Update docs/product/
 
-@scaffold create or update product documentation.
+@clerk create or update product documentation.
 
 ### Product Documentation Files
 
@@ -233,7 +235,7 @@ When adapting templates:
 
 ## Step 6: Validate Standards Application
 
-@context validate that standards are properly applied and complete.
+@clerk validate that standards are properly applied and complete.
 
 Validation Checks:
 
@@ -272,4 +274,3 @@ Validation Checks:
 - **Coding**: Stub-driven TDD approach and language-specific conventions
 - **Testing**: Unit and integration test strategies
 - **Documentation**: Product context and roadmap management
-

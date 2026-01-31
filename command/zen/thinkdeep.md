@@ -1,15 +1,13 @@
 ---
 description: Extended reasoning partner for deep analysis using sequential thinking
-agent: strategist
-model: opencode/kimi-k2.5
-temperature: 0.7
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 # ThinkDeep: Extended Reasoning Analysis
 
 ## Step 1: Parse Request Parameters
 
-@strategist analyze the thinkdeep request: $ARGUMENTS
+@oracle analyze the thinkdeep request: $ARGUMENTS
 
 **Parameter Extraction:**
 - **Main prompt**: [extract core thinking request]
@@ -47,7 +45,7 @@ temperature: 0.7
 - If MCP server returns error: log error and fallback with user notification
 - If timeout occurs: retry once, then fallback to manual framework
 
-@strategist use sequential-thinking to perform extended reasoning on the parsed request.
+@oracle use sequential-thinking to perform extended reasoning on the parsed request.
 
 **Sequential Thinking Configuration:**
 - **Initial depth**: [determine based on thinking_mode]
@@ -133,7 +131,7 @@ Combine insights into recommendations:
 
 ## Step 3: Critical Evaluation & Synthesis
 
-@strategist perform critical evaluation of the sequential thinking results.
+@oracle perform critical evaluation of the sequential thinking results.
 
 **Self-Critique Questions:**
 - Does the analysis address the user's specific context?

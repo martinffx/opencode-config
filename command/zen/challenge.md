@@ -1,15 +1,15 @@
 ---
 description: Challenge an approach or validate ideas with critical thinking
-agent: strategist
-model: opencode/kimi-k2.5
-temperature: 0.5
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 # Challenge: Critical Thinking Prompt
 
+**Note:** Strategic thinking is performed by the oracle agent.
+
 ## Step 1: Parse Challenge Request
 
-@strategist analyze the challenge request: $ARGUMENTS
+@oracle analyze the challenge request: $ARGUMENTS
 
 **Challenge Extraction:**
 - **Core concern**: [extract the main doubt or question]
@@ -19,7 +19,7 @@ temperature: 0.5
 
 **Parameter Validation:**
 - **Thinking mode**: Validate "minimal|low|medium|high|max" if specified
-- **Model preference**: Validate model options if specified  
+- **Model preference**: Validate model options if specified
 - **File references**: Check if referenced files exist, are accessible, and within allowed directories
 - **Session context**: Ensure current session provides relevant background
 - **Input sanitization**: Remove potentially malicious characters, validate argument length limits
@@ -32,7 +32,7 @@ In context of: [session context]
 
 ## Step 2: Set Up Critical Thinking Framework
 
-@strategist establish the critical thinking framework for this challenge.
+@oracle establish the critical thinking framework for this challenge.
 
 **What to Question:**
 - **Underlying assumptions**: What beliefs support this approach?
@@ -50,9 +50,9 @@ In context of: [session context]
 
 ## Step 3: Prompt Sequential Thinking
 
-**Error Handling**: 
-- If sequential-thinking MCP server is unavailable: use manual framework below
-- If MCP server returns error: log error and fallback with user notification
+**Error Handling:**
+- If sequential-thinking tool unavailable: use manual framework below
+- If tool returns error: log error and fallback with user notification
 - If timeout occurs: retry once, then fallback to manual framework
 
 Now use sequential thinking to critically evaluate this challenge:
@@ -91,7 +91,7 @@ sequential-thinking_sequentialthinking with:
 - Continue until satisfaction
 ```
 
-**Fallback Manual Framework (if MCP unavailable):**
+**Fallback Manual Framework (if tool unavailable):**
 1. **Assumption Analysis**: List all underlying assumptions
 2. **Evidence Review**: Gather supporting and contradicting evidence  
 3. **Alternative Exploration**: Consider 2-3 different approaches
@@ -101,7 +101,7 @@ sequential-thinking_sequentialthinking with:
 
 ## Step 4: Critical Thinking Guidance
 
-@strategist provide guidance for effective sequential thinking application.
+@oracle provide guidance for effective sequential thinking application.
 
 **Sequential Thinking Best Practices:**
 
@@ -128,8 +128,8 @@ sequential-thinking_sequentialthinking with:
 **Integration with Spec-Driven Development:**
 - Challenge architectural decisions during `/spec/design`
 - Question implementation approaches during `/spec/implement`
-- Validate requirements during `/spec-create`
-- Review progress during `/spec-progress`
+- Validate requirements during `/spec/create`
+- Review progress during `/spec/progress`
 
 ---
 

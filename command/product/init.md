@@ -1,151 +1,110 @@
 ---
 description: Initialize project by gathering requirements and creating product documentation
-agent: analyst
+agent: oracle
 model: opencode/glm-4.7
 temperature: 0.3
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 # Initialize Project: $ARGUMENTS
 
 ## Step 1: Gather Project Information
 
-@analyst conduct structured requirements interview for $ARGUMENTS.
+@oracle conduct project interview.
 
-Gather:
+**What is this project about?**
+Project name and purpose:
+[Wait for response]
 
-1. Product definition (what are you building - one sentence)
-2. Target users (who will use it - be specific)
-3. Core features (3-5 main features)
-4. Tech stack preferences (frontend, backend, database)
+**Target users:**
+Who will use this product?
+[Wait for response]
 
-Structure requirements for documentation.
+**Core value propositions:**
+What makes this unique?
+[Wait for response]
 
-## Step 2: Detect Technology Stack (Agnostic)
+## Step 2: Create Project Structure
 
-@context analyze project to detect technology stack without assumptions.
+@clerk create initial project directories.
 
-Detection Strategy:
+Create directories:
+```bash
+mkdir -p docs/product
+mkdir -p docs/spec
+mkdir -p docs/changes
+mkdir -p docs/templates/specs
+mkdir -p docs/templates/changes
+mkdir -p docs/templates/product
+mkdir -p docs/templates/standards
+mkdir -p docs/templates/standards/{language}
+```
 
-- **Rust**: Look for `Cargo.toml`
-- **Node.js/TypeScript/React**: Look for `package.json`
-- **Python**: Look for `pyproject.toml`, `requirements.txt`, `setup.py`
-- **Go**: Look for `go.mod`
-- **Java**: Look for `pom.xml`, `build.gradle`
-- **C#**: Look for `.csproj`, `packages.config`
-- **Ruby**: Look for `Gemfile`
-- **PHP**: Look for `composer.json`
-- **Other**: Analyze file patterns and directory structure
+## Step 3: Generate Product Documentation
 
-Stack Analysis:
+@clerk create initial product files from templates.
 
-- Primary programming language
-- Web framework (if any)
-- Database technology (if detectable)
-- Testing framework (if detectable)
-- Build system and package manager
+Create `docs/product/product.md`:
+- Product name
+- Mission statement
+- Core features
+- Target users
+- Value propositions
 
-@context7 validate stack capabilities and current best practices.
+Create `docs/product/roadmap.md`:
+- Initial roadmap items
+- Priorities
+- Timeline
 
-Validate detected stack against:
-- Current framework versions and capabilities
-- Latest ecosystem trends and maturity
-- Current best practices for detected technologies
-- Framework-specific architectural patterns
+Templates applied from: `docs/templates/product/`
 
-## Step 3: Create Project Structure
+## Step 4: Initialize Technology Standards
 
-@scaffold create project directory structure and documentation files.
+@architect create initial coding standards for the chosen technology stack.
 
-Create:
+**What is the primary technology stack?**
+- Language options:
+  - TypeScript (Node.js)
+  - Python
+  - Rust
+  - React (frontend)
+  - [Other]
 
-- `docs/product/` directory with product.md and roadmap.md
-- `docs/spec/` directory for feature specifications
-- `docs/standards/` directory with language-specific and generic standards
-- Root CLAUDE.md file with project overview
+[Wait for response]
 
-Apply templates with project data from Step 1 and detected stack from Step 2 using template adaptation strategy.
+Write `docs/templates/standards/{language}/architecture.md`:
+- Layered architecture patterns
+- Component responsibilities
+- Data flow patterns
 
-## Step 4: Files Created
+Write `docs/templates/standards/{language}/coding.md`:
+- Code style conventions
+- Testing patterns
+- Error handling
 
-The following files are created using the gathered requirements and detected technology stack:
+## Step 5: Initialize Beads
 
-### 📄 docs/product/product.md
+@clerk ensure Beads is initialized.
 
-- Product definition and target users
-- Core features list
-- Success metrics
-
-### 📄 docs/product/roadmap.md
-
-- Next 3 features in priority order
-- Implementation strategy
-- Current status
-
-### 📄 docs/standards/{language}/
-
-Source: Copy from `~/.config/opencode/docs/templates/standards/{language}/`
-- **architecture.md**: Language-specific layer patterns (adapted from templates)
-- **coding.md**: Language-specific TDD patterns and conventions (adapted from templates)
-
-### 📄 docs/standards/ (core)
-
-Source: Symlink or copy from `~/.config/opencode/docs/templates/standards/{language}/`
-- **coding.md**: TDD implementation patterns and coding principles  
-- **architecture.md**: Architecture patterns and design principles
-
-### 📄 CLAUDE.md
-
-- Project overview and available commands
-- Quick start guide
-
-## Step 5: Template-Based Standards Applied
-
-Based on detected technology stack, standards are created using template adaptation strategy:
-
-### Template Selection Strategy
-
-1. **Exact Match**: If template exists for detected stack → Use directly
-2. **Similar Match**: If template exists for same language, different framework → Adapt framework-specific parts
-3. **Language Match**: If template exists for language but no stack match → Use language patterns, add stack-specific sections
-4. **No Match**: Create generic standards based on language-agnostic principles
-
-### Standards Applied
-
-- **Architecture Patterns**: Layered architecture adapted for detected stack
-- **Coding Standards**: Stub-driven TDD approach with language-specific conventions
-- **Testing Strategy**: Unit and integration test patterns for detected stack
-- **Database Integration**: Database patterns adapted for detected database technology
-- **Development Workflow**: Build, test, and deployment patterns for detected stack
-
-### Language-Agnostic Principles Preserved
-
-- Layered architecture (Router → Service → Repository → Entity → Database)
-- Stub-driven TDD workflow (Stub → Test → Implement → Refactor)
-- Domain-driven design patterns
-- Dependency injection principles
-- Error handling patterns
+```bash
+bd --version
+```
+If fails:
+```bash
+npm install -g @beads/bd
+bd init
+```
 
 ## ✅ Project Initialized
 
-Created documentation structure with:
+Created:
+- `docs/product/product.md` - Product vision and objectives
+- `docs/product/roadmap.md` - Roadmap with initial features
+- `docs/templates/standards/{language}/` - Technical standards
+- `.beads/` - Task tracking initialized
 
-- Product definition and roadmap
-- Technology-agnostic stack detection
-- Template-based standards with adaptation strategy
-- Language-specific and generic technical standards
-- TDD workflow and testing strategy
-- AI-friendly command reference
-- Multi-stack support with unified product documentation
+**Next steps:**
 
-**Next action**: `/spec/create authentication` to build your first feature
-
-## Multi-Stack Support
-
-If multiple technology stacks are detected:
-
-- Separate standards directories created for each detected stack
-- Cross-stack project structure with shared product documentation
-- Stack-specific standards applied independently
-- Unified `docs/product/` documentation with stack-specific implementation notes
-- Generic standards in `docs/standards/` apply across all stacks
-- Template adaptation applied per stack independently
+1. Define first feature: `/spec/init <feature-name>`
+2. Gather product backlog items
+3. Start implementing features

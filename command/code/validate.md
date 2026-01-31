@@ -1,6 +1,6 @@
 ---
 description: Validate code changes with build, lint, and test pipeline
-agent: coder
+tools: Read, Glob, Grep, Write, Edit, Bash
 model: opencode/minimax-m2.1
 temperature: 0.1
 permissions:
@@ -13,7 +13,7 @@ permissions:
 
 ## Step 1: Quality Pipeline
 
-@coder execute comprehensive validation pipeline.
+Main agent execute comprehensive validation pipeline.
 
 Running validation checks:
 
@@ -34,7 +34,7 @@ Running validation checks:
 
 ## Step 2: Results Analysis
 
-@coder analyze validation results and provide specific guidance.
+Main agent analyze validation results and provide specific guidance.
 
 Based on the validation results above:
 

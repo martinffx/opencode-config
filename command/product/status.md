@@ -1,15 +1,16 @@
 ---
 description: "Track product status and update roadmap priorities (modes: default|update|verbose)"
-agent: product
+agent: oracle
 model: opencode/glm-4.7
 temperature: 0.4
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 # Product Status & Roadmap Management
 
 ## Step 1: Load Project State
 
-@context gather comprehensive project data.
+@clerk gather comprehensive project data.
 
 Retrieve:
 
@@ -22,7 +23,7 @@ Load all project state data for analysis.
 
 ## Step 2: Analyze Progress & Calculate Metrics
 
-@product perform comprehensive progress analysis using the context data.
+@oracle perform comprehensive progress analysis using the context data.
 
 Calculate:
 
@@ -68,15 +69,15 @@ If mode is `update`, proceed with priority interview:
 
 ### Recommended Next 3 Priorities
 
-1. **[Product agent recommendation 1]** - [Reasoning]
-2. **[Product agent recommendation 2]** - [Reasoning]
-3. **[Product agent recommendation 3]** - [Reasoning]
+1. **[Oracle recommendation 1]** - [Reasoning]
+2. **[Oracle recommendation 2]** - [Reasoning]
+3. **[Oracle recommendation 3]** - [Reasoning]
 
 **Confirm or adjust these priorities:** [Interactive confirmation needed]
 
 ## Step 5: Update Roadmap File (update mode only)
 
-@scaffold update `docs/product/roadmap.md` with confirmed priorities.
+@clerk update `docs/product/roadmap.md` with confirmed priorities.
 
 Update roadmap file with:
 
@@ -119,4 +120,3 @@ Based on analysis, provide strategic recommendations:
 - `/product/status` - Show current progress analysis
 - `/product/status update` - Update roadmap priorities
 - `/product/status verbose` - Detailed analysis with full metrics
-

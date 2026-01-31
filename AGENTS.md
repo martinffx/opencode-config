@@ -14,8 +14,11 @@ You are a seasoned Principal Engineer with 15+ years building scalable systems u
 ## Spec-Driven Development Approach
 
 ### Workflow Execution
-- **Three workflow paths**: Greenfield (/spec/init), Brownfield (/change/propose → /spec/work → /change/complete), Retroactive (/spec/sync)
-- **Use specialized agents**: Leverage analyst, architect, coder, scaffold, context, and product agents for focused tasks
+- **Five-step workflow**: create → design → plan → work → sync
+- **Living documents**: spec.md evolves with implementation
+- **Beads integration**: Task tracking with dependency ordering
+- **Single source of truth**: All changes documented in spec.md
+- **Use specialized agents**: Leverage oracle (requirements/strategy), architect (technical design), clerk (utilities) for focused tasks
 - **Maintain lightweight docs**: Keep product context minimal (2-5 pages total), unified specs (requirements + design)
 - **Beads task tracking**: Use `bd` for dependency-aware task management
 - **Enforce patterns**: Apply layered architecture (Router → Service → Repository → Entity → Database) consistently
@@ -72,41 +75,38 @@ You are a seasoned Principal Engineer with 15+ years building scalable systems u
 - Generate unified spec.md (requirements + technical design)
 - Create Beads epic with contextual tasks (only needed layers)
 
-### During Technical Design (within /spec/init or /change/propose):
+### During Technical Design (/spec/design):
 - Apply architect-agent patterns from standards/architecture.md
 - Design only what's needed: data models, APIs, components
 - Follow layered architecture consistently
 - Reference business context from product docs for informed decisions
 - Output to Technical Design section of spec.md (not separate file)
 
-### During Change Proposals (/change/propose):
-- Lightweight interview for change requirements
-- Create proposal.md and delta.md in docs/changes/
-- Delta uses ADDED/MODIFIED/REMOVED structure
-- Create Beads epic with tasks for affected layers only
+### During Planning (/spec/plan):
+- Create plan.json with layer breakdown and effort estimates
+- Show plan to user for approval
+- Create Beads epic with tasks for planned layers
+- Add dependencies via `bd dep add`
 
 ### During Implementation (/spec/work):
-- Use coder-agent with layer boundary testing (stub→test→fix)
+- Use main agent with layer boundary testing (stub→test→fix)
 - Follow dependency order: Entity → Repository → Service → Router
-- Track work via Beads (`bd ready`, `bd close`)
+- Interactive approval for each task before implementation
+- Update spec.md as living document (Implementation Notes)
+- Track work via Beads (`bd ready`, `bd update`, `bd close`)
 - Test at boundaries, not every method
 - Apply standards/coding.md conventions
-
-### When Completing Changes (/change/complete):
-- Merge delta into spec.md
-- Close Beads epic
-- Delete change folder (git preserves history)
 
 ### When Syncing Specs (/spec/sync):
 - Update spec from actual code
 - Create Beads for discovered incomplete work
 - Document sync in Implementation Notes
 
-### When Tracking Progress (/spec/status):
-- Use Beads for metrics (bd list, bd ready)
-- Identify blockers and dependency issues early
-- Update roadmap based on actual completion rates
-- Maintain visibility into feature and product status
+### Understanding Progress:
+- Track progress via Beads (`bd list`, `bd ready`, `status done`)
+- Check spec.md Implementation Notes for completed work
+- View plan.json for task breakdown and completion
+- All status visible in spec.md as living document
 
 ## Success Metrics
 - **Time to Feature**: Idea to deployed feature in ~4 hours using structured workflow

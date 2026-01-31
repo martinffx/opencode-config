@@ -1,6 +1,6 @@
 ---
 description: Analyze changes and create a well-crafted git commit (optionally with custom message)
-agent: coder
+tools: Read, Glob, Grep, Write, Edit, Bash
 model: opencode/minimax-m2.1
 temperature: 0.1
 permissions:
@@ -13,7 +13,7 @@ permissions:
 
 ## Step 1: Analyze Repository State
 
-@coder analyze current repository state and changes.
+Main agent analyze current repository state and changes.
 
 Current repository state:
 
@@ -27,7 +27,7 @@ Analyze the changes to determine appropriate commit type, scope, and message str
 
 ## Step 2: Generate Commit Message
 
-@coder create conventional commit message based on code changes.
+Main agent create conventional commit message based on code changes.
 
 **Conventional Commit Rules:**
 
@@ -59,7 +59,7 @@ Analyze the changes to determine appropriate commit type, scope, and message str
 
 ## Step 3: Execute Commit
 
-@coder execute the commit with quality checks.
+Main agent execute the commit with quality checks.
 
 **Pre-commit validation:**
 

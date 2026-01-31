@@ -1,15 +1,39 @@
+
 ---
 description: Systematic debugging investigation with bisect methodology
-agent: coder
-model: opencode/kimi-k2.5
-temperature: 0.3
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
-# Debug: Systematic Investigation & Bisect Debugging
+---
+description: Systematic debugging investigation with bisect methodology
+tools: Read, Glob, Grep, Write, Edit, Bash
+---
+
+---
+description: Systematic debugging investigation with bisect methodology
+tools: Read, Glob, Grep, Write, Edit, Bash
+---
+
+---
+description: Systematic debugging investigation with bisect methodology
+tools: Read, Glob, Grep, Write, Edit, Bash
+---
+
+---
+description: Systematic debugging investigation with bisect methodology
+tools: Read, Glob, Grep, Write, Edit, Bash
+---
+
+---
+description: Systematic debugging investigation with bisect methodology
+tools: Read, Glob, Grep, Write, Edit, Bash
+---
+
+**Note:** Debugging is performed by the main agent (opencode), not by subagent personas.
 
 ## Step 1: Parse Debug Request & Initialize Todo List
 
-@coder analyze the debug request: $ARGUMENTS
+Main agent analyzes the debug request: $ARGUMENTS
 
 @todowrite create debugging todo list.
 
@@ -43,7 +67,7 @@ Initialize todo structure:
 
 ## Step 2: Strategy Selection & Todo Planning
 
-@coder determine the optimal debugging strategy.
+Main agent determines the optimal debugging strategy.
 
 @todowrite update todo list with selected strategy and investigation plan.
 
@@ -76,13 +100,13 @@ Initialize todo structure:
 
 ## Step 3: Bisect Debugging (when applicable) & Todo Tracking
 
-@coder use sequential thinking to guide bisect debugging.
+Main agent uses sequential thinking to guide bisect debugging.
 
 @todowrite track bisect debugging progress in todo list.
 
-**Error Handling**: 
-- If sequential-thinking MCP server is unavailable: use manual framework below
-- If MCP server returns error: log error and fallback with user notification
+**Error Handling:**
+- If sequential-thinking tool fails: use manual framework below
+- If tool returns error: log error and fallback with user notification
 - If timeout occurs: retry once, then fallback to manual framework
 
 **Bisect Framework:**
@@ -107,7 +131,7 @@ sequential-thinking_sequentialthinking with:
 - Record confidence level changes
 - Mark bisect completion when issue isolated
 
-**Fallback Manual Framework (if MCP unavailable):**
+**Fallback Manual Framework (if tool unavailable):**
 1. **Boundary Identification**: Clearly define working vs broken states
 2. **Midpoint Selection**: Choose testable midpoint between boundaries
 3. **Test Execution**: Run test at midpoint
@@ -145,7 +169,7 @@ sequential-thinking_sequentialthinking with:
 
 ## Step 4: Systematic Investigation (when bisect not applicable) & Todo Tracking
 
-@coder use sequential thinking for comprehensive debugging analysis.
+Main agent uses sequential thinking for comprehensive debugging analysis.
 
 @todowrite track systematic investigation progress in todo list.
 
@@ -173,7 +197,7 @@ sequential-thinking_sequentialthinking with:
 - Monitor code examination progress
 - Update context integration status
 
-**Fallback Manual Framework (if MCP unavailable):**
+**Fallback Manual Framework (if tool unavailable):**
 1. **Problem Description**: Detailed symptom analysis and documentation
 2. **Code Review**: Systematic examination of relevant files
 3. **Evidence Collection**: Track all findings and suspicious patterns
@@ -192,7 +216,7 @@ sequential-thinking_sequentialthinking with:
 
 ## Step 5: Complete Analysis & Recommendations & Finalize Todo List
 
-@coder provide final debugging analysis and solutions.
+Main agent provides final debugging analysis and solutions.
 
 @todowrite complete debugging todo list with solution and validation.
 

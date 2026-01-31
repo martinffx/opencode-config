@@ -98,10 +98,12 @@ export class UserService {
 
 ### Migration & Evolution
 
+### Standards Evolution
+
 Standards evolve. When you update your patterns:
 - `/spec/sync` updates existing specs to match new standards
 - `/code/validate` checks conformance
-- Brownfield changes via `/change/propose` respect current standards
+- Re-run `/spec/design` and `/spec/plan` to update implementation approach
 
 ### Changing Methodologies
 
@@ -110,17 +112,17 @@ To use different approaches:
 
 | Want to change... | Update these files |
 |-------------------|-------------------|
-| **Testing methodology** (no stubs, test-after, integration-first) | `agent/coder.md` - modify the implementation pattern |
+| **Testing methodology** (no stubs, test-after, integration-first) | Implement main agent's workflow approach |
 | **Architecture layers** (flat, MVC, no repositories) | `docs/templates/standards/{lang}/architecture.md` |
 | **Entity patterns** (Active Record, no entities, functional) | `docs/templates/standards/{lang}/architecture.md` |
 | **Coding conventions** (naming, structure, imports) | `docs/templates/standards/{lang}/coding.md` |
-| **Agent behaviors** (analyst interview style, architect patterns) | `agent/*.md` files |
+| **Agent behaviors** (oracle analysis, architect design) | `agent/*.md` files |
 | **Spec templates** (different sections, lighter/heavier) | `docs/templates/specs/spec.md` |
 
-**Example**: To remove stub-driven TDD, edit `agent/coder.md`:
-- Remove the "Stub Phase" requirement
+**Example**: To remove stub-driven TDD and use test-after instead, modify `/spec/work` command:
+- Remove the "STUB Phase" requirement  
 - Change "Stub→Test→Fix" to your preferred workflow (e.g., "Implement→Test→Refactor")
-- Update the "Boundaries" section to match your methodology
+- Update the implementation pattern section
 
 The opencode agent reads these files at runtime - your changes apply immediately.
 
@@ -144,15 +146,11 @@ executed by the opencode agent:
 
 ### Specification Workflow
 
-- `/spec/init` - Create feature specification (greenfield or from existing code)
-- `/spec/work` - Implement next ready task using layer boundary testing
-- `/spec/sync` - Update spec from code (retroactive sync)
-- `/spec/status` - Track feature progress via Beads
-
-### Change Workflow
-
-- `/change/propose` - Propose changes to existing features (brownfield)
-- `/change/complete` - Merge delta into spec and close epic
+- `/spec/create` - Create feature specification via requirements interview
+- `/spec/design` - Generate technical design from requirements  
+- `/spec/plan` - Create implementation plan and Beads tasks
+- `/spec/work` - Implement tasks using Beads with approval cycle
+- `/spec/sync` - Retroactively update spec from existing code
 
 ### Code Management
 
@@ -168,40 +166,32 @@ executed by the opencode agent:
 
 ## 🤖 Specialized Agents
 
-Atelier leverages a team of specialized AI agents, coordinated by the opencode agent:
+Atelier leverages three specialized AI personas for precise task execution:
 
-- **📊 Analyst** - Requirements gathering and structured interviews
-- **🏗️ Architect** - Technical design and architecture enforcement
-- **💻 Coder** - Implementation with strict TDD methodology
-- **📁 Scaffold** - Project structure and boilerplate generation
-- **📚 Context** - Documentation retrieval and knowledge management
-- **📈 Product** - Progress tracking and strategic recommendations
-- **🎯 Strategist** - Alternative approaches and assumption challenging
+- **🔮 Oracle** - Requirements gathering, strategic thinking, progress tracking
+- **🏗️ Architect** - Technical design, architecture decisions, API specifications
+- **📝 Clerk** - Context retrieval, file scaffolding, template application
+
+The main opencode agent handles implementation tasks directly without delegation.
 
 ## 📁 Project Structure
 ```
 atelier/
-├── agent/              # Specialized agent configurations for opencode
-│   ├── analyst.md      # Requirements gathering (code-aware)
-│   ├── architect.md    # Technical design (contextual layers)
-│   ├── coder.md        # Implementation (stub→test→fix)
-│   ├── context.md
-│   ├── product.md
-│   ├── scaffold.md
-│   └── strategist.md
+├── agent/              # Specialized agent personas for the opencode agent
+│   ├── oracle.md       # Requirements, strategy, progress tracking
+│   ├── architect.md    # Technical design, architecture, API specifications
+│   └── clerk.md        # Context retrieval, file scaffolding, templates
 ├── command/            # Atelier workflow command definitions
 │   ├── product/        # Product management commands
 │   │   ├── init.md
 │   │   ├── status.md
 │   │   └── update.md
 │   ├── spec/           # Specification commands
-│   │   ├── init.md     # Greenfield + code detection
-│   │   ├── work.md     # Implementation via Beads
-│   │   ├── sync.md     # Retroactive spec update
-│   │   └── status.md   # Progress via Beads
-│   ├── change/         # Change workflow commands
-│   │   ├── propose.md  # Brownfield change proposals
-│   │   └── complete.md # Merge delta, close epic
+│   │   ├── create.md   # Requirements gathering
+│   │   ├── design.md   # Technical design
+│   │   ├── plan.md     # Task planning and Beads
+│   │   ├── work.md     # Implementation loop
+│   │   └── sync.md     # Retroactive spec update
 │   ├── code/           # Code management commands
 │   │   ├── commit.md
 │   │   ├── review.md
@@ -212,9 +202,6 @@ atelier/
 │       └── thinkdeep.md
 ├── docs/
 │   └── templates/
-│       ├── changes/    # Change proposal templates
-│       │   ├── proposal.md
-│       │   └── delta.md
 │       ├── specs/      # Unified spec template
 │       │   └── spec.md # Requirements + Technical Design
 │       ├── product/
