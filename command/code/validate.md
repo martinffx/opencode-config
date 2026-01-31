@@ -1,7 +1,7 @@
 ---
 description: Validate code changes with build, lint, and test pipeline
 agent: coder
-model: anthropic/claude-haiku-4-5
+model: opencode/minimax-m2.1
 temperature: 0.1
 permissions:
   read: allow

@@ -1,7 +1,7 @@
 ---
 description: Implement next ready task using layer boundary testing
 agent: coder
-model: anthropic/claude-sonnet-4-5
+model: opencode/glm-4.7
 temperature: 0.1
 ---
 

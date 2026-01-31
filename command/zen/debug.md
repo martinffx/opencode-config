@@ -1,7 +1,7 @@
 ---
 description: Systematic debugging investigation with bisect methodology
 agent: coder
-model: anthropic/claude-opus-4-5
+model: opencode/kimi-k2.5
 temperature: 0.3
 ---
 

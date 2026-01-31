@@ -1,7 +1,7 @@
 ---
 description: Extended reasoning partner for deep analysis using sequential thinking
 agent: strategist
-model: anthropic/claude-opus-4-5
+model: opencode/kimi-k2.5
 temperature: 0.7
 ---
 

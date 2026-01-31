@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin",
-  "model": "anthropic/claude-sonnet-4-5",
+  "model": "glm-4.7-free",
   "autoupdate": true,
   "keybinds": {
     "command_list": "<leader>p",
@@ -15,11 +15,11 @@
   "agent": {
     "build": {
       "mode": "primary",
-      "model": "anthropic/claude-sonnet-4-5"
+      "model": "opencode/glm-4.7-free"
     },
     "plan": {
       "mode": "primary",
-      "model": "anthropic/claude-opus-4-5",
+      "model": "opencode/kimi-k2.5-free",
       "reasoning": {
         "enabled": true
       },

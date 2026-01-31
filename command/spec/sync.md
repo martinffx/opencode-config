@@ -1,7 +1,7 @@
 ---
 description: Update spec from code (retroactive sync when code was built without ceremony)
 agent: architect
-model: anthropic/claude-sonnet-4-5
+model: opencode/glm-4.7
 temperature: 0.2
 ---
 

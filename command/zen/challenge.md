@@ -1,7 +1,7 @@
 ---
 description: Challenge an approach or validate ideas with critical thinking
 agent: strategist
-model: anthropic/claude-opus-4-5
+model: opencode/kimi-k2.5
 temperature: 0.5
 ---
 

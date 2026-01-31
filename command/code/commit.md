@@ -1,7 +1,7 @@
 ---
 description: Analyze changes and create a well-crafted git commit (optionally with custom message)
 agent: coder
-model: anthropic/claude-haiku-4-5
+model: opencode/minimax-m2.1
 temperature: 0.1
 permissions:
   read: allow

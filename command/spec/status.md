@@ -1,7 +1,7 @@
 ---
 description: Show feature progress via Beads (replaces /spec/progress)
 agent: product
-model: anthropic/claude-sonnet-4-5
+model: opencode/glm-4.7
 temperature: 0.4
 ---
 

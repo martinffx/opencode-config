@@ -1,7 +1,7 @@
 ---
 description: Senior Engineer implementing features using stub-driven TDD
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: opencode/glm-4.7
 temperature: 0.1
 permissions:
   read: allow

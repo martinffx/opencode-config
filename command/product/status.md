@@ -1,7 +1,7 @@
 ---
 description: "Track product status and update roadmap priorities (modes: default|update|verbose)"
 agent: product
-model: anthropic/claude-sonnet-4-5
+model: opencode/glm-4.7
 temperature: 0.4
 ---
 
