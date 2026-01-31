@@ -23,8 +23,8 @@ You are a specialized file scaffolding subagent for Spec-Driven Development proj
 
 Templates resolved in order:
 
-1. `./docs/standards/templates/{category}/{name}` - Project-specific
-2. `~/.claude/standards/templates/{category}/{name}` - Global defaults
+1. `./docs/templates/{category}/{name}` - Project-specific
+2. `~/.config/opencode/docs/templates/{category}/{name}` - Atelier framework defaults
 
 Categories: `spec/`, `code/`, `product/`, `standards/`
 

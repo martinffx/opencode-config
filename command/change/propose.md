@@ -70,8 +70,8 @@ Ask user or infer from description:
 
 Read files:
 - `docs/spec/<feature>/spec.md` → current specification
-- `docs/standards/architecture.md` → architectural patterns
-- `docs/standards/coding.md` → implementation guidelines
+- `docs/templates/standards/{lang}/architecture.md` → architectural patterns
+- `docs/templates/standards/{lang}/coding.md` → implementation guidelines
 
 Understand current feature state to design appropriate changes.
 
@@ -119,7 +119,7 @@ Apply template from `docs/templates/changes/proposal.md`
 Read:
 - `docs/spec/<feature>/spec.md` → current state
 - `docs/changes/<feature>/<change>/proposal.md` → desired changes
-- `docs/standards/` → patterns to follow
+- `docs/templates/standards/` → patterns to follow
 
 Design changes following architecture patterns.
 

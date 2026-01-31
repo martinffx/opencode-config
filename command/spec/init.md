@@ -96,7 +96,7 @@ Show discovered code structure to user.
 Read files:
 - `docs/product/product.md` → vision
 - `docs/spec/*/spec.md` → existing features
-- `docs/standards/` → architectural patterns
+- `docs/templates/standards/` → architectural patterns
 
 Extract context on:
 - Product vision alignment
@@ -109,8 +109,8 @@ Extract context on:
 @architect create technical design following project standards.
 
 Read standards:
-- `docs/standards/architecture.md` → layered patterns
-- `docs/standards/coding.md` → implementation guidelines
+- `docs/templates/standards/{lang}/architecture.md` → layered patterns
+- `docs/templates/standards/{lang}/coding.md` → implementation guidelines
 
 Apply architectural patterns based on requirements:
 

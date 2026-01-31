@@ -40,7 +40,7 @@ Read requirements and determine:
 
 ## Standards Application
 
-Apply project standards from `./docs/standards/tech.md`:
+Apply project standards from `./docs/templates/standards/{lang}/architecture.md`:
 
 - **Database**: As specified (DDB Single Table, OpenSearch, Redis, SQL)
 - **API**: OpenAPI REST specification

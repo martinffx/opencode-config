@@ -95,10 +95,10 @@ bd dep add <new-id> <current-id> --type discovered-from
 
 Read from:
 
-- Implementation guide: `./docs/standards/coding.md`
+- Implementation guide: `./docs/templates/standards/{lang}/coding.md`
 - Feature spec: `./docs/spec/{feature}/spec.md`
 - Change delta: `./docs/changes/{feature}/{change}/delta.md` (if applicable)
-- Standards: `./docs/standards/`
+- Standards: `./docs/templates/standards/`
 
 ## Quality Checks
 

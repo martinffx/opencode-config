@@ -54,8 +54,8 @@ Read specifications:
 - `docs/changes/<feature>/<change>/delta.md` → changes to implement
 
 Read standards:
-- `docs/standards/coding.md` → implementation patterns and testing
-- `docs/standards/architecture.md` → layered architecture patterns
+- `docs/templates/standards/{lang}/coding.md` → implementation patterns and testing
+- `docs/templates/standards/{lang}/architecture.md` → layered architecture patterns
 
 Extract from spec/delta:
 - Entity definitions and methods

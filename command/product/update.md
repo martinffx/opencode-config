@@ -179,10 +179,11 @@ Fetch current documentation for:
 
 @scaffold create or update standards documentation using current best practices.
 
-### Create Language-Specific Standards
+### Copy Templates from Atelier Framework
 
-- `docs/standards/{detected-language}/architecture.md`
-- `docs/standards/{detected-language}/coding.md`
+Source templates from Atelier framework:
+- `~/.config/opencode/docs/templates/standards/{detected-language}/architecture.md` → `docs/standards/{detected-language}/architecture.md`
+- `~/.config/opencode/docs/templates/standards/{detected-language}/coding.md` → `docs/standards/{detected-language}/coding.md`
 
 ### Template Selection Strategy
 
@@ -198,10 +199,11 @@ Fetch current documentation for:
 - Enhance coding standards with modern conventions
 - Refresh testing strategies with current ecosystem approaches
 
-### Core Standards (Always Create/Update)
+### Core Standards (Always Create/Update in Project)
 
-- `docs/standards/coding.md` - TDD implementation patterns and coding principles
-- `docs/standards/architecture.md` - Architecture patterns and design principles
+Copy from Atelier templates to project:
+- `docs/standards/coding.md` ← `~/.config/opencode/docs/templates/standards/{lang}/coding.md`
+- `docs/standards/architecture.md` ← `~/.config/opencode/docs/templates/standards/{lang}/architecture.md`
 
 ### Template Adaptation Process
 

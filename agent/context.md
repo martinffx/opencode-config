@@ -61,7 +61,7 @@ Request: "Find blocked tasks"
 ### For Architecture
 
 Request: "Get layered architecture pattern"
-→ `grep -A 15 "Layered Architecture" ./docs/standards/tech.md`
+→ `grep -A 15 "Layered Architecture" ./docs/templates/standards/{lang}/architecture.md`
 
 ## Output Format
 

@@ -83,12 +83,14 @@ The following files are created using the gathered requirements and detected tec
 
 ### 📄 docs/standards/{language}/
 
+Source: Copy from `~/.config/opencode/docs/templates/standards/{language}/`
 - **architecture.md**: Language-specific layer patterns (adapted from templates)
 - **coding.md**: Language-specific TDD patterns and conventions (adapted from templates)
 
 ### 📄 docs/standards/ (core)
 
-- **coding.md**: TDD implementation patterns and coding principles
+Source: Symlink or copy from `~/.config/opencode/docs/templates/standards/{language}/`
+- **coding.md**: TDD implementation patterns and coding principles  
 - **architecture.md**: Architecture patterns and design principles
 
 ### 📄 CLAUDE.md
