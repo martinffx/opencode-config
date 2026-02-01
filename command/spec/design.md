@@ -1,9 +1,7 @@
 ---
 description: Generate technical design from requirements following project standards
 agent: architect
-model: opencode/glm-4.7
-temperature: 0.2
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 # Design Feature: $ARGUMENTS

@@ -1,19 +1,14 @@
 ---
 description: Analyze changes and create a well-crafted git commit (optionally with custom message)
-tools: Read, Glob, Grep, Write, Edit, Bash
-model: opencode/minimax-m2.1
-temperature: 0.1
-permissions:
-  read: allow
-  write: allow
-  bash: allow
+agent: clerk
+subtask: true
 ---
 
 # Smart Git Commit
 
 ## Step 1: Analyze Repository State
 
-Main agent analyze current repository state and changes.
+@clerk retrieve repository state and analyze changes.
 
 Current repository state:
 
@@ -27,7 +22,7 @@ Analyze the changes to determine appropriate commit type, scope, and message str
 
 ## Step 2: Generate Commit Message
 
-Main agent create conventional commit message based on code changes.
+@clerk generate conventional commit message based on code changes.
 
 **Conventional Commit Rules:**
 
@@ -59,7 +54,7 @@ Main agent create conventional commit message based on code changes.
 
 ## Step 3: Execute Commit
 
-Main agent execute the commit with quality checks.
+@clerk execute the commit with quality checks.
 
 **Pre-commit validation:**
 
@@ -107,7 +102,7 @@ Main agent execute the commit with quality checks.
 **Workflow Integration**:
 
 ```bash
-/spec/implement feature-name    # Implement with TDD
+/spec/work feature-name    # Implement with TDD
 /code/validate                  # Ensure quality gates pass
 /commit                         # Smart conventional commit
 git push                        # Push to remote

@@ -1,9 +1,7 @@
 ---
 description: Create feature specification through structured requirements interview
 agent: oracle
-model: opencode/glm-4.7
-temperature: 0.3
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 # Create Feature Spec: $ARGUMENTS

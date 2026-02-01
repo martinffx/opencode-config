@@ -1,9 +1,7 @@
 ---
 description: Update spec from code (retroactive sync when code was built without ceremony)
 agent: architect
-model: opencode/glm-4.7
-temperature: 0.2
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 # Sync Spec from Code: $ARGUMENTS

@@ -1,6 +1,6 @@
 ---
 description: Implement next ready task using layer boundary testing
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 # Implementation: $ARGUMENTS

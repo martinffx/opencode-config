@@ -1,9 +1,7 @@
 ---
 description: Analyze product-wide gaps between product definition, specs, beads tracking, and implementation
 agent: architect
-model: opencode/glm-4.7
-temperature: 0.3
-tools: Read, Glob, Grep, Bash
+subtask: true
 ---
 
 # Product Sync: Analyze Implementation Gaps

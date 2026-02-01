@@ -1,6 +1,7 @@
 ---
 description: Challenge an approach or validate ideas with critical thinking
-tools: Read, Glob, Grep, Write, Edit, Bash
+agent: oracle
+subtask: true
 ---
 
 # Challenge: Critical Thinking Prompt
@@ -127,7 +128,7 @@ sequential-thinking_sequentialthinking with:
 
 **Integration with Spec-Driven Development:**
 - Challenge architectural decisions during `/spec/design`
-- Question implementation approaches during `/spec/implement`
+- Question implementation approaches during `/spec/work`
 - Validate requirements during `/spec/create`
 - Review progress during `/spec/progress`
 

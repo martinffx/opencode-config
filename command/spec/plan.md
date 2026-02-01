@@ -1,9 +1,7 @@
 ---
 description: Create implementation plan and Beads tasks with user review
 agent: oracle
-model: opencode/glm-4.7
-temperature: 0.4
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 # Plan Feature Implementation: $ARGUMENTS

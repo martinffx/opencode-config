@@ -1,9 +1,7 @@
 ---
 description: Initialize project by gathering requirements and creating product documentation
 agent: oracle
-model: opencode/glm-4.7
-temperature: 0.3
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 # Initialize Spec-Driven Development Project

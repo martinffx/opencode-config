@@ -1,32 +1,6 @@
-
 ---
 description: Systematic debugging investigation with bisect methodology
-tools: Read, Glob, Grep, Write, Edit, Bash
----
-
----
-description: Systematic debugging investigation with bisect methodology
-tools: Read, Glob, Grep, Write, Edit, Bash
----
-
----
-description: Systematic debugging investigation with bisect methodology
-tools: Read, Glob, Grep, Write, Edit, Bash
----
-
----
-description: Systematic debugging investigation with bisect methodology
-tools: Read, Glob, Grep, Write, Edit, Bash
----
-
----
-description: Systematic debugging investigation with bisect methodology
-tools: Read, Glob, Grep, Write, Edit, Bash
----
-
----
-description: Systematic debugging investigation with bisect methodology
-tools: Read, Glob, Grep, Write, Edit, Bash
+subtask: true
 ---
 
 **Note:** Debugging is performed by the main agent (opencode), not by subagent personas.
@@ -296,7 +270,7 @@ Main agent provides final debugging analysis and solutions.
 ## Integration with Spec-Driven Development
 
 **During Implementation:**
-- Debug issues that arise during `/spec/implement`
+- Debug issues that arise during `/spec/work`
 - Validate fixes with `/code/validate`
 - Ensure solutions follow architectural patterns
 
@@ -307,7 +281,7 @@ Main agent provides final debugging analysis and solutions.
 
 **Workflow Integration:**
 ```bash
-/spec/implement feature-name    # Implementation
+/spec/work feature-name    # Implementation
 /zen/debug "issue description"   # Debug problems
 /code/validate                  # Quality gates
 /commit                         # Commit fixes
@@ -315,7 +289,7 @@ Main agent provides final debugging analysis and solutions.
 
 **Example with SDD Integration:**
 ```bash
-/zen/debug "Authentication service failing during /spec/implement with TypeError: NoneType object has no attribute 'user_id'"
+/zen/debug "Authentication service failing during /spec/work with TypeError: NoneType object has no attribute 'user_id'"
 ```
 
 ## Expected Outcomes
@@ -324,3 +298,4 @@ Main agent provides final debugging analysis and solutions.
 **Benefits:** O(log n) bisect efficiency, comprehensive analysis, methodical approach, workflow integration
 
 The debug command provides efficient bisect debugging for linear problems and systematic investigation for complex issues, guided by sequential thinking for methodical analysis.
+

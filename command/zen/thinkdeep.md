@@ -1,6 +1,7 @@
 ---
 description: Extended reasoning partner for deep analysis using sequential thinking
-tools: Read, Glob, Grep, Write, Edit, Bash
+agent: oracle
+subtask: true
 ---
 
 # ThinkDeep: Extended Reasoning Analysis
@@ -202,7 +203,7 @@ Combine insights into recommendations:
 
 ## Integration with Spec-Driven Development
 
-**Workflow**: Before /spec-create → During /spec/design → After /spec/implement → Before commits
+**Workflow**: Before /spec-create → During /spec/design → After /spec/work → Before commits
 **Purpose**: Validate approaches, challenge decisions, review implementations, ensure sound choices
 
 ThinkDeep builds on session context for personalized, relevant analysis within your specific situation.
