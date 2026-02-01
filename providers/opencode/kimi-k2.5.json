@@ -1,0 +1,36 @@
+{
+  "id": "opencode/kimi-k2.5",
+  "name": "Kimi K2.5",
+  "provider": "opencode",
+  "version": "2.5",
+  "description": "Advanced reasoning model with strong analytical capabilities",
+  "capabilities": {
+    "chat": true,
+    "code": true,
+    "reasoning": true,
+    "tools": true,
+    "vision": false
+  },
+  "context_window": 256000,
+  "max_tokens": 8192,
+  "pricing": {
+    "input": 0.000003,
+    "output": 0.000015
+  },
+  "temperature": {
+    "default": 0.3,
+    "range": [0.0, 2.0]
+  },
+  "recommended_for": [
+    "plan",
+    "analysis",
+    "design",
+    "strategy"
+  ],
+  "special_features": {
+    "reasoning": {
+      "enabled": true,
+      "description": "Enhanced logical reasoning and analytical capabilities"
+    }
+  }
+}
