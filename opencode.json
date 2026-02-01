@@ -19,17 +19,7 @@
     },
     "plan": {
       "mode": "primary",
-      "model": "opencode/kimi-k2.5",
-      "reasoning": {
-        "enabled": true
-      },
-      "permissions": {
-        "read": "allow",
-        "write": "deny",
-        "bash": "ask",
-        "tools": "allow",
-        "allowed": ["sequential-thinking", "memory", "fetch", "context7"]
-      }
+      "model": "opencode/kimi-k2.5"
     }
   },
   "mcp": {
