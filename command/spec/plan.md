@@ -8,188 +8,203 @@ tools: Read, Glob, Grep, Write, Edit, Bash
 
 # Plan Feature Implementation: $ARGUMENTS
 
-Create implementation plan.json, get user approval, generate Beads tasks.
+Create implementation plan.json from requirements, design, standards, and context.
 
-## Step 1: Read Full Specification
+## Step 1: Read All Inputs
 
-@clerk read spec.md (Requirements + Technical Design).
+@clerk gather information from multiple sources.
 
-File: `docs/spec/$ARGUMENTS/spec.md`
+**Read specification:**
+```bash
+cat docs/spec/$ARGUMENTS/spec.md
+```
+Extract: user story, acceptance criteria, business rules, technical design
 
-Extract:
-- Requirements (acceptance criteria, business rules)
-- Technical Design (architecture, domain model, services, APIs)
-- Layers needed (entity, repository, service, router)
+**Read standards documents:**
+```bash
+cat docs/standards/architecture.md
+cat docs/standards/coding.md
+```
+Extract: layer patterns, testing approach, TDD workflow
 
-## Step 2: Create Implementation Plan
+**Read product context:**
+```bash
+cat docs/product/product.md
+```
+Extract: product vision, constraints, tech stack (if applicable)
 
-@oracle create plan.json with task breakdown.
+**Read template:**
+```bash
+cat ~/.config/opencode/assets/templates/plan.json
+```
 
-### Determine Layers
+## Step 2: Analyze Technical Design
 
-Based on Technical Design, identify layers to implement:
+@oracle analyze design to determine implementation tasks.
 
+From specification, identify:
+- Entity names and validation requirements
+- Service operations needed
+- Repository CRUD patterns
+- Router endpoints (if applicable)
+- Any event producers/consumers
+
+From standards/architecture.md:
+- Understand layer responsibilities
+- Dependency patterns (Router → Service → Repository → Entity)
+- Testing boundaries
+
+From standards/coding.md:
+- Stub→Test→Fix pattern
+- Layer boundary testing approach
+
+## Step 3: Generate Task List
+
+Based on design analysis, generate tasks array with dependencies.
+
+For each layer present in design:
+
+**Example task structure:**
 ```json
 {
-  "feature": "$ARGUMENTS",
-  "created_at": "ISO_TIMESTAMP",
-  "status": "pending_approval",
-  "total_estimated_hours": 8,
-  "layers": [
-    {
-      "name": "entity",
-      "title": "Business Logic Layer",
-      "description": "Domain model with validation",
-      "effort": "small",
-      "estimated_hours": 1,
-      "tasks": [
-        "Create entity class with fromRequest, toRecord, validate",
-        "Add business rule validation",
-        "Test entity behavior"
-      ],
-      "blocking": []
-    },
-    {
-      "name": "repository",
-      "title": "Data Access Layer", 
-      "description": "Database persistence",
-      "effort": "small",
-      "estimated_hours": 2,
-      "tasks": [
-        "Create repository with CRUD operations",
-        "Implement query building",
-        "Add database migration",
-        "Test repository"
-      ],
-      "blocking": ["entity"]
-    },
-    {
-      "name": "service",
-      "title": "Business Service Layer",
-      "description": "Orchestration and transactions",
-      "effort": "medium",
-      "estimated_hours": 3,
-      "tasks": [
-        "Create service with business operations",
-        "Implement transaction handling",
-        "Add error handling",
-        "Test service behavior"
-      ],
-      "blocking": ["repository"]
-    },
-    {
-      "name": "router",
-      "title": "HTTP Interface Layer",
-      "description": "API endpoints",
-      "effort": "small",
-      "estimated_hours": 2,
-      "tasks": [
-        "Create HTTP endpoints",
-        "Implement request/response handling",
-        "Add authentication",
-        "Test API"
-      ],
-      "blocking": ["service"]
-    }
-  ]
+  "id": "task-1",
+  "name": "Implement Entity: {{EntityName}}",
+  "layer": "entity",
+  "dependencies": [],
+  "description": "Create entity with fromRequest, toRecord, toResponse, validate methods",
+  "components": ["{{EntityName}}"]
 }
 ```
 
-**Note:** Only include layers actually needed. If design has no database, skip repository. No external API? Skip router.
+**Tasks generation pattern:**
+1. Entity tasks (always first, no dependencies)
+2. Repository tasks (depends on entity)
+3. Service tasks (depends on repository)
+4. Router tasks (depends on service)
+5. Other tasks as needed ( consumers, producers, etc)
 
-## Step 3: Write Plan File
+**Only create tasks for layers actually present in design:**
+- If no database → skip repository
+- If no API endpoints → skip router
+- If no events → skip producers/consumers
 
-@clerk write plan.json to `docs/spec/$ARGUMENTS/plan.json`
+## Step 4: Fill Template with Extracted Information
 
-## Step 4: Display Plan to User
+@oracle create filled plan.json by substituting placeholders.
 
-@clerk display plan.json with pretty formatting:
+Using base template from `~/.config/opencode/assets/templates/plan.json`, replace:
 
-```json
-{
-  "feature": "user-auth",
-  "created_at": "2024-01-31T10:30:00Z",
-  "status": "pending_approval",
-  "total_estimated_hours": 8,
-  "layers": [...]
-}
+- `{{FEATURE_NAME}}` → $ARGUMENTS
+- `{{CHANGE_NAME}}` → derived from feature name or "Initial Implementation"
+- `{{DATE}}` → current date (YYYY-MM-DD)
+- `{{MOTIVATION}}` → derived from user story
+- `{{EntityName}}` → actual entity name(s) from design
+- `{{RepositoryName}}` → actual repository name(s) from design
+- `{{ServiceName}}` → actual service name(s) from design
+- `{{RouterName}}` → actual router name(s) from design
+- `{{estimated_complexity}}` → "low" | "medium" | "high" based on task count
+
+**Dependency chain:**
+```
+tasks[0].dependencies = []
+tasks[1].dependencies = ["task-0"]
+tasks[2].dependencies = ["task-1"]
+...
 ```
 
-## Step 5: Get User Approval
+## Step 5: Write Plan File
+
+@clerk write filled plan.json to:
+```bash
+docs/spec/$ARGUMENTS/plan.json
+```
+
+## Step 6: Display Plan to User
+
+Show filled plan.json with pretty formatting:
+
+```
+Implementation Plan for: $ARGUMENTS
+
+Total tasks: 4
+Estimated complexity: low
+
+Tasks:
+1. [entity] Implement Entity: User - 0 dependencies
+   → Create User entity with fromRequest, toRecord, toResponse, validate
+
+2. [repository] Implement Repository: UserRepository - depends on task-1
+   → CRUD operations with query building
+
+3. [service] Implement Service: UserService - depends on task-2
+   → Business logic orchestration and transactions
+
+4. [router] Implement Router: userRouter - depends on task-3
+   → API endpoints for user operations
+```
+
+## Step 7: Get User Approval
 
 Ask user:
+```
+Review this implementation plan:
+- Total tasks: {{count}}
+- Layers: {{layer_list}}
+- Estimated complexity: {{complexity}}
 
-**Review this implementation plan:**
-
-**Total Estimated Time:** 8 hours
-
-**Layers:**
-1. **entity** (1 hour) - Business Logic Layer
-2. **repository** (2 hours) - Data Access Layer  
-3. **service** (3 hours) - Business Service Layer
-4. **router** (2 hours) - HTTP Interface Layer
-
-**Proceed with this plan?** [y/n]
+Proceed with this plan? [y/n]
+```
 
 If user enters "y" or "yes":
-- Proceed to Step 6
+- Proceed to Step 8
 
 If user enters "n" or "no":
 - Output: "Plan canceled. Edit spec.md and re-run /spec/plan when ready."
 - Exit
 
-## Step 6: Create Beads Tasks
+## Step 8: Create Beads Tasks
 
 @architect create Beads epic and tasks with dependencies.
 
 ### Create Epic
-
 ```bash
 bd create "Feature: $ARGUMENTS" -t epic -p 1 -l feature,$ARGUMENTS
 ```
-
 Store epic_id in plan.json.
 
-### Create Tasks per Layer
+### Create Tasks from Plan
 
-For each layer in plan.json:
-
-```bash
-# Entity layer
-bd create "$ARGUMENTS entity + validation" -p 1 -l $ARGUMENTS
-
-# Repository layer
-bd create "$ARGUMENTS repository" -p 1 -l $ARGUMENTS
-
-# Service layer
-bd create "$ARGUMENTS service" -p 1 -l $ARGUMENTS
-
-# Router layer
-bd create "$ARGUMENTS router" -p 1 -l $ARGUMENTS
-```
-
-### Add Dependencies
+For each task in plan.json tasks array:
 
 ```bash
-bd dep add <repo-id> <entity-id> --type blocks
-bd dep add <service-id> <repo-id> --type blocks  
-bd dep add <router-id> <service-id> --type blocks
+# Extract task info from plan.json
+bd create "$TASK_NAME" -p 1 -l $ARGUMENTS
 ```
 
-**Note:** Only create tasks for layers present in design.
+Capture returned task ID.
 
-### Update Plan Status
+### Add Dependencies Based on Plan
 
-Update plan.json:
+For each task that has dependencies:
+```bash
+for each dep in task.dependencies:
+  bd dep add $current_task_id $dep_task_id --type blocks
+```
 
+**Match task dependencies with actual Beads task IDs.**
+
+## Step 9: Update Plan Status
+
+Add Beads information to plan.json:
 ```json
 {
   "feature": "$ARGUMENTS",
-  "created_at": "...",
   "status": "approved",
   "beads_epic_id": "EPIC_ID",
-  "total_tasks": 4,
-  ...
+  "summary": {
+    "total_tasks": 4,
+    ...
+  }
 }
 ```
 
@@ -198,7 +213,7 @@ Write updated plan.json.
 ## ✅ Planning Complete
 
 Approved plan: ✅
-Beads epic created: EPIC_ID  
+Beads epic created: EPIC_ID
 Tasks created: {{count}}
 plan.json saved: docs/spec/$ARGUMENTS/plan.json
 
@@ -206,5 +221,3 @@ plan.json saved: docs/spec/$ARGUMENTS/plan.json
 ```
 /spec/work $ARGUMENTS
 ```
-
-**Note:** To modify the plan later, edit spec.md (Requirements or Technical Design) and re-run `/spec/plan $ARGUMENTS`. The plan.json and Beads tasks will be updated accordingly.

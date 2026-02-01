@@ -54,10 +54,21 @@ Ready: ["entity_test", "repo_test"]
 ## File Scaffolding
 
 ### Template Resolution
-1. `./docs/templates/{category}/{name}` - Project-specific
-2. `~/.config/opencode/docs/templates/{category}/{name}` - Global defaults
+**For templates:**
+1. `./docs/templates/{name}.md` - Project-specific (if exists)
+2. `~/.config/opencode/assets/templates/{name}.md` - Global defaults
 
-Categories: `spec/`, `code/`, `product/`, `standards/`
+**For standards:**
+- Always use `./docs/standards/coding.md` and `./docs/standards/architecture.md`
+- Copied from assets during project init
+
+**Template mapping:**
+- `spec` category → `spec.md`
+- `product` category → `product.md`  
+- `requirements` category → `requirements.json`
+- `plan` category → `plan.json`
+- `architecture` → use `docs/standards/architecture.md` (not template)
+- `coding` → use `docs/standards/coding.md` (not template)
 
 ### Variable Substitution
 - `{FEATURE_NAME}` → PascalCase (UserAuth)

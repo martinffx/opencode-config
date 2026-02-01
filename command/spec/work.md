@@ -77,8 +77,8 @@ Read specifications:
 - `docs/spec/<feature>/plan.json` → layer breakdown, effort estimates
 
 Read standards:
-- `docs/templates/standards/{lang}/coding.md` → implementation patterns and testing
-- `docs/templates/standards/{lang}/architecture.md` → layered architecture patterns
+- `docs/standards/coding.md` → implementation patterns and testing
+- `docs/standards/architecture.md` → layered architecture patterns
 
 Extract from spec:
 - Entity definitions and methods

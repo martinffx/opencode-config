@@ -8,7 +8,7 @@ tools: Read, Glob, Grep, Write, Edit, Bash
 
 # Create Feature Spec: $ARGUMENTS
 
-Create a new feature specification through structured requirements gathering.
+Create a new feature specification through structured requirements gathering using templates.
 
 ## Step 1: Validate Prerequisites
 
@@ -46,10 +46,11 @@ Search for code in these patterns (stop at first match):
 
 If code found:
 - Set mode: BROWNFIELD
-- Note: "Existing code detected. This spec will document current implementation."
+- Store mode in variable: `brownfield = true`
 
 If no code found:
 - Set mode: GREENFIELD
+- Store mode in variable: `brownfield = false`
 
 ## Step 3: Gather Requirements via Structured Interview
 
@@ -60,7 +61,7 @@ If no code found:
 Format: "As a [user type], I want to [action] so that [benefit]"
 
 Your user story for $ARGUMENTS:
-[Wait for response]
+[Wait for response → store as USER_TYPE, ACTION, BENEFIT]
 
 ### Acceptance Criteria (3-5 specific, testable conditions)
 
@@ -73,6 +74,7 @@ Your criteria:
 1. [Wait for response]
 2. [Wait for response]
 3. [Wait for response]
+[Collect into array: ACCEPTANCE_CRITERIA]
 
 ### Business Rules (constraints, validation rules)
 
@@ -83,14 +85,17 @@ What rules must be enforced?
 
 Your rules:
 [Wait for response]
+[Collect into array: BUSINESS_RULES]
 
 ### Scope Definition
 
 **What's included in this feature?**
 [Wait for response]
+[Collect into array: INCLUDED]
 
 **What's explicitly NOT included?** (Mark for future phases)
 [Wait for response]
+[Collect into array: EXCLUDED]
 
 ### Confirm Understanding
 
@@ -103,62 +108,91 @@ Your rules:
 Correct?"
 [Wait for confirmation]
 
-## Step 4: Create Initial Specification Document
+## Step 4: Create Specification Document from Template
 
-@clerk create spec.md with Requirements section only.
+@clerk read spec.md template and fill with gathered requirements.
 
-Create `docs/spec/$ARGUMENTS/spec.md`:
-
-```markdown
-# $ARGUMENTS
-
-## Requirements
-
-### User Story
-[User story from interview]
-
-### Acceptance Criteria
-- [Criterion 1]
-- [Criterion 2]
-- [Criterion 3]
-
-### Business Rules
-- [Rule 1]
-- [Rule 2]
-
-### Scope
-
-#### Included
-- [Item 1]
-- [Item 2]
-
-#### Excluded (Future Phases)
-- [Item 1]
-- [Item 2]
-
-## Technical Design
-*To be added via `/spec/design $ARGUMENTS`*
-
-## Implementation Notes
-*To be updated during `/spec/work $ARGUMENTS`*
+Read template:
+```bash
+~/.config/opencode/assets/templates/spec.md
 ```
 
-Create directory structure:
+Replace placeholders:
+- `{{FEATURE_NAME}}` → $ARGUMENTS
+- `{{USER_TYPE}}` → user type from interview
+- `{{ACTION}}` → action from interview
+- `{{BENEFIT}}` → benefit from interview
+- `{{CRITERION_X}}` → acceptance criteria items
+- `{{RULE_X}}` → business rules
+- `{{INCLUDED_X}}` → included scope items
+- `{{EXCLUDED_X}}` → excluded scope items
+- `{{ENTITY_NAME}}` → $ARGUMENTS (or derived name)
+- `{{PATTERN_NAME}}` → placeholder for design phase
+- etc.
+
+Create directory:
 ```bash
 mkdir -p docs/spec/$ARGUMENTS
 ```
 
-Write spec.md to file.
+Write filled spec.md to:
+```bash
+docs/spec/$ARGUMENTS/spec.md
+```
+
+## Step 5: Optional: Save Requirements to JSON
+
+If user requests, save structured requirements to requirements.json format:
+
+```bash
+cat > docs/spec/$ARGUMENTS/requirements.json <<'EOF'
+{
+  "feature": "$ARGUMENTS",
+  "date": "$(date +%Y-%m-%d)",
+  "mode": "$(if test $brownfield = true; then echo "brownfield"; else echo "greenfield"; fi)",
+  "user_story": {
+    "as_a": "USER_TYPE",
+    "i_want_to": "ACTION",
+    "so_that": "BENEFIT"
+  },
+  "acceptance_criteria": [
+    "CRITERION_1",
+    "CRITERION_2",
+    "CRITERION_3"
+  ],
+  "business_rules": [
+    "RULE_1",
+    "RULE_2"
+  ],
+  "scope": {
+    "included": ["INCLUDED_1", "INCLUDED_2"],
+    "excluded": ["EXCLUDED_1", "EXCLUDED_2"]
+  },
+  "brownfield_context": {
+    "code_found": "$(if test $brownfield = true; then echo "yes"; else echo "no"; fi)",
+    "existing_files": ["FILE_1", "FILE_2"],
+    "current_state": {
+      "what_works": "DESCRIPTION",
+      "what_is_broken": "DESCRIPTION",
+      "what_is_missing": "DESCRIPTION",
+      "what_should_change": "DESCRIPTION"
+    }
+  }
+}
+EOF
+```
 
 ## ✅ Requirements Complete
 
 Created: `docs/spec/$ARGUMENTS/spec.md`
 
 Contains:
-- User story
+- User story (from interview)
 - Acceptance criteria ({{count}} items)
-- Business rules
+- Business rules ({{count}} items)
 - Scope definition
+
+**Optional:** `docs/spec/$ARGUMENTS/requirements.json` with structured requirements
 
 **Next step:** Add technical design
 ```

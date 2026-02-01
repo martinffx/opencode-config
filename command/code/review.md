@@ -27,12 +27,12 @@ Full diff for review:
 !`git diff ${ARGUMENTS:-main}`
 
 ## Step 1.2: Read Project Standards
-@read docs/templates/standards/{lang}/coding.md
-@read docs/templates/standards/{lang}/architecture.md
+@read docs/standards/coding.md
+@read docs/standards/architecture.md
 
 ## Step 2: Senior Engineer Review
 
-@architect analyze all changes with senior engineer perspective.
+@architect analyze all changes with principal engineer perspective.
 
 Focus areas:
 **🔴 CRITICAL:** Security vulnerabilities, data loss risks, breaking changes
@@ -41,8 +41,8 @@ Focus areas:
 
 **Review Standards:**
 
-- Follow docs/templates/standards/{lang}/coding.md (Stub-Driven TDD, testing patterns)
-- Follow docs/templates/standards/{lang}/architecture.md (layered architecture)
+- Follow docs/standards/coding.md (Stub-Driven TDD, testing patterns)
+- Follow docs/standards/architecture.md (layered architecture)
 - Validate boundary testing and anti-patterns per standards
 - Ensure proper dependency injection and layer separation
 
@@ -54,7 +54,7 @@ Generate specific, actionable feedback with file locations and suggested improve
 
 **Issues by Severity:**
 
-- 🔴 **STANDARDS VIOLATIONS:** docs/templates/standards/ non-compliance
+- 🔴 **STANDARDS VIOLATIONS:** docs/standards non-compliance
 - 🔴 `file:line` - Issue description → Suggested fix
 - 🟡 `file:line` - Issue description → Suggested fix
 - 🟢 `file:line` - Issue description → Suggested fix

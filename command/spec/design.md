@@ -24,18 +24,19 @@ Extract:
 
 ## Step 2: Load Project Standards
 
-@clerk retrieve architectural patterns.
+@clerk retrieve architectural patterns from project standards docs.
 
 Read standards:
-- `docs/templates/standards/{lang}/architecture.md` → layered patterns
-- `docs/templates/standards/{lang}/coding.md` → implementation guidelines
+- `docs/standards/architecture.md` → layered patterns, API guidelines, testing strategy
+- `docs/standards/coding.md` → TDD workflow, error handling, conventions
 
 Extract context on:
 - Layer structure (Router → Service → Repository → Entity)
 - API conventions (REST/GraphQL)
 - Database patterns (ORM, query builders)
 - Error handling patterns
-- Testing strategies
+- Testing strategies (Stub→Test→Fix pattern)
+- Layer boundary testing approach
 
 ## Step 3: Generate Technical Design
 
