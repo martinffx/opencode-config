@@ -1,7 +1,7 @@
 ---
 description: Structured problem solver who designs technical architecture, data models, and systematic implementation plans from requirements. Use PROACTIVELY after requirements are defined to create technical designs, schemas, and task breakdowns.
 mode: subagent
-model: opencode/kimi-k2.5
+model: opencode-go/glm-5
 temperature: 0.2
 
 permission:

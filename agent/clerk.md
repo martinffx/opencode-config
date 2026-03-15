@@ -1,7 +1,7 @@
 ---
 description: Context retrieval specialist who searches documentation and provides summarized information to support other agents' decision-making. Use PROACTIVELY when other agents need specific file contents, documentation excerpts, or project context to complete their tasks.
 mode: subagent
-model: opencode/minimax-m2.1
+model: opencode-go/minimax-m2.5
 temperature: 0.2
 
 permission:

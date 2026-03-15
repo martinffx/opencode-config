@@ -1,7 +1,7 @@
 ---
 description: Creative problem solver who conducts strategic interviews and explores alternative approaches to define what should be built. Use PROACTIVELY when gathering requirements, challenging assumptions, or planning feature scope and roadmap.
-mode: subagent
-model: opencode/kimi-k2.5
+mode: primary
+model: opencode-go/kimi-k2.5
 temperature: 0.2
 
 permission:
