@@ -2,6 +2,29 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "opencode-go/minimax-m2.5",
   "autoupdate": true,
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "ls*": "allow",
+      "cat*": "allow",
+      "head*": "allow",
+      "tail*": "allow",
+      "grep*": "allow",
+      "which*": "allow",
+      "echo*": "allow",
+      "pwd*": "allow",
+      "git status*": "allow",
+      "git log*": "allow",
+      "git diff*": "allow",
+      "git show*": "allow",
+      "git branch*": "allow",
+      "git remote*": "allow",
+      "git tag*": "allow",
+      "git rev-parse*": "allow",
+      "git ls-files*": "allow",
+      "bd*": "allow"
+    }
+  },
   "agent": {
     "build": {
       "mode": "primary",
